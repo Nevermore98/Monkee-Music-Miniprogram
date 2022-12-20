@@ -1,0 +1,33 @@
+<!-- pages/view-discovery.wxml -->
+<text>pages/view-discovery.wxml</text>
+<van-button type="primary">按钮</van-button>
+hi
+
+<image src="/assets/icons/discovery.svg" />
+
+<!-- <image src="/assets/icons/discovery.svg" /> -->
+<view class="icon-next"></view>
+<view class="iconfont icon-web"></view>
+<view class="icomoon icon-music"></view>
+<view class="icomoon icon-next"></view>
+<van-button type="default" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="danger" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
+<van-button type="primary" size="large">默认按钮</van-button>
