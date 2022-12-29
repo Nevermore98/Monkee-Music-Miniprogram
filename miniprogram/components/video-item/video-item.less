@@ -1,0 +1,64 @@
+/* components/video-item/video-item.wxss */
+@import '../../styles/index.less';
+
+.video-item {
+  padding-bottom: 16rpx;
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 10rpx;
+
+  .cover {
+    position: relative;
+    display: flex;
+
+    .image {
+      height: 200rpx;
+    }
+
+    .info {
+      position: absolute;
+      padding: 0 16rpx;
+      width: 100%;
+      bottom: 8rpx;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      font-size: 22rpx;
+
+      .left {
+        display: flex;
+        align-items: center;
+        padding: 0 8rpx;
+        border-radius: 999px;
+        background-color: rgba(0, 0, 0, 0.2);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+
+        .icon-music {
+          font-size: 22rpx;
+          margin-right: 6rpx;
+        }
+      }
+      .duration {
+        padding: 4rpx 8rpx;
+        border-radius: 999px;
+        background-color: rgba(0, 0, 0, 0.2);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
+    }
+  }
+
+  .description {
+    height: 80rpx;
+    padding: 10rpx 16rpx;
+    font-size: 26rpx;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}

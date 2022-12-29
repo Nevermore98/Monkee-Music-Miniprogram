@@ -9,7 +9,6 @@
   "projectname": "monkee-music-miniprogram",
   "setting": {
     "useCompilerPlugins": [
-      "typescript",
       "less"
     ],
     "babelSetting": {
@@ -23,7 +22,9 @@
         "packageJsonPath": "./package.json",
         "miniprogramNpmDistDir": "./miniprogram/"
       }
-    ]
+    ],
+    "es6": true,
+    "enhance": true
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},

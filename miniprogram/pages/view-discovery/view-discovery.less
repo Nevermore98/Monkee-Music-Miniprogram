@@ -1,1 +1,41 @@
 /* pages/view-discovery.wxss */
+page {
+  background-color: #f5f5f5;
+  // padding-top: 80rpx;
+
+  --search-background-color: #fff;
+  --search-padding: 0 20rpx;
+}
+
+.search-bar {
+  margin-bottom: 30rpx;
+  .van-search {
+    width: 75%;
+  }
+}
+
+.banners {
+  margin: 30rpx 0rpx;
+
+  .banners-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .banner-image {
+      border-radius: 20rpx;
+      width: 710rpx;
+    }
+
+    .typeTitle {
+      position: absolute;
+      bottom: 22rpx;
+      right: 24rpx;
+      border-radius: 10rpx;
+      background-color: #fff;
+      padding: 2rpx;
+      font-size: 20rpx;
+    }
+  }
+}

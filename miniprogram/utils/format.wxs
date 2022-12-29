@@ -1,0 +1,38 @@
+// 格式化歌曲时长
+function padLeft(time) {
+  time = time + ''
+  return ('00' + time).slice(time.length)
+}
+function formatTime(time, isSeconds) {
+  if (isSeconds) {
+    time = time
+  } else {
+    time = Math.floor(time / 1000)
+  }
+
+  var hour = Math.floor(time / 3600)
+  var minute = Math.floor(time / 60)
+  var second = Math.floor(time) % 60
+
+  if (hour > 0) {
+    return padLeft(hour) + ':' + padLeft(minute) + ':' + padLeft(second)
+  } else {
+    return padLeft(minute) + ':' + padLeft(second)
+  }
+}
+
+// 格式化播放量
+function formatPlayCount(playCount) {
+  if (playCount >= 100000000) {
+    return (playCount / 100000000).toFixed(1) + '亿'
+  } else if (playCount >= 10000) {
+    return (playCount / 10000).toFixed(1) + '万'
+  } else {
+    return playCount
+  }
+}
+
+module.exports = {
+  formatPlayCount: formatPlayCount,
+  formatTime: formatTime
+}

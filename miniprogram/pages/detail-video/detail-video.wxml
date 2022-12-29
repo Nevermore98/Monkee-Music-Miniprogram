@@ -1,0 +1,41 @@
+<!-- pages/detail-video/detail-video.wxml -->
+<wxs src="/utils/format.wxs" module="format" />
+
+<view class="video-wrapper">
+  <video class="video" src="{{mvUrl}}" autoplay play-btn-position="center" enable-play-gesture muted="{{true}}" referrer-policy="origin" />
+</view>
+<!-- 注意方向 scroll-y -->
+<scroll-view class="content" scroll-y>
+  <!-- 视频描述 -->
+  <view class="info">
+    <view>{{mvInfo.name}}</view>
+    <view>{{mvInfo.artistName}}</view>
+    <view>{{mvInfo.briefDesc}}</view>
+    <view>{{mvInfo.desc}}</view>
+    <view>{{mvInfo.publishTime}}</view>
+  </view>
+  <!-- 相关视频 -->
+  <view class="related">
+    <block wx:for="{{relatedList}}" wx:key="vid">
+      <view class="related-item">
+        <view class="cover">
+          <image class="image" src="{{item.coverUrl}}" mode="aspectFit" />
+          <view class="info">
+            <view class="left">
+              <view class="icomoon icon-music"></view>
+              <view class="count">{{format.formatPlayCount(item.playTime)}}</view>
+            </view>
+
+            <view class="duration">{{format.formatTime(item.durationms,false)}}</view>
+          </view>
+        </view>
+        <!-- <view class="title">{{item.durationms}}</view>
+        <view class="title">{{item.playTime}}</view> -->
+        <view class="description">
+          <view class="title">{{item.title}}</view>
+          <view class="creator">{{item.creator[0].userName}}</view>
+        </view>
+      </view>
+    </block>
+  </view>
+</scroll-view>

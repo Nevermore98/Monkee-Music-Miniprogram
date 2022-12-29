@@ -21,18 +21,19 @@ Page({
   },
 
   // 不放在 methods 里
-  onChange(event: any) {
+  onChange(event) {
     this.setData({ active: event.detail })
     wx.switchTab({
       url: this.data.list[event.detail].url
     })
   },
 
+  // 初始化，每个页面 onShow 时调用，根据路由设置 active
   init() {
     const page = getCurrentPages().pop()
-    console.log(page?.route)
+    console.log(page.route)
     this.setData({
-      active: this.data.list.findIndex((item) => item.url === `/${page?.route}`)
+      active: this.data.list.findIndex((item) => item.url === `/${page.route}`)
     })
   }
 })

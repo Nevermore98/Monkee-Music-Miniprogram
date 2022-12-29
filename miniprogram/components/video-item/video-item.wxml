@@ -1,0 +1,16 @@
+<wxs src="/utils/format.wxs" module="format" />
+<view class="video-item" bindtap="onItemTap">
+  <!-- 封面：播放量、视频时长 -->
+  <view class="cover">
+    <image class="image" mode="aspectFill" src="{{itemData.cover}}" />
+    <view class="info">
+      <view class="left">
+        <view class="icomoon icon-music"></view>
+        <view class="count">{{format.formatPlayCount(itemData.playCount)}}</view>
+      </view>
+      <view class="duration">{{format.formatTime(itemData.duration,false)}}</view>
+    </view>
+  </view>
+  <!-- 视频描述 -->
+  <view class="description">{{itemData.name}} - {{itemData.artistName}}</view>
+</view>
