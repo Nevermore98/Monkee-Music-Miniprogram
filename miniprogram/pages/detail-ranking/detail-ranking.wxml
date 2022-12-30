@@ -1,0 +1,5 @@
+<!-- pages/detail-ranking/detail-ranking.wxml -->
+<text>pages/detail-ranking/detail-ranking.wxml</text>
+<block wx:for="{{$discovery.hotRanking}}" wx:key="id">
+  <song-item itemData="{{item}}" />
+</block>

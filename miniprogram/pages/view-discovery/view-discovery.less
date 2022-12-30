@@ -1,21 +1,20 @@
 /* pages/view-discovery.wxss */
 page {
   background-color: #f5f5f5;
-  // padding-top: 80rpx;
+  padding-bottom: 200rpx;
 
   --search-background-color: #fff;
-  --search-padding: 0 20rpx;
+  --search-padding: 0 30rpx;
 }
 
 .search-bar {
-  margin-bottom: 30rpx;
   .van-search {
     width: 75%;
   }
 }
 
 .banners {
-  margin: 30rpx 0rpx;
+  margin: 40rpx 0rpx;
 
   .banners-item {
     position: relative;
@@ -25,17 +24,48 @@ page {
 
     .banner-image {
       border-radius: 20rpx;
-      width: 710rpx;
+      margin: 0 20rpx;
+      width: 100%;
     }
 
     .typeTitle {
       position: absolute;
-      bottom: 22rpx;
-      right: 24rpx;
+      bottom: 10rpx;
+      right: 30rpx;
       border-radius: 10rpx;
       background-color: #fff;
       padding: 2rpx;
       font-size: 20rpx;
     }
+  }
+}
+
+.area {
+  padding: 0 20rpx;
+}
+
+.ranking {
+  height: 760rpx;
+  .song-item {
+    margin: 0 8rpx;
+
+    padding: 30rpx;
+    border-radius: 20rpx;
+    background-color: #fff;
+  }
+  .title {
+    font-size: 30rpx;
+    font-weight: 500;
+  }
+}
+
+.hot-song-list {
+  .scroll {
+    display: flex;
+  }
+  .menu-item {
+    flex-shrink: 0;
+    width: 200rpx;
+    margin: 0 10rpx;
   }
 }

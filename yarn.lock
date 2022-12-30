@@ -760,6 +760,11 @@ mimic-fn@^2.1.0:
   resolved "https://registry.npmmirror.com/mimic-fn/-/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
 
+mini-stores@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmmirror.com/mini-stores/-/mini-stores-1.0.5.tgz#d829c902413faef70580cd34db9b9e847b196d68"
+  integrity sha512-m/jw08duXCXpGLOpjMY4h9G0JTo0UwUR4Xglf5qperYa+GMqN3n8LwGKqIWm6pLKDJtDm0nmGoCy+c0V5voXvA==
+
 minimatch@^3.1.1:
   version "3.1.2"
   resolved "https://registry.npmmirror.com/minimatch/-/minimatch-3.1.2.tgz#19cd194bfd3e428f049a70817c038d89ab4be35b"

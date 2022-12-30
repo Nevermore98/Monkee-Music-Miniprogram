@@ -1,0 +1,40 @@
+/* components/song-item/song-item.wxss */
+@import url(/styles/utils.less);
+.song-item {
+  display: flex;
+  padding: 10rpx 0;
+  align-items: center;
+
+  .song-image {
+    flex: none;
+    width: 90rpx;
+    height: 90rpx;
+    border-radius: 16rpx;
+    margin-right: 30rpx;
+  }
+
+  .rank {
+    flex: none;
+    font-size: 32rpx;
+    font-weight: 500;
+    color: #333;
+    margin-right: 30rpx;
+  }
+
+  .info {
+    // flex: 1;
+    overflow: hidden;
+
+    .name {
+      .one-line-ellipsis();
+      font-size: 30rpx;
+      color: #333;
+    }
+    .artist {
+      .one-line-ellipsis();
+      margin-top: 10rpx;
+      font-size: 24rpx;
+      color: #999;
+    }
+  }
+}

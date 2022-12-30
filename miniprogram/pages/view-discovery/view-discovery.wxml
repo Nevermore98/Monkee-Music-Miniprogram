@@ -4,7 +4,7 @@
   <van-search value="{{searchValue}}" shape="round" placeholder="{{defaultSearch}}" background="#f5f5f5" bind:click-input="onSearchTap" />
 </view>
 <!-- 轮播图 -->
-<swiper class="banners" circular indicator-dots indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#fff" interval="3000" previous-margin="10rpx" next-margin="10rpx" style="height: {{bannerHeight}}px;" wx:if="{{banners.length}}">
+<swiper class="banners" autoplay circular indicator-dots indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#fff" interval="3000" previous-margin="10rpx" next-margin="10rpx" style="height: {{bannerHeight}}px;" wx:if="{{banners.length}}">
   <block wx:for="{{banners}}" wx:key="targetId">
     <swiper-item class="banners-item">
       <image class="banner-image" src="{{item.pic}}" mode="widthFix" bindload="onBannerImageLoad" />
@@ -12,3 +12,37 @@
     </swiper-item>
   </block>
 </swiper>
+<!-- <view>
+  <area-header title="排行榜" hasMore="{{false}}" />
+  <swiper class="ranking" current="{{1}}" previous-margin="20rpx" next-margin="20rpx" wx:if="{{banners.length}}">
+    <block wx:for="{{3}}" wx:key="*this">
+      <swiper-item class="ranking-swiper-item">
+        <view class="song-item">
+          <view class="title">
+            <text bind:tap="onRankingTap">热歌榜</text>
+            <van-icon name="arrow" color="#999" size="16px" />
+          </view>
+          <block wx:for="{{$discovery.hotRankingSlice}}" wx:key="id">
+            <song-item itemData="{{item}}" />
+          </block>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view> -->
+<view class="hot-song-list">
+  <area-header title="热门歌单" bind:more-click="onRecommendMoreClick" />
+  <scroll-view class="scroll" scroll-x enable-flex>
+    <block wx:for="{{hotSongList}}" wx:key="id">
+      <view class="menu-item">
+        <menu-item itemData="{{item}}" />
+      </view>
+    </block>
+  </scroll-view>
+</view>
+<view>
+  <area-header title="推荐歌曲" bind:more-click="onRecommendMoreClick" />
+</view>
+<view>
+  <area-header title="推荐歌曲" bind:more-click="onRecommendMoreClick" />
+</view>
