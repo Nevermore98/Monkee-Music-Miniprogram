@@ -16,7 +16,7 @@ export function getDefaultSearch() {
 }
 
 // 获取歌单详情，id 3778678 为热歌榜
-export function getPlaylistDetail(id) {
+export function getSonglistDetail(id) {
   return request.get({
     url: '/playlist/detail',
     data: {
@@ -25,28 +25,38 @@ export function getPlaylistDetail(id) {
   })
 }
 
-export function getHotSongList(
-  cat = '全部',
-  limit = 6,
-  offset = 0,
-  order = 'hot'
-) {
+// 获取热门歌单
+export function getSongList(cat = '全部', limit = 6, offset = 0) {
   return request.get({
     url: '/top/playlist',
     data: {
       cat,
       limit,
-      offset,
-      order
+      offset
     }
   })
 }
 
+// 获取推荐歌单
 export function getRecommendSongList(limit = 6) {
   return request.get({
     url: '/personalized',
     data: {
       limit
     }
+  })
+}
+
+// 获取歌单分类
+export function getSongListAllTags() {
+  return request.get({
+    url: '/playlist/catlist'
+  })
+}
+
+// 获取热门歌单分类
+export function getSongListHotTags() {
+  return request.get({
+    url: '/playlist/hot'
   })
 }

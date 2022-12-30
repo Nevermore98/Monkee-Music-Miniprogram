@@ -1,4 +1,4 @@
-import { getPlaylistDetail } from '../services/discovery'
+import { getSonglistDetail } from '../services/discovery'
 
 class Store {
   data = {
@@ -7,7 +7,7 @@ class Store {
   }
 
   async fetchHotRankingAction() {
-    const res = await getPlaylistDetail(3778678)
+    const res = await getSonglistDetail(3778678)
     this.data.hotRanking = res.playlist.tracks
     this.data.hotRankingSlice = res.playlist.tracks.slice(0, 6)
     this.update()

@@ -1,66 +1,35 @@
 // pages/detail-more/detail-more.js
+import {
+  getSongListAllTags,
+  getSongListHotTags,
+  getSongList
+} from '../../services/discovery'
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    moreSongList: []
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  onLoad() {
+    this.fetchSongListAllTags()
+    this.fetchSongListHotTags()
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  async fetchSongListAllTags() {
+    const res = await getSongListAllTags()
+    console.log(res)
   },
+  async fetchSongListHotTags() {
+    const res = await getSongListHotTags()
+    const tags = res.tags
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
+    const allPromises = []
 
-  },
+    for (const tag of tags) {
+      const promise = getSongList(tag.name, 9)
+      allPromises.push(promise)
+    }
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+    Promise.all(allPromises).then((res) => {
+      this.setData({ moreSongList: res })
+    })
   }
 })

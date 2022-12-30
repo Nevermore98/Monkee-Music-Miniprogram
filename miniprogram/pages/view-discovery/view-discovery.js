@@ -1,8 +1,8 @@
 import {
   getDefaultSearch,
   getBanner,
-  getPlaylistDetail,
-  getHotSongList,
+  getSonglistDetail,
+  getSongList,
   getRecommendSongList
 } from '../../services/discovery'
 import discoveryStore from '../../stores/discoveryStore'
@@ -69,7 +69,7 @@ create.Page(stores, {
     this.setData({ banners: res.banners })
   },
   async fetchHotSongList() {
-    getHotSongList().then((res) => {
+    getSongList().then((res) => {
       console.log(res)
       this.setData({ hotSongList: res.playlists })
     })
@@ -80,7 +80,7 @@ create.Page(stores, {
   },
   // 获取热歌榜
   // async fetchHotRanking() {
-  //   const res = await getPlaylistDetail(3778678)
+  //   const res = await getSonglistDetail(3778678)
   //   console.log(res)
   //   this.setData({ hotRanking: res.playlist.tracks })
   //   this.setData({ hotRankingSlice: res.playlist.tracks.slice(0, 6) })
