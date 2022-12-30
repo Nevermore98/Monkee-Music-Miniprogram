@@ -4,9 +4,9 @@
   <view class="cover">
     <image class="image" mode="aspectFill" src="{{itemData.cover}}" />
     <view class="info">
-      <view class="left">
+      <view class="count">
         <view class="icomoon icon-music"></view>
-        <view class="count">{{format.formatPlayCount(itemData.playCount)}}</view>
+        <view>{{format.formatPlayCount(itemData.playCount)}}</view>
       </view>
       <view class="duration">{{format.formatTime(itemData.duration,false)}}</view>
     </view>

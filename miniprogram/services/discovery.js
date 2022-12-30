@@ -41,3 +41,12 @@ export function getHotSongList(
     }
   })
 }
+
+export function getRecommendSongList(limit = 6) {
+  return request.get({
+    url: '/personalized',
+    data: {
+      limit
+    }
+  })
+}

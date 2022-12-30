@@ -4,3 +4,31 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+// 两行省略隐藏
+.two-lines-ellipsis {
+  white-space: normal;
+  display: -webkit-box; // 弹性伸缩盒子模型
+  -webkit-box-orient: vertical; // 设置元素垂直排列
+  -webkit-line-clamp: 2; // 设置元素只显示 2 行
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 播放量图标毛玻璃效果
+.play-count-effect {
+  display: flex;
+  align-items: center;
+  padding: 0 8rpx;
+  color: #fff;
+  font-size: 22rpx;
+  border-radius: 999px;
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+
+  .icon-music {
+    font-size: 22rpx;
+    margin-right: 6rpx;
+  }
+}

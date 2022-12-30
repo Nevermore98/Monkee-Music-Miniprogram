@@ -10,9 +10,13 @@ Component({
     artists: ''
   },
 
-  attached() {
-    this.setData({
-      artists: this.properties.itemData.ar.map((item) => item.name).join(' / ')
-    })
+  lifetimes: {
+    attached() {
+      this.setData({
+        artists: this.properties.itemData.ar
+          .map((item) => item.name)
+          .join(' / ')
+      })
+    }
   }
 })

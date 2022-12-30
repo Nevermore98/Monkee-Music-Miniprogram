@@ -2,7 +2,8 @@ import {
   getDefaultSearch,
   getBanner,
   getPlaylistDetail,
-  getHotSongList
+  getHotSongList,
+  getRecommendSongList
 } from '../../services/discovery'
 import discoveryStore from '../../stores/discoveryStore'
 import create from 'mini-stores'
@@ -26,7 +27,8 @@ create.Page(stores, {
     searchBarTop: 0, // 搜索框距离顶部高度（与胶囊按钮对齐）
     hotRanking: [], // 热门歌曲排行榜
     hotRankingSlice: [], // 热门歌曲前六截取
-    hotSongList: [] // 热门歌单
+    hotSongList: [], // 热门歌单
+    recommendSongList: []
   },
   onShow() {
     this.getTabBar().init()
@@ -42,7 +44,9 @@ create.Page(stores, {
   onReady() {
     // 搜索框与胶囊按钮的对齐
     const res = wx.getMenuButtonBoundingClientRect()
+    console.log(res)
     this.setData({ searchBarTop: res.top })
+    this.setData({ searchBarHeight: res.height })
 
     // 获取不到自定义组件的元素？
     // this.createSelectorQuery()
@@ -65,10 +69,14 @@ create.Page(stores, {
     this.setData({ banners: res.banners })
   },
   async fetchHotSongList() {
-    const res = await getHotSongList()
-    console.log(res)
-    console.log(res.playlists)
-    this.setData({ hotSongList: res.playlists })
+    getHotSongList().then((res) => {
+      console.log(res)
+      this.setData({ hotSongList: res.playlists })
+    })
+    getRecommendSongList().then((res) => {
+      console.log(res)
+      this.setData({ recommendSongList: res.result })
+    })
   },
   // 获取热歌榜
   // async fetchHotRanking() {

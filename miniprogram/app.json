@@ -5,7 +5,8 @@
     "pages/view-mine/view-mine",
     "pages/detail-video/detail-video",
     "pages/detail-search/detail-search",
-    "pages/detail-ranking/detail-ranking"
+    "pages/detail-ranking/detail-ranking",
+    "pages/detail-more/detail-more"
   ],
   "window": {
     "navigationStyle": "custom",

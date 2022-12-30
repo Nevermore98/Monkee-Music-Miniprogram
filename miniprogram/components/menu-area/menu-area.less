@@ -1,0 +1,21 @@
+/* components/menu-area/menu-area.wxss */
+
+.menu-area {
+  .menu-area-scroll {
+    white-space: nowrap;
+
+    .menu-item-wrapper {
+      display: inline-block;
+      flex-shrink: 0;
+      width: 210rpx;
+      margin-right: 20rpx;
+
+      &:first-child {
+        margin-left: 30rpx;
+      }
+      &:last-child {
+        margin-right: 30rpx;
+      }
+    }
+  }
+}
