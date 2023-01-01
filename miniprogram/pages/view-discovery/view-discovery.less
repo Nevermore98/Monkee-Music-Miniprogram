@@ -1,4 +1,5 @@
 /* pages/view-discovery.wxss */
+@import url(/styles/utils.less);
 page {
   background-color: #f5f5f5;
   padding-bottom: 200rpx;
@@ -43,7 +44,8 @@ page {
 }
 
 .banners {
-  margin: 40rpx 0rpx;
+  margin-top: 40rpx;
+  height: 270rpx;
 
   .banners-item {
     position: relative;
@@ -68,12 +70,17 @@ page {
     }
   }
 }
+.banners-loading {
+  height: 270rpx;
+  width: 100%;
+  background-color: blue;
+}
 
 .ranking {
-  height: 760rpx;
-  .song-item {
-    margin: 0 8rpx;
+  height: 780rpx;
 
+  .ranking-item {
+    margin: 0 8rpx;
     padding: 30rpx;
     border-radius: 20rpx;
     background-color: #fff;
@@ -81,5 +88,44 @@ page {
   .title {
     font-size: 30rpx;
     font-weight: 500;
+  }
+
+  .song-item {
+    display: flex;
+    padding: 10rpx 0;
+    align-items: center;
+
+    .song-image {
+      flex: none;
+      width: 90rpx;
+      height: 90rpx;
+      border-radius: 16rpx;
+      margin-right: 30rpx;
+    }
+
+    .rank {
+      flex: none;
+      font-size: 32rpx;
+      font-weight: 500;
+      color: #333;
+      margin-right: 30rpx;
+    }
+
+    .info {
+      // flex: 1;
+      overflow: hidden;
+
+      .name {
+        .one-line-ellipsis();
+        font-size: 30rpx;
+        color: #333;
+      }
+      .artist {
+        .one-line-ellipsis();
+        margin-top: 10rpx;
+        font-size: 24rpx;
+        color: #999;
+      }
+    }
   }
 }

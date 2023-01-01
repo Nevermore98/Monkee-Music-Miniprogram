@@ -1,9 +1,12 @@
 <!-- components/song-item/song-item.wxml -->
+<wxs src="/utils/format.wxs" module="format" />
 <view class="song-item">
-  <image class="song-image" src="{{itemData.al.picUrl}}"></image>
-  <view class="rank">1</view>
+  <image class="song-image" src="{{songItemData.al.picUrl}}"></image>
+  <view class="rank {{rank===1?'rank-one':''}}  {{rank===2?'rank-two':''}}  {{rank===3?'rank-three':''}}">
+    {{rank}}
+  </view>
   <view class="info">
-    <view class="name">{{itemData.name}}</view>
-    <view class="artist">{{artists}}</view>
+    <view class="name">{{songItemData.name}}</view>
+    <view class="artist">{{formattedArtist}}</view>
   </view>
 </view>

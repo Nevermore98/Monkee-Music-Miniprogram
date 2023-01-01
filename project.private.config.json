@@ -3,7 +3,8 @@
   "projectname": "monkee-music-miniprogram",
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": false
+    "urlCheck": false,
+    "autoAudits": false
   },
   "libVersion": "2.28.1",
   "condition": {
@@ -27,6 +28,13 @@
           "name": "更多页面",
           "pathName": "pages/detail-more/detail-more",
           "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "歌单详情",
+          "pathName": "pages/detail-songlist/detail-songlist",
+          "query": "type=ranking&key=hotRanking",
           "launchMode": "default",
           "scene": null
         }

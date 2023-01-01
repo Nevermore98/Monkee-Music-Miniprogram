@@ -32,7 +32,16 @@ function formatPlayCount(playCount) {
   }
 }
 
+// function formatArtist(artist) {
+//   return artist
+//     .map(function (item) {
+//       return item.name
+//     })
+//     .join(' / ')
+// }
+
 module.exports = {
   formatPlayCount: formatPlayCount,
   formatTime: formatTime
+  // formatArtist: formatArtist
 }

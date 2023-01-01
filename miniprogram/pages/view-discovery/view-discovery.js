@@ -1,13 +1,11 @@
 import {
   getDefaultSearch,
   getBanner,
-  getSonglistDetail,
   getSongList,
   getRecommendSongList
 } from '../../services/discovery'
 import discoveryStore from '../../stores/discoveryStore'
 import create from 'mini-stores'
-// const create = require('mini-stores')
 import querySelect from '../../utils/query-select'
 import throttle from '../../utils/throttle'
 
@@ -25,21 +23,31 @@ create.Page(stores, {
     banners: [], // 轮播图
     bannerHeight: 0, // 轮播图高度
     searchBarTop: 0, // 搜索框距离顶部高度（与胶囊按钮对齐）
-    hotRanking: [], // 热门歌曲排行榜
-    hotRankingSlice: [], // 热门歌曲前六截取
     hotSongList: [], // 热门歌单
-    recommendSongList: []
+    recommendSongList: [], // 推荐歌单
+    rankingInfos: {}, // 榜单展示信息
+    isRankingEmpty: true, // 榜单是否为空
+    // TODO 有问题
+    isBannersEmpty: true // 轮播图是否为空
   },
   onShow() {
     this.getTabBar().init()
   },
-  onLoad() {
-    this.fetchDefaultSearch()
+  async onLoad() {
     this.fetchBanners()
+    this.fetchDefaultSearch()
     this.fetchHotSongList()
 
-    discoveryStore.fetchHotRankingAction()
-    // this.fetchHotRanking()
+    await discoveryStore.fetchRankingAction()
+    this.setData({
+      rankingInfos: {
+        hotRanking: discoveryStore.data.hotRanking,
+        newRanking: discoveryStore.data.newRanking,
+        upRanking: discoveryStore.data.upRanking,
+        originRanking: discoveryStore.data.originRanking
+      }
+    })
+    this.setData({ isRankingEmpty: false })
   },
   onReady() {
     // 搜索框与胶囊按钮的对齐
@@ -67,7 +75,9 @@ create.Page(stores, {
   async fetchBanners() {
     const res = await getBanner()
     this.setData({ banners: res.banners })
+    this.setData({ isBannersEmpty: false })
   },
+  // 获取热门歌单
   async fetchHotSongList() {
     getSongList().then((res) => {
       console.log(res)
@@ -78,13 +88,6 @@ create.Page(stores, {
       this.setData({ recommendSongList: res.result })
     })
   },
-  // 获取热歌榜
-  // async fetchHotRanking() {
-  //   const res = await getSonglistDetail(3778678)
-  //   console.log(res)
-  //   this.setData({ hotRanking: res.playlist.tracks })
-  //   this.setData({ hotRankingSlice: res.playlist.tracks.slice(0, 6) })
-  // },
   // 点击搜索框跳转页面
   onSearchTap() {
     wx.navigateTo({ url: '/pages/detail-search/detail-search' })
@@ -93,12 +96,6 @@ create.Page(stores, {
   onBannerImageLoad(e) {
     querySelectThrottle('.banner-image').then((res) => {
       this.setData({ bannerHeight: res[0].height })
-    })
-  },
-  // 点击排行榜跳转到详情页面
-  onRankingTap() {
-    wx.navigateTo({
-      url: '/pages/detail-ranking/detail-ranking'
     })
   }
 })

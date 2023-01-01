@@ -1,5 +1,7 @@
 {
+  "component": true,
   "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index",
     "song-item": "/components/song-item/song-item"
   }
 }

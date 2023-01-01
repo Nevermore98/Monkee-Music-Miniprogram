@@ -1,0 +1,104 @@
+/* components/songlist-header/songlist-header.wxss */
+@import url(/styles/utils.less);
+@import url(/styles/icomoon.less);
+
+.songlist-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  // height: 850rpx;
+  overflow: hidden;
+  color: #fff;
+  .cover-wrapper {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 180rpx;
+
+    .cover-image {
+      width: 600rpx;
+      height: 600rpx;
+      border-radius: 30rpx;
+    }
+
+    .count {
+      .play-count-effect();
+      position: absolute;
+      right: 30rpx;
+      bottom: 30rpx;
+      font-size: 30rpx;
+      padding: 0 12rpx;
+    }
+  }
+
+  .cover-blur {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(20px);
+    transform: scale(2.5);
+  }
+
+  .info {
+    padding: 24rpx;
+    .title {
+      font-size: 44rpx;
+      font-weight: 500;
+    }
+    .creator {
+      display: flex;
+      align-items: center;
+      font-size: 28rpx;
+      margin-top: 10rpx;
+      color: rgba(255, 255, 255, 0.8);
+
+      .avatar {
+        width: 44rpx;
+        height: 44rpx;
+        border-radius: 50%;
+        margin-right: 10rpx;
+      }
+    }
+    .desc {
+      display: flex;
+      align-items: center;
+      margin-top: 20rpx;
+      color: rgba(255, 255, 255, 0.8);
+
+      &:active {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .desc-text {
+        .two-lines-ellipsis();
+        flex: 1;
+        font-size: 24rpx;
+      }
+      .icon-arrow {
+        font-size: 28rpx;
+        margin-left: 10rpx;
+      }
+    }
+  }
+}
+.ranking-header {
+  position: relative;
+  .ranking-image {
+    display: block;
+    width: 100%;
+  }
+  .ranking-info {
+    position: absolute;
+    bottom: 20rpx;
+    padding: 0 24rpx;
+    color: rgba(255, 255, 255, 0.8);
+
+    .desc-text {
+      .two-lines-ellipsis();
+      flex: 1;
+      font-size: 24rpx;
+    }
+  }
+}

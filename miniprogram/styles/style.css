@@ -1,0 +1,108 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?5eryuw');
+  src:  url('fonts/icomoon.eot?5eryuw#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?5eryuw') format('truetype'),
+    url('fonts/icomoon.woff?5eryuw') format('woff'),
+    url('fonts/icomoon.svg?5eryuw#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-MdiTrashCanOutline:before {
+  content: "\e909";
+}
+.icon-MdiPlaylistMusic:before {
+  content: "\e90a";
+}
+.icon-JamRefresh:before {
+  content: "\e90b";
+}
+.icon-JamPlay:before {
+  content: "\e90c";
+}
+.icon-HumbleiconsVolumeOff:before {
+  content: "\e90d";
+}
+.icon-HumbleiconsVolume2:before {
+  content: "\e90e";
+}
+.icon-HumbleiconsVolume1:before {
+  content: "\e90f";
+}
+.icon-FluentVideoClip16Regular:before {
+  content: "\e910";
+}
+.icon-FluentPlay12Filled:before {
+  content: "\e911";
+}
+.icon-FluentPause12Filled:before {
+  content: "\e912";
+}
+.icon-Fa6SolidCirclePlay:before {
+  content: "\e913";
+}
+.icon-EvaCloseFill:before {
+  content: "\e914";
+}
+.icon-EpArrowDownBold:before {
+  content: "\e915";
+}
+.icon-CharmShare:before {
+  content: "\e916";
+}
+.icon-BiPlayCircle:before {
+  content: "\e917";
+}
+.icon-BiPauseCircle:before {
+  content: "\e918";
+}
+.icon-AntDesignMoreOutlined:before {
+  content: "\e919";
+}
+.icon-AkarIconsMoreHorizontal:before {
+  content: "\e91a";
+}
+.icon-music:before {
+  content: "\e900";
+}
+.icon-music2:before {
+  content: "\e901";
+}
+.icon-next:before {
+  content: "\e902";
+}
+.icon-random:before {
+  content: "\e903";
+}
+.icon-last:before {
+  content: "\e904";
+}
+.icon-single:before {
+  content: "\e905";
+}
+.icon-list:before {
+  content: "\e906";
+}
+.icon-video:before {
+  content: "\e907";
+}
+.icon-discovery:before {
+  content: "\e908";
+}

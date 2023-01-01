@@ -1,0 +1,31 @@
+<!-- components/songlist-header/songlist-header.wxml -->
+<wxs src="/utils/format.wxs" module="format" />
+<view wx:if="{{type==='songlist'}}" class="songlist-header">
+  <image class="cover-blur" mode="aspectFill" src="{{songListInfo.coverImgUrl}}" />
+  <view class="cover-wrapper">
+    <image class="cover-image" mode="aspectFill" src="{{songListInfo.coverImgUrl}}" />
+    <view class="count">
+      <view class="icomoon icon-JamPlay"></view>
+      <text>{{format.formatPlayCount(songListInfo.playCount)}}</text>
+    </view>
+  </view>
+  <view class="info">
+    <view class="title">{{songListInfo.name}}</view>
+    <view class="creator">
+      <image class="avatar" src="{{songListInfo.creator.avatarUrl}}" />
+      <text>{{ songListInfo.creator.nickname }}</text>
+    </view>
+    <view class="desc" wx:if="{{songListInfo.description}}" bind:tap="onDescTap">
+      <view class="desc-text">{{songListInfo.description}}</view>
+      <van-icon class="icon-arrow" name="arrow" size="28rpx" />
+    </view>
+  </view>
+</view>
+<view wx:if="{{type==='ranking'}}" class="ranking-header">
+  <image class="ranking-image" mode="aspectFill" src="{{songListInfo.coverImgUrl}}" />
+  <view class="ranking-info">
+    <view class="desc" wx:if="{{songListInfo.description}}" bind:tap="onDescTap">
+      <view class="desc-text">{{songListInfo.description}}</view>
+    </view>
+  </view>
+</view>

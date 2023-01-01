@@ -3,8 +3,8 @@
     "area-header": "/components/area-header/area-header",
     "song-item": "/components/song-item/song-item",
     "menu-item": "/components/menu-item/menu-item",
+    "ranking-item": "/components/ranking-item/ranking-item",
     "menu-area": "/components/menu-area/menu-area",
-    "van-button": "@vant/weapp/button/index",
     "van-search": "@vant/weapp/search/index",
     "van-icon": "@vant/weapp/icon/index"
   }

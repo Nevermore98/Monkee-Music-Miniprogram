@@ -1,0 +1,12 @@
+<!-- components/song-item-v2/song-item-v2.wxml -->
+<view class="song-item">
+  <view class="index">{{index}}</view>
+  <viwe class="info">
+    <view class="name">{{itemData.name}}</view>
+    <view class="artist">{{itemData.ar[0].name}}</view>
+  </viwe>
+  <view class="controls">
+    <view wx:if="{{itemData.mv}}" class="icomoon icon-FluentVideoClip16Regular icon"></view>
+    <view class="icomoon icon-AntDesignMoreOutlined icon"></view>
+  </view>
+</view>

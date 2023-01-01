@@ -1,35 +1,19 @@
 <!-- pages/view-discovery.wxml -->
+<wxs src="/utils/format.wxs" module="format" />
 <!-- 搜索框 -->
 <view class="search-bar" style="margin-top:{{searchBarTop}}px;">
   <van-search value="{{searchValue}}" shape="round" placeholder="{{defaultSearch}}" background="#f5f5f5" bind:click-input="onSearchTap" />
 </view>
 <!-- 轮播图 -->
+<view class="banners-loading" wx:if="{{isBannersEmpty}}"></view>
 <swiper class="banners" autoplay circular indicator-dots indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#fff" interval="3000" previous-margin="10rpx" next-margin="10rpx" style="height: {{bannerHeight}}px;" wx:if="{{banners.length}}">
   <block wx:for="{{banners}}" wx:key="targetId">
-    <swiper-item class="banners-item">
+    <swiper-item wx:if="{{banners.length}}" class="banners-item">
       <image class="banner-image" src="{{item.pic}}" mode="widthFix" bindload="onBannerImageLoad" />
       <text class="typeTitle">{{item.typeTitle}}</text>
     </swiper-item>
   </block>
 </swiper>
-<!-- <view>
-  <area-header title="排行榜" hasMore="{{false}}" />
-  <swiper class="ranking" current="{{1}}" previous-margin="20rpx" next-margin="20rpx" wx:if="{{banners.length}}">
-    <block wx:for="{{3}}" wx:key="*this">
-      <swiper-item class="ranking-swiper-item">
-        <view class="song-item">
-          <view class="title">
-            <text bind:tap="onRankingTap">热歌榜</text>
-            <van-icon name="arrow" color="#999" size="16px" />
-          </view>
-          <block wx:for="{{$discovery.hotRankingSlice}}" wx:key="id">
-            <song-item itemData="{{item}}" />
-          </block>
-        </view>
-      </swiper-item>
-    </block>
-  </swiper>
-</view> -->
 <menu-area title="热门歌单" menuData="{{hotSongList}}" />
 <menu-area title="推荐歌单" menuData="{{recommendSongList}}" />
 <!-- <view class="hot-song-list">
@@ -42,6 +26,16 @@
     </block>
   </scroll-view>
 </view> -->
+<!-- 排行榜 -->
+<!-- wx:if="{{!isRankingEmpty}}" -->
 <view>
-  <area-header title="推荐歌曲" bind:more-click="onRecommendMoreClick" />
+  <area-header title="排行榜" hasMore="{{false}}" />
+  <swiper class="ranking" current="{{0}}" previous-margin="20rpx" next-margin="20rpx" wx:if="{{rankingInfos}}">
+    <!-- 循环渲染 for 对象，item 为值，index 为键 -->
+    <block wx:for="{{rankingInfos}}" wx:key="id">
+      <swiper-item class="ranking-swiper-item">
+        <ranking-item rankingItemData="{{item}}" rankingType="{{index}}" />
+      </swiper-item>
+    </block>
+  </swiper>
 </view>
