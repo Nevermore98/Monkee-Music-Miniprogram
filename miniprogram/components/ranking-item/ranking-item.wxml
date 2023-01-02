@@ -5,7 +5,7 @@
     <van-icon name="arrow" color="#333" size="28rpx" />
   </view>
   <block wx:for="{{6}}" wx:for-item="index" wx:key="*this">
-    <song-item songItemData="{{rankingItemData.tracks&&rankingItemData.tracks[index]}}" rank="{{index + 1}}" />
+    <song-item songItemData="{{rankingItemData.tracks[index]}}" rank="{{index + 1}}" />
     <!-- 似乎不能把循环传入函数 -->
     <!-- <view class="artist">{{format.formatArtist(itemData.tracks[index].ar)}}</view> -->
     <!-- <view class="song-item">

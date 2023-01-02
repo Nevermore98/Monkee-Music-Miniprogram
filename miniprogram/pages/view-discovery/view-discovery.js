@@ -51,10 +51,10 @@ create.Page(stores, {
   },
   onReady() {
     // 搜索框与胶囊按钮的对齐
-    const res = wx.getMenuButtonBoundingClientRect()
-    console.log(res)
-    this.setData({ searchBarTop: res.top })
-    this.setData({ searchBarHeight: res.height })
+    // const res = wx.getMenuButtonBoundingClientRect()
+    // console.log(res)
+    this.setData({ searchBarTop: app.globalData.menuButtonInfo.top })
+    this.setData({ searchBarHeight: app.globalData.menuButtonInfo.height })
 
     // 获取不到自定义组件的元素？
     // this.createSelectorQuery()
@@ -97,5 +97,12 @@ create.Page(stores, {
     querySelectThrottle('.banner-image').then((res) => {
       this.setData({ bannerHeight: res[0].height })
     })
+  },
+  onSongItemTap() {
+    console.log(this.properties.songItemData.id)
+    this.setData({ isShowPlayer: true })
+  },
+  onClose() {
+    this.setData({ isShowPlayer: false })
   }
 })

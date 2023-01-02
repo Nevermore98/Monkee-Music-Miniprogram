@@ -1,0 +1,29 @@
+/* components/nav-bar/nav-bar.wxss */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  .left {
+    display: flex;
+    justify-content: center;
+    width: 100rpx;
+  }
+  .center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  .right {
+    display: flex;
+    justify-content: center;
+    width: 100rpx;
+  }
+}
+.default {
+  display: none;
+}
+
+// .slot 为空时，显示 .default
+.slot:empty + .default {
+  display: block;
+}

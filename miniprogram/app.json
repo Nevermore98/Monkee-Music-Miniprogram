@@ -6,7 +6,8 @@
     "pages/detail-video/detail-video",
     "pages/detail-search/detail-search",
     "pages/detail-songlist/detail-songlist",
-    "pages/detail-more/detail-more"
+    "pages/detail-more/detail-more",
+    "pages/music-player/music-player"
   ],
   "window": {
     "navigationStyle": "custom",

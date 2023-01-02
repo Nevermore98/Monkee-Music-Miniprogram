@@ -39,3 +39,4 @@
     </block>
   </swiper>
 </view>
+<van-popup show="{{ isShowPlayer }}" closeable position="bottom" custom-style="height: 80%" bind:close="onClose" />

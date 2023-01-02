@@ -1,10 +1,8 @@
 <!-- components/song-item/song-item.wxml -->
 <wxs src="/utils/format.wxs" module="format" />
-<view class="song-item">
+<view class="song-item" bindtap="onSongItemTap">
   <image class="song-image" src="{{songItemData.al.picUrl}}"></image>
-  <view class="rank {{rank===1?'rank-one':''}}  {{rank===2?'rank-two':''}}  {{rank===3?'rank-three':''}}">
-    {{rank}}
-  </view>
+  <view class="rank {{rankClass}}">{{rank}}</view>
   <view class="info">
     <view class="name">{{songItemData.name}}</view>
     <view class="artist">{{formattedArtist}}</view>

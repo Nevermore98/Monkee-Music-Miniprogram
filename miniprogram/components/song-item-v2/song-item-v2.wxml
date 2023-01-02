@@ -1,5 +1,5 @@
 <!-- components/song-item-v2/song-item-v2.wxml -->
-<view class="song-item">
+<view class="song-item-v2" bindtap="onSongItemTap">
   <view class="index">{{index}}</view>
   <viwe class="info">
     <view class="name">{{itemData.name}}</view>

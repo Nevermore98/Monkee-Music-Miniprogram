@@ -1,0 +1,27 @@
+<!-- pages/music-player/music-player.wxml -->
+<!-- <view>{{currentSong.name}}</view> -->
+<image class="image-blur" src="{{currentSong.al.picUrl}}" mode="aspectFill"></image>
+<view class="mask"></view>
+<nav-bar>
+  <view class="nav-bar-tabs" slot="center">
+    <view bindtap="onNavBarItemTap" data-index="{{0}}" class="item {{currentPage === 0 ? 'active' : ''}}">
+      歌曲
+    </view>
+    <view class="divider">|</view>
+    <view bindtap="onNavBarItemTap" data-index="{{1}}" class="item {{currentPage === 1 ? 'active' : ''}}">
+      歌词
+    </view>
+  </view>
+</nav-bar>
+<swiper style="height: {{swiperHeight}}px;" bindchange="onSwiperChange" current="{{currentPage}}">
+  <swiper-item class="song">
+    <view class="album"></view>
+    <view class="info"></view>
+    <view class="line-lyric"></view>
+    <view class="process"></view>
+    <view class="control"></view>
+  </swiper-item>
+  <swiper-item>
+    <view class="lyric">hi</view>
+  </swiper-item>
+</swiper>

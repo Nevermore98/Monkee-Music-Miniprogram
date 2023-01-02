@@ -1,8 +1,7 @@
 <!-- pages/detail-video/detail-video.wxml -->
 <wxs src="/utils/format.wxs" module="format" />
-
 <view class="video-wrapper">
-  <video class="video" src="{{mvUrl}}" autoplay play-btn-position="center" enable-play-gesture muted="{{true}}" referrer-policy="origin" />
+  <video class="video" src="{{mvUrl}}" autoplay play-btn-position="center" enable-play-gesture referrer-policy="origin" />
 </view>
 <!-- 注意方向 scroll-y -->
 <scroll-view class="content" scroll-y>
@@ -25,7 +24,6 @@
               <view class="icomoon icon-music"></view>
               <view class="count">{{format.formatPlayCount(item.playTime)}}</view>
             </view>
-
             <view class="duration">{{format.formatTime(item.durationms,false)}}</view>
           </view>
         </view>

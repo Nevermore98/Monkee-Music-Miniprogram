@@ -37,6 +37,13 @@
           "query": "type=ranking&key=hotRanking",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "播放器页面",
+          "pathName": "pages/music-player/music-player",
+          "query": "id=472219768",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

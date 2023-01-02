@@ -1,0 +1,18 @@
+<!-- components/nav-bar/nav-bar.wxml -->
+<view class="nav-bar" style="margin-top:{{navBarTop}}px; height:{{navBarHeight}}px;">
+  <view class="left">
+    <view class="slot">
+      <slot name="left"></slot>
+    </view>
+    <view class="default">
+      <van-icon name="arrow-left" size="48rpx" />
+    </view>
+  </view>
+  <view class="center">
+    <view class="slot">
+      <slot name="center"></slot>
+    </view>
+    <view class="default">{{title}}</view>
+  </view>
+  <view class="right"></view>
+</view>
