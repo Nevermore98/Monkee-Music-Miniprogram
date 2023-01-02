@@ -8,7 +8,8 @@ Page({
     currentSong: {},
     lyricStr: '',
     currentPage: 0,
-    swiperHeight: 0
+    swiperHeight: 0,
+    navBarTitles: ['歌曲', '歌词']
   },
   onLoad(options) {
     this.setData({ swiperHeight: app.globalData.playerSwiperHeight })

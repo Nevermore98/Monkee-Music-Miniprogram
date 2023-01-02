@@ -4,13 +4,12 @@
 <view class="mask"></view>
 <nav-bar>
   <view class="nav-bar-tabs" slot="center">
-    <view bindtap="onNavBarItemTap" data-index="{{0}}" class="item {{currentPage === 0 ? 'active' : ''}}">
-      歌曲
-    </view>
-    <view class="divider">|</view>
-    <view bindtap="onNavBarItemTap" data-index="{{1}}" class="item {{currentPage === 1 ? 'active' : ''}}">
-      歌词
-    </view>
+    <block wx:for="{{navBarTitles}}" wx:key="*this">
+      <view bindtap="onNavBarItemTap" data-index="{{index}}" class="item {{currentPage === index ? 'active' : ''}}">
+        {{item}}
+      </view>
+      <view class="divider" wx:if="{{index !== navBarTitles.length - 1}}">|</view>
+    </block>
   </view>
 </nav-bar>
 <swiper style="height: {{swiperHeight}}px;" bindchange="onSwiperChange" current="{{currentPage}}">
