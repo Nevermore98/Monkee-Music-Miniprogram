@@ -1,4 +1,6 @@
 // components/song-item-v2/song-item-v2.js
+import { formatArtist } from '../../utils/utils'
+
 Component({
   properties: {
     itemData: {
@@ -8,6 +10,16 @@ Component({
     index: {
       type: Number,
       value: 0
+    }
+  },
+  data: {
+    formattedArtist: ''
+  },
+  lifetimes: {
+    attached() {
+      this.setData({
+        formattedArtist: formatArtist(this.properties.itemData.ar)
+      })
     }
   },
   methods: {

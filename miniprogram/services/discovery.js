@@ -60,3 +60,13 @@ export function getSongListHotTags() {
     url: '/playlist/hot'
   })
 }
+
+// 获取歌单所有歌曲
+export function getSongListAllSongs(id) {
+  return request.get({
+    url: '/playlist/track/all',
+    data: {
+      id
+    }
+  })
+}

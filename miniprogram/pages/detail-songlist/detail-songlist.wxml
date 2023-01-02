@@ -1,6 +1,6 @@
 <!-- pages/detail-songlist/detail-songlist.wxml -->
 <view>
-  <songlist-header songListInfo="{{songListInfo}}" type="{{type}}"/>
+  <songlist-header songListInfo="{{songListInfo}}" type="{{type}}" />
   <!-- <image class="image" style="height:{{type==='ranking'?'400rpx':'800rpx'}}" src="{{songListInfo.coverImgUrl}}" mode="aspectFill" /> -->
   <!-- <view class="title">{{songListInfo.name}}</view>
   <view class="title">{{songListInfo.description}}</view> -->
@@ -9,7 +9,7 @@
     <text class="play-all-text">播放全部</text>
   </view>
   <view class="song-list">
-    <block wx:for="{{songListInfo.tracks}}" wx:key="id">
+    <block wx:for="{{songListTracks}}" wx:key="id">
       <song-item-v2 itemData="{{item}}" index="{{index+1}}" />
     </block>
   </view>

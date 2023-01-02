@@ -3,7 +3,7 @@
   <view class="index">{{index}}</view>
   <viwe class="info">
     <view class="name">{{itemData.name}}</view>
-    <view class="artist">{{itemData.ar[0].name}}</view>
+    <view class="artist">{{formattedArtist}}</view>
   </viwe>
   <view class="controls">
     <view wx:if="{{itemData.mv}}" class="icomoon icon-FluentVideoClip16Regular icon"></view>

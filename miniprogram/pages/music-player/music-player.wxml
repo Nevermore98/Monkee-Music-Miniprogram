@@ -1,7 +1,9 @@
 <!-- pages/music-player/music-player.wxml -->
-<!-- <view>{{currentSong.name}}</view> -->
+<wxs src="../../utils/format.wxs" module="format" />
+<!-- 背景图片以及遮罩层 -->
 <image class="image-blur" src="{{currentSong.al.picUrl}}" mode="aspectFill"></image>
 <view class="mask"></view>
+<!-- 导航栏 -->
 <nav-bar>
   <view class="nav-bar-tabs" slot="center">
     <block wx:for="{{navBarTitles}}" wx:key="*this">
@@ -12,15 +14,34 @@
     </block>
   </view>
 </nav-bar>
+<!-- 歌曲与歌词滑动页 -->
 <swiper style="height: {{swiperHeight}}px;" bindchange="onSwiperChange" current="{{currentPage}}">
   <swiper-item class="song">
-    <view class="album"></view>
-    <view class="info"></view>
-    <view class="line-lyric"></view>
-    <view class="process"></view>
-    <view class="control"></view>
+    <image class="song-cover" src="{{currentSong.al.picUrl}}" mode="widthFix" />
+    <view class="song-info">
+      <view class="song-name">{{currentSong.name}}</view>
+      <view class="song-artist">{{formattedArtist}}</view>
+    </view>
+    <view class="line-lyric">歌词</view>
+    <view class="control">
+      <view class="progress">
+        <!-- <slider class="slider" step="0.05" backgroundColor="#e9e9e9" block-size="12" value="{{sliderValue}}" /> -->
+        <van-slider class="slider {{isSliderDragging ? 'dragging' : ''}}" step="{{0.1}}" value="{{sliderValue}}" bind:change="onSliderChange" bind:drag="onSliderDragging" bar-height="5px" />
+        <view class="time">
+          <view class="time-current">{{format.formatTime(currentTime)}}</view>
+          <view class="time-duration">{{format.formatTime(durationTime)}}</view>
+        </view>
+      </view>
+      <view class="btns">
+        <view class="icomoon icon-list"></view>
+        <view class="icomoon icon-last"></view>
+        <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
+        <view class="icomoon icon-next"></view>
+        <view class="icomoon icon-MdiPlaylistMusic"></view>
+      </view>
+    </view>
   </swiper-item>
   <swiper-item>
-    <view class="lyric">hi</view>
+    <view class="lyric">歌词</view>
   </swiper-item>
 </swiper>

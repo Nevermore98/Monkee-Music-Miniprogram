@@ -1,4 +1,7 @@
 /* pages/music-player/music-player.wxss */
+@import url(/styles/utils.less);
+@import url(/styles/icomoon.less);
+
 .image-blur,
 .mask {
   position: fixed;
@@ -25,5 +28,101 @@
   }
   .active {
     color: #fff;
+  }
+}
+
+.song {
+  display: flex;
+  flex-direction: column;
+  padding: 0 60rpx;
+  .song-cover {
+    margin: 40rpx 0;
+    width: 100%;
+    border-radius: 20rpx;
+  }
+  .song-info {
+    .song-name {
+      margin-bottom: 10rpx;
+      font-size: 40rpx;
+      font-weight: 500;
+      color: #fff;
+    }
+    .song-artist {
+      font-size: 30rpx;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+  .line-lyric {
+    .one-line-ellipsis();
+    // text-align: center;
+    margin: 50rpx 0;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .progress {
+    .slider {
+      margin: 20rpx 0;
+    }
+    .time {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20rpx;
+      color: #fff;
+      .time-current {
+      }
+      .time-duration {
+      }
+    }
+  }
+
+  .control {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.9);
+
+    .btns {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 40rpx 0;
+      font-size: 60rpx;
+
+      .icomoon:active {
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+
+    .btn-play {
+      font-size: 130rpx;
+    }
+  }
+}
+
+// 自定义 van-slider 样式
+.van-slider {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+
+  .van-slider__bar {
+    background-color: #fff;
+    transition: all 0s !important; // 禁用滑块动画
+  }
+
+  .van-slider__button {
+    height: 11px;
+    width: 11px;
+
+    &:active {
+      height: 13px;
+      width: 13px;
+      transition: all 0.2s ease;
+    }
+  }
+}
+// 拖动滑块时，按钮变大
+.dragging {
+  .van-slider__button {
+    height: 13px;
+    width: 13px;
   }
 }

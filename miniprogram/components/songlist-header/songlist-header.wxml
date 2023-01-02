@@ -2,6 +2,7 @@
 <wxs src="/utils/format.wxs" module="format" />
 <view wx:if="{{type==='songlist'}}" class="songlist-header">
   <image class="cover-blur" mode="aspectFill" src="{{songListInfo.coverImgUrl}}" />
+  <view class="mask"></view>
   <view class="cover-wrapper">
     <image class="cover-image" mode="aspectFill" src="{{songListInfo.coverImgUrl}}" />
     <view class="count">

@@ -1,6 +1,9 @@
 // pages/detail-songlist/detail-songlist.js
 import create from 'mini-stores'
-import { getSonglistDetail } from '../../services/discovery'
+import {
+  getSonglistDetail,
+  getSongListAllSongs
+} from '../../services/discovery'
 import discoveryStore from '../../stores/discoveryStore'
 import { pick } from '../../utils/utils'
 
@@ -11,7 +14,7 @@ const stores = {
 create.Page(stores, {
   data: {
     songListInfo: {},
-    // songListTracks: [],
+    songListTracks: [],
     type: '',
     rankingType: '',
     id: 0
@@ -47,8 +50,12 @@ create.Page(stores, {
     }
   },
   async fetchSongList() {
+    // TODO 所有歌曲
     const res = await getSonglistDetail(this.data.id)
+    const songs = await getSongListAllSongs(this.data.id)
     console.log(res)
+    console.log(songs)
     this.setData({ songListInfo: res.playlist })
+    this.setData({ songListTracks: songs.songs })
   }
 })
