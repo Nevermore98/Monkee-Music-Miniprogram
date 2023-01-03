@@ -1,10 +1,19 @@
 view,
 text,
 image,
-swiper-item {
+swiper-item,
+scroll-view {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   font-family: 'Helvetica Neue';
+}
+
+// 去除 scroll-view 滚动条
+scroll-view ::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+  display: none;
 }

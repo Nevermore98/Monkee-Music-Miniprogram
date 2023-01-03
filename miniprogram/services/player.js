@@ -9,6 +9,17 @@ export function getSongDetail(ids) {
   })
 }
 
+// 获取歌曲 url
+export function getSongUrl(id, level = 'standard') {
+  return request.get({
+    url: '/song/url/v1',
+    data: {
+      id,
+      level
+    }
+  })
+}
+
 export function getSongLyric(id) {
   return request.get({
     url: '/lyric',
