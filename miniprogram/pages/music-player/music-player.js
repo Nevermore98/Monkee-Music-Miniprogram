@@ -3,6 +3,7 @@ import { getSongDetail, getSongLyric, getSongUrl } from '../../services/player'
 import { formatArtist } from '../../utils/utils'
 import throttle from '../../utils/throttle'
 import parseLyric from '../../utils/parseLyric'
+import querySelect from '../../utils/query-select'
 
 const app = getApp()
 const innerAudioContext = wx.createInnerAudioContext({
@@ -14,13 +15,18 @@ Page({
     id: 0, // 歌曲 id
     currentSong: {}, // 当前播放歌曲
     songUrl: '', // 歌曲播放地址
+
     lyricInfos: '', // 解析后的歌词
     currentLyricText: '', // 当前歌词
-    currentLyricIndex: 0, // 当前歌词索引
+    currentLyricIndex: -1, // 当前歌词索引
+    tapLyricIndex: -1,
+    lyricScrollTop: 0, // 歌词滚动位置
+
     currentPage: 0, // 当前 swiper 页
     swiperHeight: 0, // swiper 高度 = screenHeight - 胶囊 top - 胶囊 height
     navBarTitles: ['歌曲', '歌词'], // 导航栏标题数组
     formattedArtist: '', // 格式化歌手名
+
     currentTime: 0, // 当前播放时间
     durationTime: 0, // 歌曲总时长
     sliderValue: 0,
@@ -35,13 +41,34 @@ Page({
     this.fetchSongDetail()
     this.fetchSongLyric()
     // innerAudioContext.autoplay = true
+    innerAudioContext.onWaiting(() => {
+      innerAudioContext.pause()
+    })
+    innerAudioContext.onCanplay(() => {
+      innerAudioContext.play()
+    })
     const throttleUpdateProgress = throttle(this.updateProgress, 100)
 
     innerAudioContext.onTimeUpdate(() => {
       if (!this.data.isSliderDragging && !this.data.isWaiting) {
         throttleUpdateProgress()
       }
-      this.matchLyric()
+      // this.matchLyric()
+      let index = this.data.lyricInfos.length - 1
+      for (let i = 0; i < this.data.lyricInfos.length; i++) {
+        const lineLyric = this.data.lyricInfos[i]
+        if (lineLyric.lineTime > innerAudioContext.currentTime * 1000) {
+          index = i - 1
+          break
+        }
+      }
+      if (index === this.data.currentLyricIndex) return
+      const currentLyricText = this.data.lyricInfos[index].text
+      this.setData({
+        currentLyricText,
+        currentLyricIndex: index,
+        lyricScrollTop: index * 80
+      })
     })
   },
   // 更新播放进度
@@ -120,6 +147,7 @@ Page({
       this.setData({ isPlaying: true })
     }
   },
+  // 匹配歌词时间
   matchLyric() {
     let index = this.data.lyricInfos.length - 1
     for (let i = 0; i < this.data.lyricInfos.length; i++) {
@@ -131,6 +159,23 @@ Page({
     }
     if (index === this.data.currentLyricIndex) return
     const currentLyricText = this.data.lyricInfos[index].text
-    this.setData({ currentLyricText, currentLyricIndex: index })
+    this.setData({
+      currentLyricText,
+      currentLyricIndex: index,
+      lyricScrollTop: index * 40
+    })
+  },
+  // 点击歌词调整播放进度
+  onLyricItemTap(e) {
+    const index = e.currentTarget.dataset.index
+    const currentTime = this.data.lyricInfos[index].lineTime / 1000
+    innerAudioContext.seek(currentTime)
+    this.setData({
+      tapLyricIndex: index,
+      currentTime: this.data.lyricInfos[index].lineTime,
+      isSliderDragging: false,
+      sliderValue: (currentTime / this.data.durationTime) * 100,
+      isPlaying: true
+    })
   }
 })
