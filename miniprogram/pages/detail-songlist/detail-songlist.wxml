@@ -4,12 +4,14 @@
   <!-- <image class="image" style="height:{{type==='ranking'?'400rpx':'800rpx'}}" src="{{songListInfo.coverImgUrl}}" mode="aspectFill" /> -->
   <!-- <view class="title">{{songListInfo.name}}</view>
   <view class="title">{{songListInfo.description}}</view> -->
-  <view class="play-all" wx:if="{{songListInfo.tracks}}">
+  <view class="play-all" wx:if="{{songListTracks.length || songListInfo.tracks.length}}">
     <view class="icomoon icon-Fa6SolidCirclePlay"></view>
     <text class="play-all-text">播放全部</text>
+    <text class="total-number">({{songListTracks.length || songListInfo.tracks.length }})</text>
   </view>
   <view class="song-list">
-    <block wx:for="{{songListTracks}}" wx:key="id">
+    <!-- getSonglistDetail 的 tracks：如果是歌单则只有 20 条数据，排行榜数据为全部 -->
+    <block wx:for="{{type === 'ranking' ? songListInfo.tracks : songListTracks}}" wx:key="id">
       <song-item-v2 itemData="{{item}}" index="{{index+1}}" />
     </block>
   </view>

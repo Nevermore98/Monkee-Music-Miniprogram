@@ -45,10 +45,10 @@ Component({
   methods: {
     onSongItemTap() {
       const id = this.properties.songItemData.id
-      console.log(id)
-      wx.navigateTo({
-        url: `/pages/music-player/music-player?id=${id}`
-      })
+      // console.log(id)
+      // wx.navigateTo({
+      //   url: `/pages/music-player/music-player?id=${id}`
+      // })
       this.setData({ isShowPlayer: true })
     },
     onClose() {

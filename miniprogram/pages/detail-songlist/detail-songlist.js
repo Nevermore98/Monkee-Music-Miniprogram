@@ -39,7 +39,7 @@ create.Page(stores, {
     }
   },
   async fetchSongList() {
-    // TODO 所有歌曲
+    // getSonglistDetail 的 tracks：如果是歌单则只有 20 条数据，排行榜数据为全部
     const res = await getSonglistDetail(this.data.id)
     const songs = await getSongListAllSongs(this.data.id)
     console.log(res)

@@ -42,6 +42,6 @@ function formatPlayCount(playCount) {
 
 module.exports = {
   formatPlayCount: formatPlayCount,
-  formatTime: formatTime,
+  formatTime: formatTime
   // formatArtist: formatArtist
 }
