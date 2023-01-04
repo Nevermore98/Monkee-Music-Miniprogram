@@ -1,4 +1,6 @@
 // components/ranking-item/ranking-item.js
+import discoveryStore from '../../stores/discoveryStore'
+
 Component({
   properties: {
     rankingItemData: {
@@ -10,6 +12,16 @@ Component({
       value: ''
     }
   },
+  data: {
+    rankingItemTracks: []
+  },
+  lifetimes: {
+    attached() {
+      this.setData({
+        rankingItemTracks: this.properties.rankingItemData.tracks.slice(0, 6)
+      })
+    }
+  },
   methods: {
     // 点击排行榜跳转到详情页面
     onRankingItemTap() {
@@ -17,6 +29,9 @@ Component({
       wx.navigateTo({
         url: `/pages/detail-songlist/detail-songlist?type=ranking&rankingType=${rankingType}`
       })
+    },
+    onSongItemTap() {
+      console.log('songItemTap')
     }
   }
 })

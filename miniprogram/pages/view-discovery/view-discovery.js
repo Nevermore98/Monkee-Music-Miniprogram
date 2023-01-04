@@ -8,6 +8,7 @@ import discoveryStore from '../../stores/discoveryStore'
 import create from 'mini-stores'
 import querySelect from '../../utils/query-select'
 import throttle from '../../utils/throttle'
+import { sliceList } from '../../utils/utils'
 
 const querySelectThrottle = throttle(querySelect, 100)
 const app = getApp()
@@ -39,6 +40,7 @@ create.Page(stores, {
     this.fetchHotSongList()
 
     await discoveryStore.fetchRankingAction()
+
     this.setData({
       rankingInfos: {
         hotRanking: discoveryStore.data.hotRanking,

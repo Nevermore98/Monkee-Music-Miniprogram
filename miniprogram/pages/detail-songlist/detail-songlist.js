@@ -5,7 +5,6 @@ import {
   getSongListAllSongs
 } from '../../services/discovery'
 import discoveryStore from '../../stores/discoveryStore'
-import { pick } from '../../utils/utils'
 
 const stores = {
   $discovery: discoveryStore
@@ -28,18 +27,8 @@ create.Page(stores, {
 
       // 获取排行榜部分数据
       const rankingInfo = discoveryStore.data[options.rankingType]
-      const pickArr = [
-        'name',
-        'description',
-        'coverImgUrl',
-        'updateTime',
-        'tracks',
-        'id',
-        'playCount',
-        'creator'
-      ]
       this.setData({
-        songListInfo: pick(rankingInfo, pickArr)
+        songListInfo: rankingInfo
       })
     } else if (type === 'songlist') {
       // 不需要渲染到页面，所以无需 setData

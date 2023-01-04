@@ -1,4 +1,5 @@
 import { getSonglistDetail } from '../services/discovery'
+import { pick } from '../utils/utils'
 
 export const rankingMapId = {
   hotRanking: 3778678,
@@ -20,10 +21,6 @@ class Store {
     newRanking: [],
     upRanking: [],
     originRanking: []
-    // hotRankingSlice: [],
-    // newRankingSlice: [],
-    // upRankingSlice: [],
-    // originRankingSlice: [],
     // 榜单展示信息，计算属性
     // rankingInfos() {
     //   return {
@@ -33,26 +30,23 @@ class Store {
     //     originRanking: this.originRanking
     //   }
     // }
-    // rankingSliceInfos() {
-    //   return {
-    //     hotRanking: this.hotRanking,
-    //     newRanking: this.newRanking,
-    //     upRanking: this.upRanking,
-    //     originRanking: this.originRanking
-    //   }
-    // }
   }
-  // async fetchHotRankingAction() {
-  //   const res = await getSonglistDetail(3778678)
-  //   this.data.hotRanking = res.playlist.tracks
-  //   this.data.hotRankingSlice = res.playlist.tracks.slice(0, 6)
-  //   this.update()
-  // }
+  // 获取榜单数据
   async fetchRankingAction() {
     for (const key in rankingMapId) {
       const res = await getSonglistDetail(rankingMapId[key])
-      console.log(res)
-      this.data[key] = res.playlist
+      console.log('榜单数据：', res)
+      const pickArr = [
+        'name',
+        'description',
+        'coverImgUrl',
+        'updateTime',
+        'tracks',
+        'id',
+        'playCount',
+        'creator'
+      ]
+      this.data[key] = pick(res.playlist, pickArr)
       // this.data[key + 'Slice'] = res.playlist.tracks.slice(0, 6)
       this.update()
     }
