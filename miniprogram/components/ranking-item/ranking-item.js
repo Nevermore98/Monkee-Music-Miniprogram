@@ -1,5 +1,4 @@
 // components/ranking-item/ranking-item.js
-import discoveryStore from '../../stores/discoveryStore'
 
 Component({
   properties: {
@@ -26,12 +25,10 @@ Component({
     // 点击排行榜跳转到详情页面
     onRankingItemTap() {
       const rankingType = this.properties.rankingType
+      console.log(rankingType)
       wx.navigateTo({
         url: `/pages/detail-songlist/detail-songlist?type=ranking&rankingType=${rankingType}`
       })
-    },
-    onSongItemTap() {
-      console.log('songItemTap')
     }
   }
 })

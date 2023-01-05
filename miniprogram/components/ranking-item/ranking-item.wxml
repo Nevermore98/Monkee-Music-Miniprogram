@@ -1,11 +1,11 @@
 <!-- components/ranking-item/ranking-item.wxml -->
 <view class="ranking-item">
   <view class="title">
-    <text bind:tap="onRankingItemTap">{{rankingItemData.name}}</text>
+    <text bindtap="onRankingItemTap">{{rankingItemData.name}}</text>
     <van-icon name="arrow" color="#333" size="28rpx" />
   </view>
   <block wx:for="{{6}}" wx:for-item="index" wx:key="*this">
-    <song-item bingtap="onSongItemTap" songItemData="{{rankingItemTracks[index]}}" rank="{{index + 1}}" />
+    <song-item data-index="{{index}}" songItemData="{{rankingItemTracks[index]}}" rankingType="{{rankingType}}" rank="{{index + 1}}" />
     <!-- 似乎不能把循环传入函数 -->
     <!-- <view class="artist">{{format.formatArtist(itemData.tracks[index].ar)}}</view> -->
     <!-- <view class="song-item">

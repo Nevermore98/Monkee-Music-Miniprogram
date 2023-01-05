@@ -33,9 +33,9 @@
       </view>
       <view class="btns">
         <view class="icomoon icon-list"></view>
-        <view class="icomoon icon-last"></view>
+        <view bindtap="onPrevBtnTap" class="icomoon icon-last"></view>
         <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
-        <view class="icomoon icon-next"></view>
+        <view bindtap="onNextBtnTap" class="icomoon icon-next"></view>
         <view class="icomoon icon-MdiPlaylistMusic"></view>
       </view>
     </view>

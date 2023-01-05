@@ -3,18 +3,24 @@ import { getSongDetail, getSongLyric, getSongUrl } from '../../services/player'
 import { formatArtist } from '../../utils/utils'
 import throttle from '../../utils/throttle'
 import parseLyric from '../../utils/parseLyric'
-import querySelect from '../../utils/query-select'
+import create from 'mini-stores'
+import playerStore from '../../stores/playerStore'
+
+const stores = {
+  $player: playerStore
+}
 
 const app = getApp()
 const innerAudioContext = wx.createInnerAudioContext({
   useWebAudioImplement: false
 })
 
-Page({
+create.Page(stores, {
   data: {
     id: 0, // 歌曲 id
     currentSong: {}, // 当前播放歌曲
     songUrl: '', // 歌曲播放地址
+    isFirstPlay: true, // 是否第一次播放
 
     lyricInfos: '', // 解析后的歌词
     currentLyricText: '', // 当前歌词
@@ -37,39 +43,9 @@ Page({
   onLoad(options) {
     this.setData({ swiperHeight: app.globalData.playerSwiperHeight })
     const id = options.id
-    this.setData({ id })
-    this.fetchSongDetail()
-    this.fetchSongLyric()
-    // innerAudioContext.autoplay = true
-    innerAudioContext.onWaiting(() => {
-      innerAudioContext.pause()
-    })
-    innerAudioContext.onCanplay(() => {
-      innerAudioContext.play()
-    })
-    const throttleUpdateProgress = throttle(this.updateProgress, 100)
-
-    innerAudioContext.onTimeUpdate(() => {
-      if (!this.data.isSliderDragging && !this.data.isWaiting) {
-        throttleUpdateProgress()
-      }
-      // this.matchLyric()
-      let index = this.data.lyricInfos.length - 1
-      for (let i = 0; i < this.data.lyricInfos.length; i++) {
-        const lineLyric = this.data.lyricInfos[i]
-        if (lineLyric.lineTime > innerAudioContext.currentTime * 1000) {
-          index = i - 1
-          break
-        }
-      }
-      if (index === this.data.currentLyricIndex) return
-      const currentLyricText = this.data.lyricInfos[index].text
-      this.setData({
-        currentLyricText,
-        currentLyricIndex: index,
-        lyricScrollTop: index * 80
-      })
-    })
+    // this.fetchSongDetail()
+    // this.fetchSongLyric()
+    this.setupPlaySong(id)
   },
   // 更新播放进度
   updateProgress() {
@@ -80,6 +56,34 @@ Page({
       sliderValue
     })
   },
+  async setupPlaySong(id) {
+    this.setData({ id })
+    await this.fetchSongDetail()
+    await this.fetchSongLyric()
+    // 设置歌曲 src
+    innerAudioContext.src = this.data.songUrl
+    // innerAudioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+
+    innerAudioContext.autoplay = true
+
+    if (this.data.isFirstPlay) {
+      this.data.isFirstPlay = false
+      const throttleUpdateProgress = throttle(this.updateProgress, 100)
+
+      innerAudioContext.onTimeUpdate(() => {
+        if (!this.data.isSliderDragging && !this.data.isWaiting) {
+          throttleUpdateProgress()
+        }
+        this.matchLyric()
+      })
+      innerAudioContext.onWaiting(() => {
+        innerAudioContext.pause()
+      })
+      innerAudioContext.onCanplay(() => {
+        innerAudioContext.play()
+      })
+    }
+  },
   // 根据 id 获取歌曲详情
   async fetchSongDetail() {
     const id = this.data.id
@@ -88,9 +92,7 @@ Page({
     console.log(songDetail)
     console.log(songInfo)
     this.data.songUrl = songInfo.data[0].url
-    // 设置歌曲 src
-    innerAudioContext.src = this.data.songUrl
-    // innerAudioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+
     this.setData({
       currentSong: songDetail.songs[0],
       durationTime: songInfo.data[0].time
@@ -162,7 +164,7 @@ Page({
     this.setData({
       currentLyricText,
       currentLyricIndex: index,
-      lyricScrollTop: index * 40
+      lyricScrollTop: index * 80
     })
   },
   // 点击歌词调整播放进度
@@ -177,5 +179,27 @@ Page({
       sliderValue: (currentTime / this.data.durationTime) * 100,
       isPlaying: true
     })
+  },
+  onPrevBtnTap() {
+    this.goPlay(-1)
+  },
+  onNextBtnTap() {
+    this.goPlay(1)
+  },
+  goPlay(num) {
+    const length = stores.$player.data.playList.length
+    let index = stores.$player.data.playListIndex
+
+    index = index + num
+    if (index === length) {
+      index = 0
+    }
+    if (index === -1) {
+      index = length - 1
+    }
+    const newSong = stores.$player.data.playList[index]
+    stores.$player.setPlayListIndex(index)
+    console.log(index)
+    this.setupPlaySong(newSong.id)
   }
 })

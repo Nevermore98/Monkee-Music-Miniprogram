@@ -1,4 +1,5 @@
 {
+  "entryPagePath": "pages/view-discovery/view-discovery",
   "pages": [
     "pages/view-discovery/view-discovery",
     "pages/view-video/view-video",

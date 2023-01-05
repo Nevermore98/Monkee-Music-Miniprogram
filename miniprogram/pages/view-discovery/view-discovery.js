@@ -8,13 +8,12 @@ import discoveryStore from '../../stores/discoveryStore'
 import create from 'mini-stores'
 import querySelect from '../../utils/query-select'
 import throttle from '../../utils/throttle'
-import { sliceList } from '../../utils/utils'
 
 const querySelectThrottle = throttle(querySelect, 100)
 const app = getApp()
 
 const stores = {
-  $discovery: discoveryStore
+  // $discovery: discoveryStore
 }
 
 create.Page(stores, {
@@ -99,12 +98,5 @@ create.Page(stores, {
     querySelectThrottle('.banner-image').then((res) => {
       this.setData({ bannerHeight: res[0].height })
     })
-  },
-  onSongItemTap() {
-    console.log(this.properties.songItemData.id)
-    this.setData({ isShowPlayer: true })
-  },
-  onClose() {
-    this.setData({ isShowPlayer: false })
   }
 })

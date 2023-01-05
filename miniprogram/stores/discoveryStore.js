@@ -47,7 +47,12 @@ class Store {
         'creator'
       ]
       this.data[key] = pick(res.playlist, pickArr)
-      // this.data[key + 'Slice'] = res.playlist.tracks.slice(0, 6)
+
+      for (let i = 0; i < this.data[key].tracks.length; i++) {
+        const tracksPickArr = ['name', 'id', 'ar', 'al', 'mv', 'fee', 'dt']
+        this.data[key].tracks[i] = pick(this.data[key].tracks[i], tracksPickArr)
+      }
+
       this.update()
     }
   }
