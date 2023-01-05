@@ -18,5 +18,10 @@ Component({
   attached() {
     this.setData({ navBarTop: app.globalData.menuButtonInfo.top })
     this.setData({ navBarHeight: app.globalData.menuButtonInfo.height })
+  },
+  methods: {
+    onLeftTap() {
+      this.triggerEvent('left-tap')
+    }
   }
 })

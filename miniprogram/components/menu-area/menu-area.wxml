@@ -1,6 +1,6 @@
 <!-- components/menu-area/menu-area.wxml -->
 <view class="menu-area" wx:if="{{menuData.length}}">
-  <area-header title="{{title}}" bind:more-click="onMenuMoreClick" />
+  <area-header title="{{title}}" bind:more-tap="onMenuMoreClick" />
   <scroll-view class="menu-area-scroll" scroll-x enable-flex>
     <block wx:for="{{menuData}}" wx:key="id">
       <view class="menu-item-wrapper">

@@ -14,6 +14,7 @@ const app = getApp()
 const innerAudioContext = wx.createInnerAudioContext({
   useWebAudioImplement: false
 })
+const playModeNames = ['list', 'single', 'random']
 
 create.Page(stores, {
   data: {
@@ -38,7 +39,9 @@ create.Page(stores, {
     sliderValue: 0,
     isSliderDragging: false,
     isWaiting: false, // 是否正在等待
-    isPlaying: true // 是否正在播放
+    isPlaying: true, // 是否正在播放
+    playModeIndex: 0, // 播放模式索引
+    playModeName: 'list' // 播放模式名称
   },
   onLoad(options) {
     this.setData({ swiperHeight: app.globalData.playerSwiperHeight })
@@ -82,6 +85,10 @@ create.Page(stores, {
       innerAudioContext.onCanplay(() => {
         innerAudioContext.play()
       })
+      innerAudioContext.onEnded(() => {
+        if (innerAudioContext.loop) return
+        this.goPlay(1)
+      })
     }
   },
   // 根据 id 获取歌曲详情
@@ -113,6 +120,9 @@ create.Page(stores, {
   onNavBarItemTap(e) {
     this.setData({ currentPage: e.currentTarget.dataset.index })
   },
+  onNavBackTap() {
+    wx.navigateBack()
+  },
   // 进度条改变
   onSliderChange(e) {
     const value = e.detail
@@ -133,12 +143,14 @@ create.Page(stores, {
       innerAudioContext.play()
     }, 100)
   },
-  // 拖动进度条
-  onSliderDragging(e) {
+  // 拖动进度条，节流
+  onSliderDragging: throttle(function (e) {
     const value = e.detail.value
+    console.log(value)
     const currentTime = (value / 100) * this.data.durationTime
-    this.setData({ currentTime, isSliderDragging: true })
-  },
+    this.setData({ currentTime })
+    this.data.isSliderDragging = true
+  }, 100),
   // 点击播放暂停按钮
   onPlayOrPauseTap() {
     if (!innerAudioContext.paused) {
@@ -148,6 +160,24 @@ create.Page(stores, {
       innerAudioContext.play()
       this.setData({ isPlaying: true })
     }
+  },
+  // 点击播放模式按钮
+  onModeTap() {
+    let modeIndex = this.data.playModeIndex
+    modeIndex = (modeIndex + 1) % 3
+
+    // 设置是否是单曲循环
+    if (modeIndex === 1) {
+      innerAudioContext.loop = true
+    } else {
+      innerAudioContext.loop = false
+    }
+
+    // 不能在 setData 里 (modeIndex + 1) % 3
+    this.setData({
+      playModeIndex: modeIndex,
+      playModeName: playModeNames[modeIndex]
+    })
   },
   // 匹配歌词时间
   matchLyric() {
@@ -171,12 +201,13 @@ create.Page(stores, {
   onLyricItemTap(e) {
     const index = e.currentTarget.dataset.index
     const currentTime = this.data.lyricInfos[index].lineTime / 1000
+    const sliderValue = (currentTime / this.data.durationTime) * 100
     innerAudioContext.seek(currentTime)
     this.setData({
       tapLyricIndex: index,
-      currentTime: this.data.lyricInfos[index].lineTime,
+      currentTime: currentTime * 1000,
       isSliderDragging: false,
-      sliderValue: (currentTime / this.data.durationTime) * 100,
+      sliderValue,
       isPlaying: true
     })
   },
@@ -189,14 +220,19 @@ create.Page(stores, {
   goPlay(num) {
     const length = stores.$player.data.playList.length
     let index = stores.$player.data.playListIndex
-
     index = index + num
+
+    // 最后一首的下一首跳转到第一首，第一首的上一首跳转到最后一首
     if (index === length) {
       index = 0
     }
     if (index === -1) {
       index = length - 1
     }
+    if (this.data.playModeIndex === 2) {
+      index = Math.floor(Math.random() * length)
+    }
+
     const newSong = stores.$player.data.playList[index]
     stores.$player.setPlayListIndex(index)
     console.log(index)

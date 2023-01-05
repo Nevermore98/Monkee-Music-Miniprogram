@@ -4,7 +4,7 @@
 <image class="image-blur" src="{{currentSong.al.picUrl}}" mode="aspectFill"></image>
 <view class="mask"></view>
 <!-- 导航栏 -->
-<nav-bar>
+<nav-bar bind:left-tap="onNavBackTap">
   <view class="nav-bar-tabs" slot="center">
     <block wx:for="{{navBarTitles}}" wx:key="*this">
       <view bindtap="onNavBarItemTap" data-index="{{index}}" class="item {{currentPage === index ? 'active' : ''}}">
@@ -32,7 +32,7 @@
         </view>
       </view>
       <view class="btns">
-        <view class="icomoon icon-list"></view>
+        <view bindtap="onModeTap" class="icomoon icon-{{playModeName}}"></view>
         <view bindtap="onPrevBtnTap" class="icomoon icon-last"></view>
         <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
         <view bindtap="onNextBtnTap" class="icomoon icon-next"></view>

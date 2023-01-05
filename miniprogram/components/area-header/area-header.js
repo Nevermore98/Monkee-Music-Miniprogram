@@ -13,7 +13,7 @@ Component({
 
   methods: {
     onMoreTap() {
-      this.triggerEvent('more-click')
+      this.triggerEvent('more-tap')
     }
   }
 })

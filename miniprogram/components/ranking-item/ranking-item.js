@@ -16,8 +16,12 @@ Component({
   },
   lifetimes: {
     attached() {
+      const rankingItemTracks = this.properties.rankingItemData.tracks.slice(
+        0,
+        6
+      )
       this.setData({
-        rankingItemTracks: this.properties.rankingItemData.tracks.slice(0, 6)
+        rankingItemTracks
       })
     }
   },
