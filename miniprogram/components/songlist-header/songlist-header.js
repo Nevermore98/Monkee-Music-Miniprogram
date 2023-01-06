@@ -13,6 +13,9 @@ Component({
   methods: {
     onDescTap() {
       console.log('onDescTap')
+    },
+    onNavBackTap() {
+      wx.navigateBack()
     }
   }
 })

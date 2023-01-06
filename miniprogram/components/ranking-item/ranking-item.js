@@ -1,6 +1,12 @@
 // components/ranking-item/ranking-item.js
+import create from 'mini-stores'
+import playerStore from '../../stores/playerStore'
 
-Component({
+const stores = {
+  $player: playerStore
+}
+
+create.Component(stores, {
   properties: {
     rankingItemData: {
       type: Object,
@@ -33,6 +39,15 @@ Component({
       wx.navigateTo({
         url: `/pages/detail-songlist/detail-songlist?type=ranking&rankingType=${rankingType}`
       })
+    },
+    onSongItemWrapperTap(e) {
+      const index = e.currentTarget.dataset.index
+      const playList = this.data.rankingItemData.tracks
+      stores.$player.setPlayList(playList)
+      stores.$player.setSequencePlayList(playList)
+      console.log(index)
+      stores.$player.setCurrentPlayIndex(index)
+      stores.$player.setIsPlaying(true)
     }
   }
 })

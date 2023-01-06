@@ -44,12 +44,15 @@
   }
   .song-info {
     .song-name {
+      .two-lines-ellipsis();
+      min-height: 56rpx;
       margin-bottom: 10rpx;
       font-size: 40rpx;
       font-weight: 500;
       color: #fff;
     }
     .song-artist {
+      .one-line-ellipsis();
       font-size: 30rpx;
       color: rgba(255, 255, 255, 0.6);
     }
@@ -122,7 +125,9 @@
     .current-active {
       color: #fff;
       font-size: 42rpx;
-      line-height: 80rpx;
+      line-height: 60rpx;
+      padding: 30rpx;
+
       font-weight: 700;
       transition: font-size 200ms, height 0;
     }

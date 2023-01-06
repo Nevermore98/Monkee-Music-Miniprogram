@@ -1,7 +1,7 @@
 <!-- pages/music-player/music-player.wxml -->
 <wxs src="../../utils/format.wxs" module="format" />
 <!-- 背景图片以及遮罩层 -->
-<image class="image-blur" src="{{currentSong.al.picUrl}}" mode="aspectFill"></image>
+<image class="image-blur" src="{{$player.currentSong.al.picUrl}}" mode="aspectFill"></image>
 <view class="mask"></view>
 <!-- 导航栏 -->
 <nav-bar bind:left-tap="onNavBackTap">
@@ -16,34 +16,39 @@
 </nav-bar>
 <!-- 歌曲与歌词滑动页 -->
 <swiper style="height: {{swiperHeight}}px;" bindchange="onSwiperChange" current="{{currentPage}}">
+  <!-- 歌词页 -->
   <swiper-item class="song-page">
-    <image class="song-cover" src="{{currentSong.al.picUrl}}" mode="widthFix" />
+    <image class="song-cover" src="{{$player.currentSong.al.picUrl}}" mode="widthFix" />
     <view class="song-info">
-      <view class="song-name">{{currentSong.name}}</view>
-      <view class="song-artist">{{formattedArtist}}</view>
+      <view class="song-name">{{$player.currentSong.name}}</view>
+      <view class="song-artist">{{$player.formattedArtist}}</view>
     </view>
-    <view class="line-lyric">{{currentLyricText}}</view>
+    <view class="line-lyric">{{$player.currentLyricText}}</view>
+    <!-- 滑块与按钮 -->
     <view class="song-control">
       <view class="progress">
-        <van-slider class="slider {{isSliderDragging ? 'dragging' : ''}}" step="{{0.1}}" value="{{sliderValue}}" bind:change="onSliderChange" bind:drag="onSliderDragging" bar-height="5px" />
+        <!-- TODO 滑动条自定义样式 -->
+        <slider class="slider" block-size="12" value="{{$player.progressValue}}" step="{{0.1}}" bindchange="onSliderChange" bindchanging="onSliderDragging" />
+        <!-- <van-slider class="slider {{isSliderDragging ? 'dragging' : ''}}" step="{{0.1}}" value="{{$player.progressValue}}" bind:change="onSliderChange" bind:drag="onSliderDragging" bar-height="5px" /> -->
         <view class="time">
-          <view class="time-current">{{format.formatTime(currentTime)}}</view>
-          <view class="time-duration">{{format.formatTime(durationTime)}}</view>
+          <view class="time-current">{{format.formatTime($player.currentTime)}}</view>
+          <view class="time-duration">{{format.formatTime($player.durationTime)}}</view>
         </view>
       </view>
       <view class="btns">
-        <view bindtap="onModeTap" class="icomoon icon-{{playModeName}}"></view>
+        <view bindtap="onModeTap" class="icomoon icon-{{$player.playModeName}}"></view>
         <view bindtap="onPrevBtnTap" class="icomoon icon-last"></view>
-        <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
+        <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{$player.isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
         <view bindtap="onNextBtnTap" class="icomoon icon-next"></view>
         <view class="icomoon icon-MdiPlaylistMusic"></view>
       </view>
     </view>
   </swiper-item>
+  <!-- 歌词页 -->
   <swiper-item class="lyric-page">
-    <scroll-view class="lyric-list" scroll-y scroll-top="{{lyricScrollTop}}rpx" scroll-with-animation enable-passive>
-      <block wx:for="{{lyricInfos}}" wx:key="lineTime">
-        <view bindtap="onLyricItemTap" data-index="{{index}}" class="lyric-item {{currentLyricIndex === index ? 'current-active': ''}} {{tapLyricIndex === index ? 'tap-active': ''}}" style="margin-top: {{index === 0 ? (swiperHeight/2-80) : 0}}px;">
+    <scroll-view class="lyric-list" scroll-y scroll-top="{{$player.lyricScrollTop}}rpx" scroll-with-animation enable-passive>
+      <block wx:for="{{$player.lyricInfos}}" wx:key="lineTime">
+        <view bindtap="onLyricItemTap" data-index="{{index}}" class="lyric-item {{$player.currentLyricIndex === index ? 'current-active': ''}} {{tapLyricIndex === index ? 'tap-active': ''}}" style="margin-top: {{index === 0 ? (swiperHeight/2-80) : 0}}px;">
           {{item.text}}
         </view>
       </block>
@@ -52,7 +57,7 @@
     </scroll-view>
     <view class="lyric-control">
       <!-- TODO 更换图标 -->
-      <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{isPlaying ? 'BiPauseCircle' : 'Fa6SolidCirclePlay'}}"></view>
+      <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{$player.isPlaying ? 'BiPauseCircle' : 'Fa6SolidCirclePlay'}}"></view>
     </view>
   </swiper-item>
 </swiper>

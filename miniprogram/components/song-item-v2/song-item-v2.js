@@ -29,7 +29,6 @@ Component({
       wx.navigateTo({
         url: `/pages/music-player/music-player?id=${id}`
       })
-      this.setData({ isShowPlayer: true })
     }
   }
 })

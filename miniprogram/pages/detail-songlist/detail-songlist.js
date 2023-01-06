@@ -68,7 +68,6 @@ create.Page(stores, {
     this.setData({ songListTracks: songs.songs })
   },
   onSongItemTap(e) {
-    console.log('tap')
     let playList = []
     const index = e.currentTarget.dataset.index
 
@@ -79,6 +78,8 @@ create.Page(stores, {
     }
     console.log(index)
     stores.$player.setPlayList(playList)
-    stores.$player.setPlayListIndex(index)
+    stores.$player.setSequencePlayList(playList)
+    stores.$player.setCurrentPlayIndex(index)
+    stores.$player.setIsPlaying(true)
   }
 })

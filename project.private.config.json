@@ -51,6 +51,13 @@
           "query": "id=298838",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "歌单列表详情",
+          "pathName": "pages/detail-songlist/detail-songlist",
+          "query": "type=songlist&id=365959097",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
