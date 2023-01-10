@@ -1,16 +1,14 @@
-.tarbar {
+@import url(/styles/icomoon.less);
+.tabbar {
   --tabbar-background-color: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: saturate(150%) blur(10px);
+  backdrop-filter: saturate(150%) blur(10px);
 
-  .van-tabbar {
-    -webkit-backdrop-filter: saturate(150%) blur(12px);
-    backdrop-filter: saturate(150%) blur(12px);
+  .van-tabbar-item__icon .icomoon {
+    margin-top: 20rpx;
+    font-size: 50rpx;
   }
-}
-
-.van-tabbar-item__icon .icomoon {
-  margin-top: 20rpx;
-  font-size: 50rpx;
-}
-.van-tabbar-item__text {
-  font-size: 22rpx;
+  .van-tabbar-item__text {
+    font-size: 22rpx;
+  }
 }

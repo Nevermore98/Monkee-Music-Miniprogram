@@ -1,0 +1,22 @@
+<!-- components/player-bar/player-bar.wxml -->
+<view class="player-bar-placeholder" wx:if="{{currentSong.name ||isPlaying}}"></view>
+<view class="player-bar" wx:if="{{currentSong.name || isPlaying}}" style="padding-bottom: {{paddingBottom}};">
+  <image class="cover cover-animation" src="{{currentSong.al.picUrl}}" style="animation-play-state: {{ isPlaying? 'running': 'paused' }};" bindtap="onPlayerBarTap" />
+  <view class="info-wrapper" bindtap="onPlayerBarTap">
+    <view class="info-text {{isLoop ? 'words-loop': ''}}">
+      <text class="name">{{ currentSong.name }}</text>
+      <text decode>&nbsp;-&nbsp;</text>
+      <text class="artists">{{ formattedArtist }}</text>
+    </view>
+    <view wx:if="{{isLoop}}" class="info-text {{isLoop ? 'words-loop': ''}}">
+      <text class="name">{{ currentSong.name }}</text>
+      <text decode>&nbsp;-&nbsp;</text>
+      <text class="artists">{{ formattedArtist }}</text>
+    </view>
+  </view>
+  <view class="control">
+    <view bindtap="onPlayOrPauseTap" class="icomoon icon-{{isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
+    <view class="icomoon icon-MdiPlaylistMusic"></view>
+  </view>
+</view>
+<van-popup show="{{ isShowPlayList }}" position="bottom" custom-style="height: 50%;" bind:close="onClose" />

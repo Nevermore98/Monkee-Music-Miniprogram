@@ -19,7 +19,7 @@ class Store {
     progressValue: 0, // 进度条百分值
 
     isFirstPlay: true,
-    isPlaying: true,
+    isPlaying: false,
 
     playModeIndex: PLAY_MODE.sequence,
     // TODO 顺序播放图标名改为 sequence

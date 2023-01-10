@@ -2,6 +2,7 @@
   "usingComponents": {
     "song-item": "/components/song-item/song-item",
     "song-item-v2": "/components/song-item-v2/song-item-v2",
-    "songlist-header": "/components/songlist-header/songlist-header"
+    "songlist-header": "/components/songlist-header/songlist-header",
+    "player-bar": "/components/player-bar/player-bar"
   }
 }

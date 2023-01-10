@@ -28,7 +28,7 @@
     <view class="song-control">
       <view class="progress">
         <!-- TODO 滑动条自定义样式 -->
-        <slider class="slider" block-size="12" value="{{$player.progressValue}}" step="{{0.1}}" bindchange="onSliderChange" bindchanging="onSliderDragging" />
+        <slider class="slider" block-size="12" value="{{$player.progressValue}}" activeColor="#fff" backgroundColor="#ffffff4d" step="{{0.1}}" bindchange="onSliderChange" bindchanging="onSliderDragging" />
         <!-- <van-slider class="slider {{isSliderDragging ? 'dragging' : ''}}" step="{{0.1}}" value="{{$player.progressValue}}" bind:change="onSliderChange" bind:drag="onSliderDragging" bar-height="5px" /> -->
         <view class="time">
           <view class="time-current">{{format.formatTime($player.currentTime)}}</view>

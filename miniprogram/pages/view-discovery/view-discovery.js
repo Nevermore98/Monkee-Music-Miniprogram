@@ -5,6 +5,7 @@ import {
   getRecommendSongList
 } from '../../services/discovery'
 import discoveryStore from '../../stores/discoveryStore'
+import playerStore from '../../stores/playerStore'
 import create from 'mini-stores'
 import querySelect from '../../utils/query-select'
 import throttle from '../../utils/throttle'
@@ -13,7 +14,8 @@ const querySelectThrottle = throttle(querySelect, 100)
 const app = getApp()
 
 const stores = {
-  // $discovery: discoveryStore
+  // $discovery: discoveryStore,
+  $player: playerStore
 }
 
 create.Page(stores, {
@@ -26,9 +28,10 @@ create.Page(stores, {
     hotSongList: [], // 热门歌单
     recommendSongList: [], // 推荐歌单
     rankingInfos: {}, // 榜单展示信息
-    isRankingEmpty: true, // 榜单是否为空
+    // isRankingEmpty: true, // 榜单是否为空
     // TODO 有问题
-    isBannersEmpty: true // 轮播图是否为空
+    isBannersEmpty: true, // 轮播图是否为空
+    paddingBottom: 0
   },
   onShow() {
     this.getTabBar().init()
@@ -39,6 +42,7 @@ create.Page(stores, {
     this.fetchHotSongList()
 
     await discoveryStore.fetchRankingAction()
+    // stores.$player.playSongAction(1807799505)
 
     this.setData({
       rankingInfos: {
@@ -47,25 +51,14 @@ create.Page(stores, {
         upRanking: discoveryStore.data.upRanking,
         originRanking: discoveryStore.data.originRanking
       }
+      // paddingBottom: env(safe-area-inset-bottom)+50px
     })
-    this.setData({ isRankingEmpty: false })
+    // this.setData({ isRankingEmpty: false })
   },
   onReady() {
     // 搜索框与胶囊按钮的对齐
-    // const res = wx.getMenuButtonBoundingClientRect()
-    // console.log(res)
     this.setData({ searchBarTop: app.globalData.menuButtonInfo.top })
     this.setData({ searchBarHeight: app.globalData.menuButtonInfo.height })
-
-    // 获取不到自定义组件的元素？
-    // this.createSelectorQuery()
-    //   .select('.van-search')
-    //   .boundingClientRect((rect) => {
-    //     console.log('rect', rect)
-    //   })
-    //   .exec((rect) => {
-    //     console.log('rect', rect)
-    //   })
   },
   // 获取默认搜索关键词
   async fetchDefaultSearch() {

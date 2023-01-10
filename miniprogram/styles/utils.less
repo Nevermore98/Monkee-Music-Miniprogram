@@ -32,3 +32,22 @@
     margin-right: 6rpx;
   }
 }
+
+// 文字过长时，文字循环滚动动画
+.words-loop {
+  animation: 15s wordsLoop infinite linear;
+}
+@keyframes wordsLoop {
+  0% {
+    transform: translateX(0px);
+  }
+
+  15% {
+    transform: translateX(0px);
+  }
+
+  100% {
+    // -2.5rem 即 span 之间的边距
+    transform: translateX(calc(-100% - 50px));
+  }
+}

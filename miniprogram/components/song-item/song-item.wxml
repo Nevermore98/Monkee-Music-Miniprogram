@@ -7,4 +7,5 @@
     <view class="name">{{songItemData.name}}</view>
     <view class="artist">{{formattedArtist}}</view>
   </view>
+  <!-- <canvas id="myCanvas" type="2d" style="border: 1px solid; width: 40px; height: 40px;" /> -->
 </view>

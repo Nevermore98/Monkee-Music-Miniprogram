@@ -1,0 +1,94 @@
+/* components/player-bar/player-bar.wxss */
+@import url(/styles/utils.less);
+@import url(/styles/icomoon.less);
+
+// 播放栏
+.player-bar {
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  right: 0;
+  // height: calc(env(safe-area-inset-bottom) + 44px);
+  bottom: 0;
+  // env(safe-area-inset-bottom) 是 vant 里的
+  // bottom: calc(env(safe-area-inset-bottom) + 50px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding: 0 8px;
+
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  background: #fafafa;
+
+  .cover {
+    position: relative;
+    flex: none;
+    top: -8px;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+
+  @keyframes rotateAnimation {
+    0% {
+      transform: rotate(0);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .cover-animation {
+    animation: rotateAnimation 30s linear infinite;
+  }
+
+  .info-wrapper {
+    flex: 1;
+    height: 44px;
+    display: flex;
+    font-size: 28rpx;
+
+    margin-left: 20rpx;
+    white-space: nowrap;
+    overflow: hidden;
+
+    .info-text {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      margin-right: 50px;
+
+      .name {
+        font-weight: 500;
+      }
+      .artists {
+        color: rgba(150, 151, 153, 0.8);
+      }
+    }
+  }
+
+  .control {
+    display: flex;
+    align-items: center;
+    font-size: 48rpx;
+    z-index: 2;
+    flex: none;
+    margin-left: 10px;
+
+    .icomoon {
+      height: 100%;
+    }
+
+    .icon-MdiPlaylistMusic {
+      margin-left: 14rpx;
+    }
+  }
+}
+.player-bar-placeholder {
+  height: 50px;
+  width: 100%;
+}

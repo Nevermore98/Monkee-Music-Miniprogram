@@ -1,4 +1,4 @@
-Page({
+Component({
   data: {
     active: 0,
     list: [
@@ -19,21 +19,23 @@ Page({
       }
     ]
   },
+  methods: {
+    onChange(event) {
+      this.setData({ active: event.detail })
+      wx.switchTab({
+        url: this.data.list[event.detail].url
+      })
+    },
 
-  // 不放在 methods 里
-  onChange(event) {
-    this.setData({ active: event.detail })
-    wx.switchTab({
-      url: this.data.list[event.detail].url
-    })
-  },
-
-  // 初始化，每个页面 onShow 时调用，根据路由设置 active
-  init() {
-    const page = getCurrentPages().pop()
-    console.log(page.route)
-    this.setData({
-      active: this.data.list.findIndex((item) => item.url === `/${page.route}`)
-    })
+    // 初始化，每个页面 onShow 时调用，根据路由设置 active
+    init() {
+      const page = getCurrentPages().pop()
+      console.log(page.route)
+      this.setData({
+        active: this.data.list.findIndex(
+          (item) => item.url === `/${page.route}`
+        )
+      })
+    }
   }
 })

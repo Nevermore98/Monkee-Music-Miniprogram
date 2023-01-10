@@ -1,6 +1,6 @@
 // pages/music-player/music-player.js
-import { getSongDetail, getSongLyric, getSongUrl } from '../../services/player'
-import { formatArtist } from '../../utils/utils'
+// import { getSongDetail, getSongLyric, getSongUrl } from '../../services/player'
+// import { formatArtist } from '../../utils/utils'
 import throttle from '../../utils/throttle'
 import create from 'mini-stores'
 import playerStore from '../../stores/playerStore'
@@ -48,7 +48,9 @@ create.Page(stores, {
     // this.fetchSongDetail()
     // this.fetchSongLyric()
     // this.setupPlaySong(id)
-    stores.$player.playSongAction(id)
+    if (id) {
+      stores.$player.playSongAction(id)
+    }
   },
   // swiper 改变时切换导航栏标题高亮
   onSwiperChange(e) {
@@ -108,5 +110,5 @@ create.Page(stores, {
   },
   onNextBtnTap() {
     stores.$player.changePlaySong(1)
-  },
+  }
 })

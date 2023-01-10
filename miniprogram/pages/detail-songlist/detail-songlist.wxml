@@ -16,3 +16,4 @@
     </block>
   </view>
 </view>
+<player-bar paddingBottom="env(safe-area-inset-bottom)" />
