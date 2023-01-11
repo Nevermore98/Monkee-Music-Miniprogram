@@ -28,10 +28,20 @@ export function getAllMV(offset = 0, limit = 30) {
     }
   })
 }
-
+// 获取 MV 播放地址
 export function getMVUrl(id) {
   return request.get({
     url: '/mv/url',
+    data: {
+      id
+    }
+  })
+}
+
+// 获取视频播放地址
+export function getVideoUrl(id) {
+  return request.get({
+    url: '/video/url',
     data: {
       id
     }
@@ -47,11 +57,30 @@ export function getMVInfo(id) {
   })
 }
 
-export function getMVRelated(id) {
+// 获取相关视频
+export function getVideoRelated(id) {
   return request.get({
     url: '/related/allvideo',
     data: {
       id
+    }
+  })
+}
+
+export function getVideoDetail(id) {
+  return request.get({
+    url: '/video/detail',
+    data: {
+      id
+    }
+  })
+}
+
+export function getMVSimilar(id) {
+  return request.get({
+    url: '/simi/mv',
+    data: {
+      mvid: id
     }
   })
 }

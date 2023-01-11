@@ -1,7 +1,17 @@
 // scroll-view 的父元素的高度必须是固定的，否则无法滚动
+@import url(/styles/utils.less);
+@import url(/styles/icomoon.less);
+
 page {
   height: 100vh;
+  position: relative;
   overflow: hidden;
+  color: #333;
+}
+.nav-bar {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
 }
 
 .video-wrapper {
@@ -18,64 +28,84 @@ page {
   // 100% 会随着内容高度变化，所以需要设置 page 高度为 100vh
   // height: calc(100% - 225px);
   height: calc(100% - 325px);
+  padding: 0 30rpx;
+
+  .info {
+    .name {
+      font-size: 36rpx;
+      font-weight: 500;
+      margin: 20rpx 0 10rpx 0;
+    }
+    .artist {
+      display: flex;
+      align-items: center;
+      font-size: 28rpx;
+      margin-bottom: 20rpx;
+
+      .avatar {
+        width: 60rpx;
+        height: 60rpx;
+        border-radius: 50%;
+        margin-right: 10rpx;
+      }
+    }
+
+    .desc {
+      font-size: 28rpx;
+    }
+
+    .statistics {
+      display: flex;
+      align-items: center;
+      font-size: 24rpx;
+      color: rgba(150, 151, 153, 0.8);
+      margin: 20rpx 0;
+      .play-count {
+        margin-right: 20rpx;
+      }
+    }
+  }
 
   .related {
     .related-item {
       display: flex;
       // align-items: center;
       padding: 10rpx 0;
-      border-bottom: 1px solid #eee;
+      // border-bottom: 1px solid #eee;
 
       .cover {
         position: relative;
 
         .image {
-          width: 350rpx;
-          height: 200rpx;
-          border-radius: 20rpx;
-          margin-right: 10rpx;
+          width: 280rpx;
+          height: 150rpx;
+          border-radius: 10rpx;
+          margin-right: 20rpx;
         }
 
-        .info {
+        .duration {
           position: absolute;
-          padding: 0 8rpx;
-          width: 100%;
           bottom: 18rpx;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          color: #fff;
-          font-size: 22rpx;
-
-          .left {
-            display: flex;
-            align-items: center;
-            padding: 0 8rpx;
-            border-radius: 999px;
-            background-color: rgba(0, 0, 0, 0.2);
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-
-            .icon-music {
-              font-size: 22rpx;
-              margin-right: 6rpx;
-            }
-          }
-          .duration {
-            padding: 4rpx 12rpx;
-            border-radius: 999px;
-            background-color: rgba(0, 0, 0, 0.2);
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-          }
+          right: 30rpx;
+          font-size: 24rpx;
+          line-height: 28rpx;
+          .play-count-effect();
         }
       }
 
-      .description {
+      .desc {
+        font-size: 24rpx;
+        color: rgba(150, 151, 153, 0.8);
         .title {
-          flex: 1;
           font-size: 28rpx;
           color: #333;
+          .two-lines-ellipsis();
+        }
+        .creator {
+          .one-line-ellipsis();
+        }
+        .play-count {
+          // font-size: 26rpx;
         }
       }
     }

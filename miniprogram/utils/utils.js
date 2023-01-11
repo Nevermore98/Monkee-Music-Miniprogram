@@ -36,3 +36,4 @@ export function shuffle(playList, currSongId) {
   }
   return arr
 }
+

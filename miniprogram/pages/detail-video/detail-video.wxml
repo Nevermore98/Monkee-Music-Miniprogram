@@ -1,5 +1,6 @@
 <!-- pages/detail-video/detail-video.wxml -->
 <wxs src="/utils/format.wxs" module="format" />
+<nav-bar class="nav-bar" bind:left-tap="onNavBackTap" />
 <view class="video-wrapper">
   <video class="video" src="{{mvUrl}}" autoplay play-btn-position="center" enable-play-gesture referrer-policy="origin" />
 </view>
@@ -7,31 +8,33 @@
 <scroll-view class="content" scroll-y>
   <!-- 视频描述 -->
   <view class="info">
-    <view>{{mvInfo.name}}</view>
-    <view>{{mvInfo.artistName}}</view>
-    <view>{{mvInfo.briefDesc}}</view>
-    <view>{{mvInfo.desc}}</view>
-    <view>{{mvInfo.publishTime}}</view>
+    <view class="name">{{mvInfo.name || videoInfo.title}}</view>
+    <view class="artist">
+      <image class="avatar" src="{{mvInfo.artists[0].img1v1Url || videoInfo.creator.avatarUrl}}" />
+      <view class="artist-name">{{mvInfo.artistName || videoInfo.creator.nickname}}</view>
+    </view>
+    <view class="desc">{{mvInfo.desc || videoInfo.description || '暂无描述'}}</view>
+    <view class="statistics">
+      <view class="play-count">
+        {{format.formatPlayCount(mvInfo.playCount) || format.formatPlayCount(videoInfo.playTime)}}次观看
+      </view>
+      <view class="publish-time">发布于 {{ mvInfo.publishTime || videoPublishTime}}</view>
+    </view>
   </view>
   <!-- 相关视频 -->
   <view class="related">
     <block wx:for="{{relatedList}}" wx:key="vid">
-      <view class="related-item">
+      <view class="related-item" bindtap="onRelatedTap" data-vid="{{item.vid}}">
         <view class="cover">
-          <image class="image" src="{{item.coverUrl}}" mode="aspectFit" />
-          <view class="info">
-            <view class="left">
-              <view class="icomoon icon-music"></view>
-              <view class="count">{{format.formatPlayCount(item.playTime)}}</view>
-            </view>
-            <view class="duration">{{format.formatTime(item.durationms,false)}}</view>
-          </view>
+          <image class="image" src="{{item.coverUrl}}" mode="aspectFill" />
+          <view class="duration">{{format.formatTime(item.durationms,false)}}</view>
         </view>
         <!-- <view class="title">{{item.durationms}}</view>
         <view class="title">{{item.playTime}}</view> -->
-        <view class="description">
+        <view class="desc">
           <view class="title">{{item.title}}</view>
           <view class="creator">{{item.creator[0].userName}}</view>
+          <view class="play-count">{{format.formatPlayCount(item.playTime) + '次播放'}}</view>
         </view>
       </view>
     </block>
