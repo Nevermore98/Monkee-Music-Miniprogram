@@ -11,7 +11,7 @@ export default function throttle(fn, delay = 500) {
           }, delay)
         }
       } catch (err) {
-        reject(err)
+        console.log(err)
       }
     })
   }

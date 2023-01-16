@@ -2,31 +2,43 @@
 @import url(/styles/utils.less);
 @import url(/styles/icomoon.less);
 
+.press-effect {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.controls-effect {
+  background-color: rgba(0, 0, 0, 0.1);
+  &::before {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
 .song-item-v2 {
   position: relative;
-  display: grid;
-  grid-template-columns: 90rpx 1fr min-content;
+  // display: grid;
+  // grid-template-columns: 90rpx 1fr min-content;
+  display: flex;
+  align-items: center;
   padding: 10rpx 0;
   height: 108rpx;
-
-  &:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
+  font-size: 32rpx;
 
   .index {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 90rpx;
     font-family: 'WeChatSans-Medium';
-    color: rgba(150, 151, 153, 0.8);
-    margin-left: 6rpx;
+    color: #969799cc;
+    margin: 0 8rpx 0 6rpx;
   }
   .info {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    flex: 1;
     overflow: hidden;
-    padding: 0 8rpx;
+    // padding: 0 8rpx;
 
     .name {
       .one-line-ellipsis();
@@ -36,19 +48,24 @@
     .artist {
       .one-line-ellipsis();
       font-size: 24rpx;
-      color: rgba(150, 151, 153, 0.8);
+      color: #969799cc;
     }
   }
 
   .controls {
     display: flex;
+    height: 100%;
+    flex: none;
+    margin-left: 8rpx;
+
     .icon {
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 46rpx;
       color: #a3a3a3;
-      margin: 0 18rpx;
+      padding: 0 18rpx;
+      border-radius: 10rpx;
     }
   }
 }

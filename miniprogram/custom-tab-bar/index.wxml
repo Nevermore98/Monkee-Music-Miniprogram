@@ -1,4 +1,4 @@
-<van-tabbar style="height: calc(100vh - 96rpx - env(safe-area-inset-bottom));" active="{{ active }}" bind:change="onChange" active-color="red" inactive-color="#969799" custom-class="tabbar">
+<van-tabbar active="{{ active }}" bind:change="onChange" active-color="#fe231e" inactive-color="#969799" custom-class="tabbar">
   <van-tabbar-item wx:for="{{ list }}" wx:key="index">
     <view slot="icon">
       <view class="icomoon {{item.icon}}"></view>

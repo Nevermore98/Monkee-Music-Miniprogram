@@ -18,7 +18,7 @@
 <swiper style="height: {{swiperHeight}}px;" bindchange="onSwiperChange" current="{{currentPage}}">
   <!-- 歌词页 -->
   <swiper-item class="song-page">
-    <image class="song-cover" src="{{$player.currentSong.al.picUrl}}" mode="widthFix" />
+    <image class="song-cover" src="{{$player.currentSong.al.picUrl}}" mode="aspectFill" />
     <view class="song-info">
       <view class="song-name">{{$player.currentSong.name}}</view>
       <view class="song-artist">{{$player.formattedArtist}}</view>

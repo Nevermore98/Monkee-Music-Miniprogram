@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "area-header": "/components/area-header/area-header",
-    "menu-item": "/components/menu-item/menu-item"
+    "menu-item": "/components/menu-item/menu-item",
+    "player-bar": "/components/player-bar/player-bar"
   }
 }

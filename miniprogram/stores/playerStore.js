@@ -47,6 +47,7 @@ class Store {
     console.log(songDetail.songs[0])
 
     const songUrl = await getSongUrl(id)
+    console.log('歌曲链接', songUrl)
     this.data.songUrl = songUrl.data[0].url
     this.data.durationTime = songUrl.data[0].time
 
@@ -79,6 +80,9 @@ class Store {
         this.matchLyric()
         this.update()
       })
+      innerAudioContext.onPlay(() => {
+        this.setIsPlaying(true)
+      })
 
       innerAudioContext.onWaiting(() => {
         innerAudioContext.pause()
@@ -105,6 +109,10 @@ class Store {
       }
     }
     if (index === this.data.currentLyricIndex) return
+    if (this.data.lyricInfos.length === 1) {
+      this.data.currentLyricText = this.data.lyricInfos[0].text
+      return
+    }
     const currentLyricText = this.data.lyricInfos[index].text
 
     this.data.currentLyricText = currentLyricText

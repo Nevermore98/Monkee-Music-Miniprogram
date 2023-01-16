@@ -58,6 +58,13 @@
           "query": "type=songlist&id=365959097",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "搜索详情",
+          "pathName": "pages/detail-search/detail-search",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

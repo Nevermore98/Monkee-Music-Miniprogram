@@ -1,2 +1,4 @@
-<!--pages/view-mine/view-mine.wxml-->
+<!-- pages/view-mine/view-mine.wxml -->
 <text>pages/view-mine/view-mine.wxml</text>
+<!-- 播放栏 -->
+<player-bar paddingBottom="calc(50px + env(safe-area-inset-bottom))" />

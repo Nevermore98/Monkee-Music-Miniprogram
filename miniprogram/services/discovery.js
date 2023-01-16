@@ -9,12 +9,6 @@ export function getBanner(type = 2) {
   })
 }
 
-export function getDefaultSearch() {
-  return request.get({
-    url: '/search/default'
-  })
-}
-
 // 获取歌单详情，id 3778678 为热歌榜
 export function getSonglistDetail(id) {
   return request.get({

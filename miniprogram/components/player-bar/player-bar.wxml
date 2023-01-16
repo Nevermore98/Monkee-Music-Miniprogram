@@ -1,17 +1,18 @@
 <!-- components/player-bar/player-bar.wxml -->
-<view class="player-bar-placeholder" wx:if="{{currentSong.name ||isPlaying}}"></view>
+<view class="player-bar-placeholder" style="height: {{placeHolderHeight}}" wx:if="{{currentSong.name ||isPlaying}}"></view>
 <view class="player-bar" wx:if="{{currentSong.name || isPlaying}}" style="padding-bottom: {{paddingBottom}};">
-  <image class="cover cover-animation" src="{{currentSong.al.picUrl}}" style="animation-play-state: {{ isPlaying? 'running': 'paused' }};" bindtap="onPlayerBarTap" />
+  <!-- style="animation-play-state: {{ isPlaying? 'running': 'paused' }};" -->
+  <image class="cover" src="{{currentSong.al.picUrl}}" bindtap="onPlayerBarTap" />
   <view class="info-wrapper" bindtap="onPlayerBarTap">
     <view class="info-text {{isLoop ? 'words-loop': ''}}">
-      <text class="name">{{ currentSong.name }}</text>
+      <view class="name">{{ currentSong.name }}</view>
       <text decode>&nbsp;-&nbsp;</text>
-      <text class="artists">{{ formattedArtist }}</text>
+      <view class="artists">{{ formattedArtist }}</view>
     </view>
     <view wx:if="{{isLoop}}" class="info-text {{isLoop ? 'words-loop': ''}}">
-      <text class="name">{{ currentSong.name }}</text>
+      <view class="name">{{ currentSong.name }}</view>
       <text decode>&nbsp;-&nbsp;</text>
-      <text class="artists">{{ formattedArtist }}</text>
+      <view class="artists">{{ formattedArtist }}</view>
     </view>
   </view>
   <view class="control">

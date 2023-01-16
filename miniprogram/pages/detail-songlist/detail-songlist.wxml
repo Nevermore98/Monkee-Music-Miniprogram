@@ -1,10 +1,7 @@
 <!-- pages/detail-songlist/detail-songlist.wxml -->
 <view>
   <songlist-header songListInfo="{{songListInfo}}" type="{{type}}" />
-  <!-- <image class="image" style="height:{{type==='ranking'?'400rpx':'800rpx'}}" src="{{songListInfo.coverImgUrl}}" mode="aspectFill" /> -->
-  <!-- <view class="title">{{songListInfo.name}}</view>
-  <view class="title">{{songListInfo.description}}</view> -->
-  <view class="play-all" wx:if="{{songListTracks.length || songListInfo.tracks.length}}">
+  <view class="play-all" hover-class="press-effect" wx:if="{{songListTracks.length || songListInfo.tracks.length}}">
     <view class="icomoon icon-Fa6SolidCirclePlay"></view>
     <text class="play-all-text">播放全部</text>
     <text class="total-number">({{songListTracks.length || songListInfo.tracks.length }})</text>
@@ -16,4 +13,4 @@
     </block>
   </view>
 </view>
-<player-bar paddingBottom="env(safe-area-inset-bottom)" />
+<player-bar paddingBottom="env(safe-area-inset-bottom)" placeHolderHeight="calc(50px + env(safe-area-inset-bottom));" />

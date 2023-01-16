@@ -1,0 +1,50 @@
+/* components/video-item-v2/video-item-v2.wxss */
+@import url(/styles/utils.less);
+@import url(/styles/icomoon.less);
+
+.press-effect {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.video-item-v2 {
+  display: flex;
+  padding: 10rpx 30rpx;
+  // margin: 10rpx 0;
+  // margin-top: 5rpx;
+
+  .cover {
+    position: relative;
+
+    .image {
+      width: 280rpx;
+      height: 150rpx;
+      border-radius: 10rpx;
+      margin-right: 20rpx;
+    }
+
+    .duration {
+      position: absolute;
+      bottom: 18rpx;
+      right: 30rpx;
+      font-size: 24rpx;
+      line-height: 28rpx;
+      .play-count-effect();
+    }
+  }
+
+  .desc {
+    font-size: 24rpx;
+    color: #969799cc;
+    .title {
+      font-size: 28rpx;
+      color: #333;
+      .two-lines-ellipsis();
+    }
+    .creator {
+      .one-line-ellipsis();
+    }
+    .play-count {
+      // font-size: 26rpx;
+    }
+  }
+}

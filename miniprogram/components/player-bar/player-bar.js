@@ -19,6 +19,10 @@ create.Component(stores, {
     paddingBottom: {
       type: String,
       value: ''
+    },
+    placeHolderHeight: {
+      type: String,
+      value: ''
     }
   },
   methods: {
@@ -72,6 +76,10 @@ create.Component(stores, {
           if (textWidth > wrapperWidth) {
             this.setData({
               isLoop: true
+            })
+          } else {
+            this.setData({
+              isLoop: false
             })
           }
         })

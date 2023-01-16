@@ -1,0 +1,35 @@
+/* components/songlist-item/songlist-item.wxss */
+@import url(/styles/utils.less);
+@import url(/styles/icomoon.less);
+
+.press-effect {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.songlist-item {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 30rpx;
+  color: #333;
+
+  .cover-image {
+    width: 110rpx;
+    height: 110rpx;
+    border-radius: 10rpx;
+    margin-right: 20rpx;
+    flex: none;
+  }
+  .info {
+    overflow: hidden;
+    .title {
+      font-size: 32rpx;
+      // font-weight: 500;
+      .one-line-ellipsis();
+    }
+    .desc {
+      font-size: 26rpx;
+      color: #969799cc;
+      .one-line-ellipsis();
+    }
+  }
+}

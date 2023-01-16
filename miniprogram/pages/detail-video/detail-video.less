@@ -15,11 +15,11 @@ page {
 }
 
 .video-wrapper {
-  padding-top: 90rpx;
+  padding-top: 50px;
   background-color: #000;
 
   .video {
-    // height: 215px;
+    height: 450rpx;
     width: 100%;
   }
 }
@@ -27,10 +27,10 @@ page {
 .content {
   // 100% 会随着内容高度变化，所以需要设置 page 高度为 100vh
   // height: calc(100% - 225px);
-  height: calc(100% - 325px);
-  padding: 0 30rpx;
+  height: calc(100vh - 550rpx);
 
   .info {
+    padding: 0 30rpx;
     .name {
       font-size: 36rpx;
       font-weight: 500;
@@ -58,7 +58,7 @@ page {
       display: flex;
       align-items: center;
       font-size: 24rpx;
-      color: rgba(150, 151, 153, 0.8);
+      color: #969799cc;
       margin: 20rpx 0;
       .play-count {
         margin-right: 20rpx;
@@ -67,47 +67,53 @@ page {
   }
 
   .related {
-    .related-item {
-      display: flex;
-      // align-items: center;
-      padding: 10rpx 0;
-      // border-bottom: 1px solid #eee;
-
-      .cover {
-        position: relative;
-
-        .image {
-          width: 280rpx;
-          height: 150rpx;
-          border-radius: 10rpx;
-          margin-right: 20rpx;
-        }
-
-        .duration {
-          position: absolute;
-          bottom: 18rpx;
-          right: 30rpx;
-          font-size: 24rpx;
-          line-height: 28rpx;
-          .play-count-effect();
-        }
-      }
-
-      .desc {
-        font-size: 24rpx;
-        color: rgba(150, 151, 153, 0.8);
-        .title {
-          font-size: 28rpx;
-          color: #333;
-          .two-lines-ellipsis();
-        }
-        .creator {
-          .one-line-ellipsis();
-        }
-        .play-count {
-          // font-size: 26rpx;
-        }
-      }
+    .no-more {
+      font-size: 28rpx;
+      color: #969799cc;
+      text-align: center;
+      padding: 20rpx 0 50rpx 0;
     }
+    // .related-item {
+    //   display: flex;
+    //   // align-items: center;
+    //   padding: 10rpx 0;
+    //   // border-bottom: 1px solid #eee;
+
+    //   .cover {
+    //     position: relative;
+
+    //     .image {
+    //       width: 280rpx;
+    //       height: 150rpx;
+    //       border-radius: 10rpx;
+    //       margin-right: 20rpx;
+    //     }
+
+    //     .duration {
+    //       position: absolute;
+    //       bottom: 18rpx;
+    //       right: 30rpx;
+    //       font-size: 24rpx;
+    //       line-height: 28rpx;
+    //       .play-count-effect();
+    //     }
+    //   }
+
+    //   .desc {
+    //     font-size: 24rpx;
+    //     color: #969799cc;
+    //     .title {
+    //       font-size: 28rpx;
+    //       color: #333;
+    //       .two-lines-ellipsis();
+    //     }
+    //     .creator {
+    //       .one-line-ellipsis();
+    //     }
+    //     .play-count {
+    //       // font-size: 26rpx;
+    //     }
+    //   }
+    // }
   }
 }

@@ -8,6 +8,7 @@
     "van-search": "@vant/weapp/search/index",
     "van-icon": "@vant/weapp/icon/index",
     "van-popup": "@vant/weapp/popup/index",
-    "player-bar": "/components/player-bar/player-bar"
+    "player-bar": "/components/player-bar/player-bar",
+    "search-bar": "/components/search-bar/search-bar"
   }
 }

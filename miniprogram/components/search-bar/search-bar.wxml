@@ -1,0 +1,4 @@
+<!-- components/search-bar/search-bar.wxml -->
+<view class="search-bar" style="margin-top:{{marginTop}}px; width:{{width}};">
+  <van-search value="{{searchValue}}" shape="round" placeholder="{{defaultSearch}}" background="#f5f5f5" disabled="{{disabled}}" focus="{{isFocus}}" show-action="{{isShowCancel}}" bind:click-input="onSearchTap" bind:change="onSearchChange" bind:search="onSearchAction" bind:focus="onSearchFocus" bind:cancel="onSearchCancel" bind:clear="onSearchCancel" />
+</view>

@@ -2,7 +2,7 @@
 <wxs src="/utils/format.wxs" module="format" />
 <nav-bar class="nav-bar" bind:left-tap="onNavBackTap" />
 <view class="video-wrapper">
-  <video class="video" src="{{mvUrl}}" autoplay play-btn-position="center" enable-play-gesture referrer-policy="origin" />
+  <video class="video" src="{{mvUrl}}" object-fit="contain" autoplay play-btn-position="center" enable-play-gesture referrer-policy="origin" />
 </view>
 <!-- 注意方向 scroll-y -->
 <scroll-view class="content" scroll-y>
@@ -23,20 +23,22 @@
   </view>
   <!-- 相关视频 -->
   <view class="related">
-    <block wx:for="{{relatedList}}" wx:key="vid">
+    <!-- <block wx:for="{{relatedList}}" wx:key="vid">
       <view class="related-item" bindtap="onRelatedTap" data-vid="{{item.vid}}">
         <view class="cover">
           <image class="image" src="{{item.coverUrl}}" mode="aspectFill" />
           <view class="duration">{{format.formatTime(item.durationms,false)}}</view>
         </view>
-        <!-- <view class="title">{{item.durationms}}</view>
-        <view class="title">{{item.playTime}}</view> -->
         <view class="desc">
           <view class="title">{{item.title}}</view>
           <view class="creator">{{item.creator[0].userName}}</view>
           <view class="play-count">{{format.formatPlayCount(item.playTime) + '次播放'}}</view>
         </view>
       </view>
+    </block> -->
+    <block wx:for="{{relatedList}}" wx:key="vid">
+      <video-item-v2 class="video-item-wrapper" itemData="{{item}}" />
     </block>
+    <view class="no-more">没有更多相关视频了</view>
   </view>
 </scroll-view>

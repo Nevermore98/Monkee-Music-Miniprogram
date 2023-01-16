@@ -1,2 +1,80 @@
-<!--pages/detail-search/detail-search.wxml-->
-<text>pages/detail-search/detail-search.wxml</text>
+<!-- pages/detail-search/detail-search.wxml -->
+<view class="search-area">
+  <search-bar class="search-bar" isFocus="{{true}}" width="calc(100vw - 60rpx);" searchValue="{{searchValue}}" isShowCancel="{{true}}" bind:search-change="onSearchChange" bind:search-action="onSearchAction" bind:search-focus="onSearchFocus" bind:search-cancel="onSearchCancel" />
+</view>
+<!-- 搜索标签栏与搜索结果 -->
+<van-tabs custom-class="tabs" nav-class="nav" wx:if="{{ isSearched }}" active="{{ activeTabName }}" bind:change="onTabChange" bind:click="onTabClick" animated>
+  <!-- 歌曲搜索结果 -->
+  <van-tab name="song" title="歌曲">
+    <scroll-view bindscrolltolower="onScrollBottom" class="result-area" wx:if="{{searchValue.length && resultSongs.length}}" scroll-y>
+      <block wx:for="{{resultSongs}}" wx:key="id">
+        <song-item-v2 itemData="{{item}}"></song-item-v2>
+      </block>
+      <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
+      <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
+    </scroll-view>
+    <view class="loading" wx:if="{{isLoading && !resultSongs.length}}">加载中…</view>
+    <view class="no-result" wx:if="{{!isLoading && !resultSongs.length}}">暂无结果</view>
+  </van-tab>
+  <!-- 歌单搜索结果 -->
+  <van-tab name="songlist" title="歌单">
+    <scroll-view bindscrolltolower="onScrollBottom" class="result-area" wx:if="{{searchValue.length && resultSongLists.length}}" scroll-y>
+      <block wx:for="{{resultSongLists}}" wx:key="id">
+        <view>{{index + 1}}</view>
+        <songlist-item itemData="{{item}}" />
+      </block>
+      <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
+      <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
+      <!-- <view style="height: 50px;padding-bottom:100px">hh</view> -->
+    </scroll-view>
+    <view class="loading" wx:if="{{isLoading && !resultSongLists.length}}">加载中…</view>
+    <view class="no-result" wx:if="{{ !isLoading && !resultSongLists.length}}">暂无结果</view>
+  </van-tab>
+  <!-- 视频搜索结果 -->
+  <van-tab name="video" title="视频">
+    <scroll-view bindscrolltolower="onScrollBottom" class="result-area" wx:if="{{searchValue.length && resultVideos.length}}" scroll-y>
+      <block wx:for="{{resultVideos}}" wx:key="coverUrl">
+        <video-item-v2 itemData="{{item}}" />
+      </block>
+      <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
+      <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
+    </scroll-view>
+    <view class="loading" wx:if="{{isLoading && !resultVideos.length}}">加载中…</view>
+    <view class="no-result" wx:if="{{!isLoading && !resultVideos.length}}">暂无结果</view>
+  </van-tab>
+</van-tabs>
+<!-- 历史搜索 -->
+<view class="history-area" wx:if="{{!searchValue.length && historyKeywords.length}}">
+  <view class="title">
+    <text>历史搜索</text>
+    <view bindtap="onDeleteHistory" class="icomoon icon icon-MdiTrashCanOutline"></view>
+  </view>
+  <view class="keyword-list">
+    <block wx:for="{{historyKeywords}}" wx:key="*this">
+      <view class="tag" data-index="{{index}}" bindtap="onKeywordTap">{{item}}</view>
+    </block>
+  </view>
+</view>
+<!-- 热门搜索 -->
+<view class="hot-area" wx:if="{{!searchValue.length}}">
+  <view class="title">热门搜索</view>
+  <view class="keyword-list">
+    <block wx:for="{{hotKeywords}}" wx:key="first">
+      <view class="tag" bindtap="onKeywordTap" data-keyword="{{item.first}}">{{item.first}}</view>
+    </block>
+  </view>
+</view>
+<!-- 搜索建议 -->
+<view class="suggest-area" wx:if="{{suggestSongs.length}}">
+  <view class="suggest-list">
+    <block wx:for="{{suggestSongs}}" wx:key="keyword">
+      <view class="suggest-item" bindtap="onKeywordTap" data-keyword="{{item.keyword}}">
+        <view class="icomoon icon-music"></view>
+        <view class="keyword">
+          <rich-text class="rich-text" nodes="{{suggestSongsNodes[index]}}"></rich-text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+<player-bar paddingBottom="env(safe-area-inset-bottom)" placeHolderHeight="calc(50px + env(safe-area-inset-bottom));" />

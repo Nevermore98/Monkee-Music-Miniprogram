@@ -6,7 +6,7 @@ App({
     screenWidth: 375,
     screenHeight: 667,
     menuButtonInfo: {},
-    playerSwiperHeight: 0, // 播放器滑动高度
+    playerSwiperHeight: 0 // 播放器滑动高度
   },
   onLaunch() {
     wx.getSystemInfo().then((res) => {
@@ -23,5 +23,11 @@ App({
     const menuButtonInfo = wx.getMenuButtonBoundingClientRect()
     console.log(menuButtonInfo)
     this.globalData.menuButtonInfo = menuButtonInfo
+
+    // //
+    // console.log(document)
+    // console.log(app)
+    // console.log(page)
+    // app.addEventListener('touchstart', () => {})
   }
 })

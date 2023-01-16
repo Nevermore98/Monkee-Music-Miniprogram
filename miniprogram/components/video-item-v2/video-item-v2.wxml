@@ -1,0 +1,13 @@
+<!-- components/video-item-v2/video-item-v2.wxml -->
+<wxs src="/utils/format.wxs" module="format" />
+<view class="video-item-v2" hover-class="press-effect" bindtap="onRelatedTap" data-vid="{{itemData.vid}}">
+  <view class="cover">
+    <image class="image" src="{{itemData.coverUrl}}" mode="aspectFill" />
+    <view class="duration">{{format.formatTime(itemData.durationms,false)}}</view>
+  </view>
+  <view class="desc">
+    <view class="title">{{itemData.title}}</view>
+    <view class="creator">{{itemData.creator[0].userName}}</view>
+    <view class="play-count">{{format.formatPlayCount(itemData.playTime) + '次播放'}}</view>
+  </view>
+</view>

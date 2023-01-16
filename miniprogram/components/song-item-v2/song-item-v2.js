@@ -18,7 +18,9 @@ Component({
   lifetimes: {
     attached() {
       this.setData({
-        formattedArtist: formatArtist(this.properties.itemData.ar)
+        formattedArtist: formatArtist(
+          this.properties.itemData.ar || this.properties.itemData.artists
+        )
       })
     }
   },
@@ -29,6 +31,15 @@ Component({
       wx.navigateTo({
         url: `/pages/music-player/music-player?id=${id}`
       })
+    },
+    onVideoTap() {
+      const id = this.properties.itemData.mv || this.properties.itemData.mvid
+      wx.navigateTo({
+        url: `/pages/detail-video/detail-video?id=${id}`
+      })
+    },
+    onMoreTap() {
+      console.log('more')
     }
   }
 })

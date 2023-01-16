@@ -1,5 +1,4 @@
 import {
-  getDefaultSearch,
   getBanner,
   getSongList,
   getRecommendSongList
@@ -20,11 +19,8 @@ const stores = {
 
 create.Page(stores, {
   data: {
-    searchValue: '',
-    defaultSearch: '', // 默认搜索关键词
     banners: [], // 轮播图
     bannerHeight: 0, // 轮播图高度
-    searchBarTop: 0, // 搜索框距离顶部高度（与胶囊按钮对齐）
     hotSongList: [], // 热门歌单
     recommendSongList: [], // 推荐歌单
     rankingInfos: {}, // 榜单展示信息
@@ -38,7 +34,6 @@ create.Page(stores, {
   },
   async onLoad() {
     this.fetchBanners()
-    this.fetchDefaultSearch()
     this.fetchHotSongList()
 
     await discoveryStore.fetchRankingAction()
@@ -58,7 +53,6 @@ create.Page(stores, {
   onReady() {
     // 搜索框与胶囊按钮的对齐
     this.setData({ searchBarTop: app.globalData.menuButtonInfo.top })
-    this.setData({ searchBarHeight: app.globalData.menuButtonInfo.height })
   },
   // 获取默认搜索关键词
   async fetchDefaultSearch() {
