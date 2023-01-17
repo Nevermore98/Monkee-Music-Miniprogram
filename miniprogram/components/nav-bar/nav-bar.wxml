@@ -1,6 +1,6 @@
 <!-- components/nav-bar/nav-bar.wxml -->
-<view class="nav-bar-wrapper" style="padding-top:{{navBarTop}}px;">
-  <view class="nav-bar" style="height:{{navBarHeight}}px;">
+<view class="nav-bar-wrapper" style="padding-top:{{navBarTop}}px; background: {{$setting.isShowNavBarTitle ? $setting.navBarColor: 'transparent'}};">
+  <view class="nav-bar" style="height: {{navBarHeight}}px; color: {{$setting.isMainColorWhite ? '#333': '#fff'}}">
     <view class="left" bindtap="onLeftTap">
       <view class="slot">
         <slot name="left"></slot>
@@ -9,12 +9,16 @@
         <van-icon name="arrow-left" size="48rpx" />
       </view>
     </view>
-    <view class="center">
+    <view class="center" style="justify-content:{{isTitleCenter ? 'center' : 'start'}};">
       <view class="slot">
         <slot name="center"></slot>
       </view>
       <view class="default">{{title}}</view>
     </view>
-    <view class="right"></view>
+    <view class="right">
+      <view class="slot">
+        <slot name="right"></slot>
+      </view>
+    </view>
   </view>
 </view>

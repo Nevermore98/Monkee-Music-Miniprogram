@@ -1,7 +1,12 @@
 // components/nav-bar/nav-bar.js
-const app = getApp()
+import create from 'mini-stores'
+import settingStore from '../../stores/settingStore'
 
-Component({
+const stores = {
+  $setting: settingStore
+}
+
+create.Component(stores, {
   options: {
     multipleSlots: true
   },
@@ -9,6 +14,14 @@ Component({
     title: {
       type: String,
       value: ''
+    },
+    backGround: {
+      type: String,
+      value: ''
+    },
+    isTitleCenter: {
+      type: Boolean,
+      value: true
     }
   },
   data: {
@@ -25,3 +38,4 @@ Component({
     }
   }
 })
+const app = getApp()

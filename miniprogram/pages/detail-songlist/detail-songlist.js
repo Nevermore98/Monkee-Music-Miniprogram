@@ -1,16 +1,21 @@
 // pages/detail-songlist/detail-songlist.js
 import create from 'mini-stores'
+
 import {
   getSonglistDetail,
   getSongListAllSongs
 } from '../../services/discovery'
 import discoveryStore from '../../stores/discoveryStore'
 import playerStore from '../../stores/playerStore'
+import settingStore from '../../stores/settingStore'
 import { pick } from '../../utils/utils'
+import throttle from '../../utils/throttle'
+const app = getApp()
 
 const stores = {
   $discovery: discoveryStore,
-  $player: playerStore
+  $player: playerStore,
+  $setting: settingStore
 }
 
 create.Page(stores, {
@@ -19,7 +24,9 @@ create.Page(stores, {
     songListTracks: [],
     type: '',
     rankingType: '',
-    id: 0
+    id: 0,
+    songlistHeaderRef: null,
+    navBarColor: ''
   },
   onLoad(options) {
     const type = options.type
@@ -43,27 +50,42 @@ create.Page(stores, {
       this.fetchSongList()
     }
   },
+  onUnload() {
+    stores.$setting.setNavBarColor('')
+    stores.$setting.setIsMainColorWhite(false)
+    stores.$setting.setIsShowNavBarTitle(false)
+  },
+  onPageScroll: throttle(function (e) {
+    const scrollPixel = (app.globalData.screenWidth * 800) / 750
+
+    console.log(e.scrollTop)
+    if (e.scrollTop > scrollPixel) {
+      console.log('显示')
+      stores.$setting.setIsShowNavBarTitle(true)
+    } else {
+      stores.$setting.setIsShowNavBarTitle(false)
+    }
+  }, 100),
   async fetchSongList() {
     // getSonglistDetail 的 tracks：如果是歌单则只有 20 条数据，排行榜数据为全部
     const res = await getSonglistDetail(this.data.id)
     const songs = await getSongListAllSongs(this.data.id)
-    console.log(res)
-    console.log(songs)
-    // const pickArr = [
-    //   'name',
-    //   'description',
-    //   'coverImgUrl',
-    //   'updateTime',
-    //   'tracks',
-    //   'id',
-    //   'playCount',
-    //   'creator'
-    // ]
-    // this.data[key] = pick(res.playlist, pickArr)
+    console.log('歌单信息', res)
+    console.log('歌单所有歌曲', songs)
     for (let i = 0; i < songs.songs.length; i++) {
       const tracksPickArr = ['name', 'id', 'ar', 'al', 'mv', 'fee', 'dt']
       songs.songs[i] = pick(songs.songs[i], tracksPickArr)
     }
+    const infoPickArr = [
+      'name',
+      'description',
+      'coverImgUrl',
+      'updateTime',
+      'id',
+      'playCount',
+      'creator'
+    ]
+    res.playlist = pick(res.playlist, infoPickArr)
     this.setData({ songListInfo: res.playlist })
     this.setData({ songListTracks: songs.songs })
   },

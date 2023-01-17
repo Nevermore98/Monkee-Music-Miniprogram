@@ -1,10 +1,20 @@
 /* components/nav-bar/nav-bar.wxss */
+@import url(/styles/utils.less);
+@import url(/styles/icomoon.less);
+
+.nav-bar-wrapper {
+  padding-bottom: 20rpx;
+}
+
 .nav-bar {
   display: flex;
   align-items: center;
   color: #fff;
+  // padding-bottom: 40rpx;
+
   .left {
     display: flex;
+    flex: none;
     justify-content: center;
     width: 100rpx;
   }
@@ -12,11 +22,16 @@
     flex: 1;
     display: flex;
     justify-content: center;
+    overflow: hidden;
   }
   .right {
     display: flex;
+    flex: none;
     justify-content: center;
     width: 100rpx;
+    .icon {
+      font-size: 48rpx;
+    }
   }
 }
 .default {
@@ -25,5 +40,6 @@
 
 // .slot 为空时，显示 .default
 .slot:empty + .default {
-  display: block;
+  display: flex;
+  align-items: center;
 }

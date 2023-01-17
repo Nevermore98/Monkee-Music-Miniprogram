@@ -2,6 +2,11 @@
 @import url(/styles/utils.less);
 @import url(/styles/icomoon.less);
 
+.canvas {
+  position: fixed;
+  left: 100%;
+}
+
 .songlist-header {
   position: relative;
   display: flex;
@@ -14,6 +19,17 @@
     position: fixed;
     width: 100%;
     z-index: 100;
+
+    .title {
+      font-size: 36rpx;
+      font-weight: 500;
+      overflow: hidden;
+
+      .title-text {
+        // TODO 为什么这里不生效？
+        .one-line-ellipsis();
+      }
+    }
   }
 
   .cover-wrapper {

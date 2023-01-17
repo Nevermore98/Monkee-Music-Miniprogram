@@ -4,7 +4,7 @@
   <scroll-view class="menu-area-scroll" scroll-x enable-flex>
     <block wx:for="{{menuData}}" wx:key="id">
       <view class="menu-item-wrapper">
-        <menu-item itemData="{{item}}" />
+        <menu-item itemData="{{item}}" index="{{index}}" />
       </view>
     </block>
   </scroll-view>
