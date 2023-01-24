@@ -39,12 +39,8 @@ Page({
     },
     isLoadingMore: false,
     tabHasMore: true,
-    songlistCount: 0
-    // isLoadingMore: {
-    //   song: false,
-    //   songlist: false,
-    //   video: false
-    // }
+    songlistCount: 0,
+    isShowPlayerBar: false
   },
   onLoad() {
     this.fetchHotSearch()
@@ -61,36 +57,22 @@ Page({
       .catch((err) => {})
   },
   async onScrollBottom(e) {
-    console.log('isLoadingMore', this.data.isLoadingMore)
+    console.log('hasMore', this.data.hasMore)
     if (this.data.isLoadingMore) return
-    // if (this.data.songlistCount === this.data.resultSongLists.length) return
     if (!this.data.hasMore[this.data.activeTabName]) return
     console.log('---加载更多---')
+
     this.setData({ isLoadingMore: true })
     await this.fetchSearchResult()
     this.setData({ isLoadingMore: false })
-    // if (this.data.isLoadingMore) return
-    // if (!this.data.hasMore[this.data.activeTabName]) return
-    const isLoadingMore = this.data.isLoadingMore
-    const activeTabName = this.data.activeTabName
-    console.log('activeTabName', activeTabName)
-    console.log('hasMore', this.data.hasMore)
+
+    console.log('activeTabName', this.data.activeTabName)
     console.log('offset', this.data.offset)
-    console.log('isLoadingMore', this.data.isLoadingMore)
-
-    // 触发两次？？
-    // this.data.offset[activeTabName] = this.data.offset[activeTabName] + 30
-    // this.fetchSearchResult()
-    // if (this.data.isLoadingMore) {
-    //   await this.fetchSearchResult()
-    //   // this.setData({ isLoadingMore: false })
-    // }
-
     console.log('isLoadingMore', this.data.isLoadingMore)
   },
   async fetchHotSearch() {
     const res = await getHotSearch()
-    console.log(res)
+    console.log('热门搜索', res)
     this.setData({
       hotKeywords: res.result.hots
     })
@@ -114,7 +96,6 @@ Page({
     this.setData({
       suggestSongs,
       suggestSongsNodes
-      // isSearched: false
     })
   },
   async fetchSearchResult() {
@@ -161,7 +142,6 @@ Page({
     }
 
     this.setData({ isLoading: true })
-    // this.setData({ isLoadingMore: true })
 
     console.log('get 时 offset', offset)
     const res = await getSearchResult(searchValue, activeTabName, offset)
@@ -203,12 +183,10 @@ Page({
     }
     this.setData({ isLoading: false })
     this.setData({ isSearched: true })
-    // this.setData({ isLoadingMore: false })
     this.data.offset[activeTabName] = this.data.offset[activeTabName] + 30
     // TODO 后端返回的 hasMore 有问题，offset 改变后返回的数据也有重复的？
-    // this.data.songlistCount = res.result.playlistCount
-    this.data.hasMore[activeTabName] = res.result.hasMore
-    this.setData({ tabHasMore: res.result.hasMore })
+    this.data.hasMore[activeTabName] = res.result.hasMore || false
+    this.setData({ tabHasMore: res.result.hasMore || false })
   },
   // 搜索词改变，获取搜索建议
   onSearchChange(e) {
@@ -232,7 +210,6 @@ Page({
         searchValue: defaultSearch
       })
     }
-
     console.log('搜索', this.data.searchValue)
     this.fetchSearchResult()
   },
@@ -303,5 +280,9 @@ Page({
     this.setData({
       historyKeywords: []
     })
+  },
+  // 搜索页，点击搜索结果，底部出现播放器的占位空间
+  onSongItemTap(e) {
+    this.setData({ isShowPlayerBar: true })
   }
 })

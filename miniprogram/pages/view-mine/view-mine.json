@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "player-bar": "/components/player-bar/player-bar"
+    "player-bar": "/components/player-bar/player-bar",
+    "van-field": "@vant/weapp/field/index",
+    "van-button": "@vant/weapp/button/index"
   }
 }

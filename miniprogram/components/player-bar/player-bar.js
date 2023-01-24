@@ -38,6 +38,13 @@ create.Component(stores, {
         url: '/pages/music-player/music-player'
       })
     },
+    onPlayListTap() {
+      console.log('playlist tap')
+      wx.showToast({
+        title: '功能开发中',
+        icon: 'none'
+      })
+    },
     showPopup() {
       this.setData({ isShowPlayList: true })
     },

@@ -4,7 +4,7 @@
 <image class="image-blur" src="{{$player.currentSong.al.picUrl}}" mode="aspectFill"></image>
 <view class="mask"></view>
 <!-- 导航栏 -->
-<nav-bar bind:left-tap="onNavBackTap">
+<nav-bar bind:left-tap="onNavBackTap" style="background: transparent !important;">
   <view class="nav-bar-tabs" slot="center">
     <block wx:for="{{navBarTitles}}" wx:key="*this">
       <view bindtap="onNavBarItemTap" data-index="{{index}}" class="item {{currentPage === index ? 'active' : ''}}">
@@ -27,8 +27,7 @@
     <!-- 滑块与按钮 -->
     <view class="song-control">
       <view class="progress">
-        <!-- TODO 滑动条自定义样式 -->
-        <slider class="slider" block-size="12" value="{{$player.progressValue}}" activeColor="#fff" backgroundColor="#ffffff4d" step="{{0.1}}" bindchange="onSliderChange" bindchanging="onSliderDragging" />
+        <slider class="slider" block-size="12" value="{{$player.progressValue}}" activeColor="#fff" backgroundColor="#ffffff4d" step="{{0.5}}" bindchange="onSliderChange" bindchanging="onSliderDragging" />
         <!-- <van-slider class="slider {{isSliderDragging ? 'dragging' : ''}}" step="{{0.1}}" value="{{$player.progressValue}}" bind:change="onSliderChange" bind:drag="onSliderDragging" bar-height="5px" /> -->
         <view class="time">
           <view class="time-current">{{format.formatTime($player.currentTime)}}</view>
@@ -40,7 +39,7 @@
         <view bindtap="onPrevBtnTap" class="icomoon icon-last"></view>
         <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{$player.isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
         <view bindtap="onNextBtnTap" class="icomoon icon-next"></view>
-        <view class="icomoon icon-MdiPlaylistMusic"></view>
+        <view bindtap="onPlayListTap" class="icomoon icon-MdiPlaylistMusic"></view>
       </view>
     </view>
   </swiper-item>

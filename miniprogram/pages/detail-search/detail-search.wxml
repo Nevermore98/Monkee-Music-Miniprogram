@@ -8,10 +8,12 @@
   <van-tab name="song" title="歌曲">
     <scroll-view bindscrolltolower="onScrollBottom" class="result-area" wx:if="{{searchValue.length && resultSongs.length}}" scroll-y>
       <block wx:for="{{resultSongs}}" wx:key="id">
-        <song-item-v2 itemData="{{item}}"></song-item-v2>
+        <song-item-v2 bind:song-tap="onSongItemTap" itemData="{{item}}"></song-item-v2>
       </block>
-      <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
-      <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
+      <view style="padding-bottom: {{isShowPlayerBar ? '150rpx' : ''}}">
+        <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
+        <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
+      </view>
     </scroll-view>
     <view class="loading" wx:if="{{isLoading && !resultSongs.length}}">加载中…</view>
     <view class="no-result" wx:if="{{!isLoading && !resultSongs.length}}">暂无结果</view>
@@ -20,12 +22,12 @@
   <van-tab name="songlist" title="歌单">
     <scroll-view bindscrolltolower="onScrollBottom" class="result-area" wx:if="{{searchValue.length && resultSongLists.length}}" scroll-y>
       <block wx:for="{{resultSongLists}}" wx:key="id">
-        <view>{{index + 1}}</view>
         <songlist-item itemData="{{item}}" />
       </block>
-      <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
-      <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
-      <!-- <view style="height: 50px;padding-bottom:100px">hh</view> -->
+      <view style="padding-bottom: {{isShowPlayerBar ? '150rpx' : ''}}">
+        <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
+        <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
+      </view>
     </scroll-view>
     <view class="loading" wx:if="{{isLoading && !resultSongLists.length}}">加载中…</view>
     <view class="no-result" wx:if="{{ !isLoading && !resultSongLists.length}}">暂无结果</view>
@@ -36,8 +38,10 @@
       <block wx:for="{{resultVideos}}" wx:key="coverUrl">
         <video-item-v2 itemData="{{item}}" />
       </block>
-      <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
-      <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
+      <view style="padding-bottom: {{isShowPlayerBar ? '150rpx' : ''}}">
+        <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
+        <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
+      </view>
     </scroll-view>
     <view class="loading" wx:if="{{isLoading && !resultVideos.length}}">加载中…</view>
     <view class="no-result" wx:if="{{!isLoading && !resultVideos.length}}">暂无结果</view>

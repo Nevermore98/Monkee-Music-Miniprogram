@@ -32,13 +32,16 @@
     color: #969799cc;
     margin: 0 8rpx 0 6rpx;
   }
+  .icon-playing {
+    font-size: 40rpx;
+    color: #fe231e;
+  }
   .info {
     display: flex;
     justify-content: center;
     flex-direction: column;
     flex: 1;
     overflow: hidden;
-    // padding: 0 8rpx;
 
     .name {
       .one-line-ellipsis();
@@ -47,8 +50,19 @@
     }
     .artist {
       .one-line-ellipsis();
+      display: flex;
+      align-items: center;
       font-size: 24rpx;
       color: #969799cc;
+
+      .vip {
+        margin-right: 8rpx;
+        border: 1px solid;
+        border-radius: 6rpx;
+        color: #fe231e;
+        font-size: 16rpx;
+        font-weight: 500;
+      }
     }
   }
 
@@ -68,4 +82,14 @@
       border-radius: 10rpx;
     }
   }
+}
+
+// 歌曲不可用
+.unavailable {
+  .index,
+  .name {
+    color: #a3a3a3;
+  }
+
+  opacity: 0.4;
 }

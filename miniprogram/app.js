@@ -9,6 +9,9 @@ App({
     playerSwiperHeight: 0 // 播放器滑动高度
   },
   onLaunch() {
+    wx.cloud.init({
+      env: 'cloud1-2gg45xy56d5461d4'
+    })
     wx.getSystemInfo().then((res) => {
       this.globalData.screenWidth = res.screenWidth
       this.globalData.screenHeight = res.screenHeight

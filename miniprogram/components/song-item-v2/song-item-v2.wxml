@@ -1,13 +1,22 @@
 <!-- components/song-item-v2/song-item-v2.wxml -->
-<view class="song-item-v2" hover-class="press-effect">
-  <view wx:if="{{index}}" bindtap="onSongItemTap" class="index">{{index}}</view>
+<view class="song-item-v2 {{ itemData.noCopyrightRcmd.type ||  privileges.cp === 0 && itemData.fee !== 1 ? 'unavailable' : '' }}" bindtap="onSongItemTap" hover-class="press-effect">
+  <view wx:if="{{index && !isPlaying}}" class="index">{{index}}</view>
+  <view wx:if="{{isPlaying}}" class="index icon-playing">
+    <view class="icomoon icon-FluentVideoClip16Regular"></view>
+  </view>
+  <!-- <view wx:if="{{isPlaying}}" class="index">
+    <playing-svg></playing-svg>
+  </view> -->
   <view wx:if="{{!index}}" style="width: 30rpx;"></view>
-  <viwe class="info" bindtap="onSongItemTap">
+  <viwe class="info">
     <view class="name">{{itemData.name}}</view>
-    <view class="artist">{{formattedArtist}}</view>
+    <view class="artist">
+      <text decode class="vip" wx:if="{{itemData.fee === 1}}">&nbsp;VIP&nbsp;</text>
+      <text>{{formattedArtist}}</text>
+    </view>
   </viwe>
   <view class="controls">
-    <view wx:if="{{itemData.mv || itemData.mvid}}" bindtap="onVideoTap" hover-class="controls-effect" hover-stop-propagation hover-stay-time="{{200}}" class="icomoon icon-FluentVideoClip16Regular icon"></view>
-    <view bindtap="onMoreTap" hover-class="controls-effect" hover-stop-propagation hover-stay-time="{{200}}" class="icomoon icon-AntDesignMoreOutlined icon"></view>
+    <view wx:if="{{itemData.mv || itemData.mvid}}" catchtap="onVideoTap" hover-class="controls-effect" hover-stop-propagation hover-stay-time="{{200}}" class="icomoon icon-FluentVideoClip16Regular icon"></view>
+    <view catchtap="onMoreTap" hover-class="controls-effect" hover-stop-propagation hover-stay-time="{{200}}" class="icomoon icon-AntDesignMoreOutlined icon"></view>
   </view>
 </view>

@@ -8,8 +8,15 @@ import {
   getVideoUrl
 } from '../../services/video'
 import formatDate from '../../utils/formatDate'
+import create from 'mini-stores'
 
-Page({
+import settingStore from '../../stores/settingStore'
+
+const stores = {
+  $setting: settingStore
+}
+
+create.Page(stores, {
   data: {
     id: 0,
     vid: 0,
@@ -18,6 +25,10 @@ Page({
     videoInfo: {},
     relatedList: [],
     videoPublishTime: ''
+  },
+  onShow() {
+    console.log('视频详情 onShow')
+    stores.$setting.setIsShowNavBarTitle(false)
   },
   onLoad(options) {
     const { id, vid } = options

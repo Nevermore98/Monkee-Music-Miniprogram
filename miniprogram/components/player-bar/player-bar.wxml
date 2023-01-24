@@ -1,9 +1,9 @@
 <!-- components/player-bar/player-bar.wxml -->
 <view class="player-bar-placeholder" style="height: {{placeHolderHeight}}" wx:if="{{currentSong.name ||isPlaying}}"></view>
-<view class="player-bar" wx:if="{{currentSong.name || isPlaying}}" style="padding-bottom: {{paddingBottom}};">
+<view class="player-bar" bindtap="onPlayerBarTap" wx:if="{{currentSong.name || isPlaying}}" style="padding-bottom: {{paddingBottom}};">
   <!-- style="animation-play-state: {{ isPlaying? 'running': 'paused' }};" -->
-  <image class="cover" src="{{currentSong.al.picUrl}}" bindtap="onPlayerBarTap" />
-  <view class="info-wrapper" bindtap="onPlayerBarTap">
+  <image class="cover" src="{{currentSong.al.picUrl}}" />
+  <view class="info-wrapper">
     <view class="info-text {{isLoop ? 'words-loop': ''}}">
       <view class="name">{{ currentSong.name }}</view>
       <text decode>&nbsp;-&nbsp;</text>
@@ -16,8 +16,8 @@
     </view>
   </view>
   <view class="control">
-    <view bindtap="onPlayOrPauseTap" class="icomoon icon-{{isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
-    <view class="icomoon icon-MdiPlaylistMusic"></view>
+    <view catchtap="onPlayOrPauseTap" class="icomoon icon-{{isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
+    <view catchtap="onPlayListTap" class="icomoon icon-MdiPlaylistMusic"></view>
   </view>
 </view>
 <van-popup show="{{ isShowPlayList }}" position="bottom" custom-style="height: 50%;" bind:close="onClose" />

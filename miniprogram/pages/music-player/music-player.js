@@ -1,30 +1,18 @@
-// pages/music-player/music-player.js
-// import { getSongDetail, getSongLyric, getSongUrl } from '../../services/player'
-// import { formatArtist } from '../../utils/utils'
 import throttle from '../../utils/throttle'
 import create from 'mini-stores'
 import playerStore from '../../stores/playerStore'
+import settingStore from '../../stores/settingStore'
 
 const stores = {
-  $player: playerStore
+  $player: playerStore,
+  $setting: settingStore
 }
 
 const app = getApp()
-// const innerAudioContext = wx.createInnerAudioContext({
-//   useWebAudioImplement: false
-// })
-// const playModeNames = ['sequence', 'single', 'random']
 
 create.Page(stores, {
   data: {
     id: 0, // 歌曲 id
-    // currentSong: {}, // 当前播放歌曲
-    // songUrl: '', // 歌曲播放地址
-    // isFirstPlay: true, // 是否第一次播放
-
-    // lyricInfos: '', // 解析后的歌词
-    // currentLyricText: '', // 当前歌词
-    // currentLyricIndex: -1, // 当前歌词索引
     tapLyricIndex: -1,
     lyricScrollTop: 0, // 歌词滚动位置
 
@@ -32,23 +20,16 @@ create.Page(stores, {
     swiperHeight: 0, // swiper 高度 = screenHeight - 胶囊 top - 胶囊 height
     navBarTitles: ['歌曲', '歌词'], // 导航栏标题数组
     formattedArtist: '' // 格式化歌手名
-
-    // currentTime: 0, // 当前播放时间
-    // durationTime: 0, // 歌曲总时长
-    // sliderValue: 0,
-    // isSliderDragging: false,
-    // isWaiting: false, // 是否正在等待
-    // isPlaying: true, // 是否正在播放
-    // playModeIndex: 0, // 播放模式索引
-    // playModeName: 'sequence' // 播放模式名称
+  },
+  onShow() {
+    console.log('播放页 onShow')
+    stores.$setting.setIsShowNavBarTitle(false)
   },
   onLoad(options) {
     this.setData({ swiperHeight: app.globalData.playerSwiperHeight })
-    const id = options.id
-    // this.fetchSongDetail()
-    // this.fetchSongLyric()
-    // this.setupPlaySong(id)
-    if (id) {
+    const id = Number(options.id)
+    // 如果点击的歌曲是当前播放歌曲，则无需重新播放
+    if (id && id !== stores.$player.data.currentSongID) {
       stores.$player.playSongAction(id)
     }
   },
@@ -66,34 +47,33 @@ create.Page(stores, {
   // 进度条改变
   onSliderChange(e) {
     const value = e.detail.value
-    console.log(e)
-    this.data.isWaiting = true
-    setTimeout(() => {
-      this.data.isWaiting = false
-    }, 100)
-    // innerAudioContext.seek(currentTime / 1000)
+    console.log('--滑动结束--')
+    console.log(value)
+
+    stores.$player.setIsPlaying(true)
+    stores.$player.setIsSliderDragging(true)
     stores.$player.setCurrentTimeByProgress(value, true)
-    // this.setData({
-    //   currentTime,
-    //   isSliderDragging: false,
-    //   sliderValue: value,
-    //   isPlaying: true
-    // })
-    // 延时，避免报错，详见：https://segmentfault.com/q/1010000007130230
-    // setTimeout(() => {
-    //   innerAudioContext.play()
-    // }, 100)
+    stores.$player.setIsSliderDragging(false)
+    stores.$player.setAudioStatus('play')
   },
   // 拖动进度条，节流
   onSliderDragging: throttle(function (e) {
+    console.log('--进度条拖动--')
+    stores.$player.setIsSliderDragging(true)
+    console.log(
+      'stores.$player.data.isSliderDragging',
+      stores.$player.data.isSliderDragging
+    )
     const value = e.detail.value
     console.log(value)
     stores.$player.setCurrentTimeByProgress(value, false)
-    this.data.isSliderDragging = true
   }, 100),
   // 点击播放暂停按钮
   onPlayOrPauseTap() {
+    console.log('播放暂停')
+    console.log('前isPlaying', stores.$player.data.isPlaying)
     stores.$player.changePlayerStatus()
+    console.log('后isPlaying', stores.$player.data.isPlaying)
   },
   // 点击播放模式按钮
   onModeTap() {
@@ -110,5 +90,12 @@ create.Page(stores, {
   },
   onNextBtnTap() {
     stores.$player.changePlaySong(1)
+  },
+  onPlayListTap() {
+    console.log('playlist tap')
+    wx.showToast({
+      title: '功能开发中',
+      icon: 'none'
+    })
   }
 })

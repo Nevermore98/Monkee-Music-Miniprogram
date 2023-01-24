@@ -6,6 +6,22 @@
   position: fixed;
   left: 100%;
 }
+.nav-bar {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+
+  .title {
+    font-size: 36rpx;
+    font-weight: 500;
+    overflow: hidden;
+
+    .title-text {
+      // TODO 为什么这里不生效？
+      .one-line-ellipsis();
+    }
+  }
+}
 
 .songlist-header {
   position: relative;
@@ -14,23 +30,6 @@
   // height: 850rpx;
   overflow: hidden;
   color: #fff;
-
-  .nav-bar {
-    position: fixed;
-    width: 100%;
-    z-index: 100;
-
-    .title {
-      font-size: 36rpx;
-      font-weight: 500;
-      overflow: hidden;
-
-      .title-text {
-        // TODO 为什么这里不生效？
-        .one-line-ellipsis();
-      }
-    }
-  }
 
   .cover-wrapper {
     position: relative;

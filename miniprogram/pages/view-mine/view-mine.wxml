@@ -1,4 +1,20 @@
 <!-- pages/view-mine/view-mine.wxml -->
-<text>pages/view-mine/view-mine.wxml</text>
+<!-- <view class="avatar-section">
+  <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+    <image class="avatar" src="{{avatarUrl}}" mode="widthFix"></image>
+  </button>
+  <input bindnicknamereview="onNickNameReview" bindblur="onNickNameBlur" bindconfirm="onNickNameConfirm" class="nickname" type="nickname" placeholder="请输入昵称" value="{{nickName}}" />
+</view> -->
+<image class="logo" src="/assets/images/monkee.png" mode="widthFix" />
+<van-cell-group class="login-form">
+  <van-field model:value="{{ phone }}" type="number" label="手机号" placeholder="请输入手机号" />
+  <van-field model:value="{{ captcha }}" type="text" center clearable label="短信验证码" placeholder="请输入短信验证码" border="{{ false }}" use-button-slot>
+    <van-button bindtap="sendCaptcha" slot="button" size="small" type="primary">发送验证码</van-button>
+  </van-field>
+  <van-button bindtap="login">登录</van-button>
+</van-cell-group>
+<van-field model:value="{{ uid }}" type="number" label="UID" placeholder="请输入UID" />
+<van-button bindtap="fetchUserDetail">获取用户详情</van-button>
+<van-button bindtap="fetchUserPlayList">获取用户歌单</van-button>
 <!-- 播放栏 -->
 <player-bar paddingBottom="calc(50px + env(safe-area-inset-bottom))" />

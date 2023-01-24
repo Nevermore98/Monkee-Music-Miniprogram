@@ -1,7 +1,7 @@
 <!-- pages/detail-songlist/detail-songlist.wxml -->
 <view>
   <songlist-header songListInfo="{{songListInfo}}" type="{{type}}" />
-  <view class="play-all" hover-class="press-effect" wx:if="{{songListTracks.length || songListInfo.tracks.length}}">
+  <view class="play-all" bindtap="onPlayAllTap" hover-class="press-effect" wx:if="{{songListTracks.length || songListInfo.tracks.length}}">
     <view class="icomoon icon-Fa6SolidCirclePlay"></view>
     <text class="play-all-text">播放全部</text>
     <text class="total-number">({{songListTracks.length || songListInfo.tracks.length }})</text>
@@ -9,7 +9,7 @@
   <view class="song-list">
     <!-- getSonglistDetail 的 tracks：如果是歌单则只有 20 条数据，排行榜数据为全部 -->
     <block wx:for="{{type === 'ranking' ? songListInfo.tracks : songListTracks}}" wx:key="id">
-      <song-item-v2 bindtap="onSongItemTap" itemData="{{item}}" data-index="{{index}}" index="{{index+1}}" />
+      <song-item-v2 bindtap="onSongItemTap" itemData="{{item}}" privileges="{{item.privileges}}" data-index="{{index}}" index="{{index+1}}" isPlaying="{{$player.currentSongID === item.id}}" />
     </block>
   </view>
 </view>

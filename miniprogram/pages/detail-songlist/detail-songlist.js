@@ -26,7 +26,8 @@ create.Page(stores, {
     rankingType: '',
     id: 0,
     songlistHeaderRef: null,
-    navBarColor: ''
+    navBarColor: '',
+    isScrollToShowNavBar: false
   },
   onLoad(options) {
     const type = options.type
@@ -42,8 +43,6 @@ create.Page(stores, {
         songListInfo: rankingInfo
       })
     } else if (type === 'songlist') {
-      // 如果是歌单类型，则清空 $discovery，避免占用内存
-      stores.$discovery.data = {}
       // 不需要渲染到页面，所以无需 setData
       this.data.id = options.id
       this.setData({ type })
@@ -55,14 +54,21 @@ create.Page(stores, {
     stores.$setting.setIsMainColorWhite(false)
     stores.$setting.setIsShowNavBarTitle(false)
   },
+  onShow() {
+    if (this.data.isScrollToShowNavBar) {
+      stores.$setting.setIsShowNavBarTitle(true)
+    }
+  },
   onPageScroll: throttle(function (e) {
-    const scrollPixel = (app.globalData.screenWidth * 800) / 750
-
-    console.log(e.scrollTop)
-    if (e.scrollTop > scrollPixel) {
-      console.log('显示')
+    const songListScrollPixel = (app.globalData.screenWidth * 800) / 750
+    const rankingScrollPixel = (app.globalData.screenWidth * 300) / 750
+    console.log(songListScrollPixel)
+    console.log(rankingScrollPixel)
+    if (e.scrollTop > songListScrollPixel) {
+      this.data.isScrollToShowNavBar = true
       stores.$setting.setIsShowNavBarTitle(true)
     } else {
+      this.data.isScrollToShowNavBar = false
       stores.$setting.setIsShowNavBarTitle(false)
     }
   }, 100),
@@ -75,6 +81,10 @@ create.Page(stores, {
     for (let i = 0; i < songs.songs.length; i++) {
       const tracksPickArr = ['name', 'id', 'ar', 'al', 'mv', 'fee', 'dt']
       songs.songs[i] = pick(songs.songs[i], tracksPickArr)
+
+      const privilegesPickArr = ['subp', 'cp']
+      songs.privileges[i] = pick(songs.privileges[i], privilegesPickArr)
+      songs.songs[i].privileges = songs.privileges[i]
     }
     const infoPickArr = [
       'name',
@@ -103,5 +113,21 @@ create.Page(stores, {
     stores.$player.setSequencePlayList(playList)
     stores.$player.setCurrentPlayIndex(index)
     stores.$player.setIsPlaying(true)
+  },
+  onPlayAllTap() {
+    let playList = []
+    if (this.data.type === 'ranking') {
+      playList = this.data.songListInfo.tracks
+    } else {
+      playList = this.data.songListTracks
+    }
+    stores.$player.setPlayList(playList)
+    stores.$player.setSequencePlayList(playList)
+    stores.$player.setCurrentPlayIndex(0)
+    stores.$player.setIsPlaying(true)
+    const id = playList[0].id
+    wx.navigateTo({
+      url: `/pages/music-player/music-player?id=${id}`
+    })
   }
 })

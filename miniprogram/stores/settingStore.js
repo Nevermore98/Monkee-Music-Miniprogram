@@ -1,9 +1,9 @@
 class Store {
   data = {
     navBarColor: '',
-    playerBarColor: '',
     isMainColorWhite: false,
-    isShowNavBarTitle: false
+    isShowNavBarTitle: false,
+    isPlaying: false
   }
 
   setNavBarColor(payload) {
@@ -20,6 +20,10 @@ class Store {
   }
   setIsShowNavBarTitle(payload) {
     this.data.isShowNavBarTitle = payload
+    this.update()
+  }
+  setIsPlaying(payload) {
+    this.data.isPlaying = payload
     this.update()
   }
 }
