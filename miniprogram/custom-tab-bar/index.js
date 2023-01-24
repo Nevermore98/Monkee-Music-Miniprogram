@@ -7,11 +7,11 @@ Component({
         text: '发现',
         url: '/pages/view-discovery/view-discovery'
       },
-      {
-        icon: 'icon-music',
-        text: '我的',
-        url: '/pages/view-mine/view-mine'
-      },
+      // {
+      //   icon: 'icon-music',
+      //   text: '我的',
+      //   url: '/pages/view-mine/view-mine'
+      // },
       {
         icon: 'icon-video',
         text: '视频',

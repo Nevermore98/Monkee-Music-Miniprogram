@@ -1,8 +1,5 @@
 // components/song-item/song-item.js
 import { formatArtist } from '../../utils/utils'
-import getAverageColor from '../../utils/getAverageColor'
-import { FastAverageColor } from 'fast-average-color'
-import querySelect from '../../utils/query-select'
 
 Component({
   properties: {

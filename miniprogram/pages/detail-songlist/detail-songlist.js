@@ -30,6 +30,10 @@ create.Page(stores, {
     isScrollToShowNavBar: false
   },
   onLoad(options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     const type = options.type
     // 榜单类型使用 discoveryStore 的数据，歌单类型需要请求获取歌单全部歌曲接口
     if (type === 'ranking') {
@@ -42,6 +46,7 @@ create.Page(stores, {
       this.setData({
         songListInfo: rankingInfo
       })
+      wx.hideLoading()
     } else if (type === 'songlist') {
       // 不需要渲染到页面，所以无需 setData
       this.data.id = options.id
@@ -78,14 +83,6 @@ create.Page(stores, {
     const songs = await getSongListAllSongs(this.data.id)
     console.log('歌单信息', res)
     console.log('歌单所有歌曲', songs)
-    for (let i = 0; i < songs.songs.length; i++) {
-      const tracksPickArr = ['name', 'id', 'ar', 'al', 'mv', 'fee', 'dt']
-      songs.songs[i] = pick(songs.songs[i], tracksPickArr)
-
-      const privilegesPickArr = ['subp', 'cp']
-      songs.privileges[i] = pick(songs.privileges[i], privilegesPickArr)
-      songs.songs[i].privileges = songs.privileges[i]
-    }
     const infoPickArr = [
       'name',
       'description',
@@ -97,7 +94,16 @@ create.Page(stores, {
     ]
     res.playlist = pick(res.playlist, infoPickArr)
     this.setData({ songListInfo: res.playlist })
+    for (let i = 0; i < songs.songs.length; i++) {
+      const tracksPickArr = ['name', 'id', 'ar', 'al', 'mv', 'fee', 'dt']
+      songs.songs[i] = pick(songs.songs[i], tracksPickArr)
+
+      const privilegesPickArr = ['subp', 'cp']
+      songs.privileges[i] = pick(songs.privileges[i], privilegesPickArr)
+      songs.songs[i].privileges = songs.privileges[i]
+    }
     this.setData({ songListTracks: songs.songs })
+    wx.hideLoading()
   },
   onSongItemTap(e) {
     let playList = []

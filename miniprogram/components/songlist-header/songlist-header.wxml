@@ -13,7 +13,7 @@
   <view class="mask"></view>
   <view class="cover-wrapper">
     <image class="cover-image" mode="aspectFill" src="{{songListInfo.coverImgUrl}}" />
-    <view class="count">
+    <view wx:if="{{songListInfo.playCount}}" class="count">
       <view class="icomoon icon-JamPlay"></view>
       <text>{{format.formatPlayCount(songListInfo.playCount)}}</text>
     </view>

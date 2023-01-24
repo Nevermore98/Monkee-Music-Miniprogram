@@ -1,8 +1,10 @@
 <!-- components/player-bar/player-bar.wxml -->
 <view class="player-bar-placeholder" style="height: {{placeHolderHeight}}" wx:if="{{currentSong.name ||isPlaying}}"></view>
-<view class="player-bar" bindtap="onPlayerBarTap" wx:if="{{currentSong.name || isPlaying}}" style="padding-bottom: {{paddingBottom}};">
+<canvas type="2d" class="canvas" canvas-id="myCanvas" id="myCanvas"></canvas>
+<view class="player-bar {{isColorWhite ? 'dark-color' : ''}}" bindtap="onPlayerBarTap" wx:if="{{currentSong.name || isPlaying}}" style="padding-bottom: {{paddingBottom}}; background: {{playerBarColor}};">
   <!-- style="animation-play-state: {{ isPlaying? 'running': 'paused' }};" -->
-  <image class="cover" src="{{currentSong.al.picUrl}}" />
+  <image class="cover" src="{{currentSong.al.picUrl}}"></image>
+  <view class="cover-back" wx:if="{{currentSong.al.picUrl}}"></view>
   <view class="info-wrapper">
     <view class="info-text {{isLoop ? 'words-loop': ''}}">
       <view class="name">{{ currentSong.name }}</view>

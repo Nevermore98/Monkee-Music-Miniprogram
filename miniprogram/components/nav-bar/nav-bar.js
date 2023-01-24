@@ -15,6 +15,7 @@ create.Component(stores, {
       type: String,
       value: ''
     },
+    // 在 songlist-header 中获取图片主色，设置为背景色
     backGround: {
       type: String,
       value: ''
