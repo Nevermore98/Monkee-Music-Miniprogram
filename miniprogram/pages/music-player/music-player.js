@@ -2,6 +2,8 @@ import throttle from '../../utils/throttle'
 import create from 'mini-stores'
 import playerStore from '../../stores/playerStore'
 import settingStore from '../../stores/settingStore'
+import querySelect from '../../utils/query-select'
+const querySelectThrottle = throttle(querySelect, 100)
 
 const stores = {
   $player: playerStore,
@@ -19,8 +21,26 @@ create.Page(stores, {
     currentPage: 0, // 当前 swiper 页
     swiperHeight: 0, // swiper 高度 = screenHeight - 胶囊 top - 胶囊 height
     navBarTitles: ['歌曲', '歌词'], // 导航栏标题数组
-    formattedArtist: '' // 格式化歌手名
+    formattedArtist: '', // 格式化歌手名
+    isShowPlayList: false
   },
+  // observers: {
+  //   'stores.$player.data.lyricScrollTop': function (lyricScrollTop) {
+  //     this.setData({ lyricScrollTop: $player.data.lyricScrollTop })
+  //     console.log('observer')
+  //     let height = 0
+  //     let tmp = this.data.lyricScrollTop
+  //     wx.createSelectorQuery()
+  //       .select('.current-active')
+  //       .boundingClientRect()
+  //       .exec((res) => {
+  //         height = res[0].height
+  //         console.log(height)
+  //         // this.data.lyricScrollTop = tmp + height
+  //         this.setData({ lyricScrollTop: tmp + height })
+  //       })
+  //   }
+  // },
   onShow() {
     console.log('播放页 onShow')
     stores.$setting.setIsShowNavBarTitle(false)
@@ -70,14 +90,7 @@ create.Page(stores, {
   }, 100),
   // 点击播放暂停按钮
   onPlayOrPauseTap() {
-    console.log('播放暂停')
-    console.log('前isPlaying', stores.$player.data.isPlaying)
     stores.$player.changePlayerStatus()
-    console.log('后isPlaying', stores.$player.data.isPlaying)
-  },
-  // 点击播放模式按钮
-  onModeTap() {
-    stores.$player.changePlayMode()
   },
   // 点击歌词调整播放进度
   onLyricItemTap(e) {
@@ -93,9 +106,39 @@ create.Page(stores, {
   },
   onPlayListTap() {
     console.log('playlist tap')
+    this.setData({ isShowPlayList: true })
+    wx.setPageStyle({
+      style: {
+        overflow: 'hidden'
+      }
+    })
+  },
+  onClosePopup() {
+    this.setData({ isShowPlayList: false })
+    wx.setPageStyle({
+      style: {
+        overflow: ''
+      }
+    })
+  },
+  // 点击播放模式按钮
+  onModeTap() {
+    stores.$player.changePlayMode()
+  },
+  onSongItemTap(e) {
+    console.log(e)
+    const { id, index } = e.detail
+    stores.$player.playSongAction(id)
+    stores.$player.setCurrentPlayIndex(index)
+    this.setData({ isShowPlayList: false })
+  },
+  onClearTap() {
+    this.setData({ isShowPlayList: false })
+    stores.$player.clearPlayList()
     wx.showToast({
-      title: '功能开发中',
+      title: '已清空播放列表',
       icon: 'none'
     })
+    wx.navigateBack()
   }
 })

@@ -29,15 +29,13 @@ create.Component(stores, {
     }
   },
   observers: {
+    // 无法直接监听 store 数据，需要从 stores 取得数据，赋值给组件属性，再监听
     'currentSong.al.picUrl': function (val) {
       if (!val) return
       this.getCanvasMainColor(val).then((res) => {
         console.log(res)
         const { color, isColorWhite } = res
         this.setData({ playerBarColor: color, isColorWhite })
-        console.log(this.data.playerBarColor)
-        // stores.$setting.setNavBarColor(color)
-        // stores.$setting.setIsMainColorWhite(isColorWhite)
       })
     }
   },
@@ -52,7 +50,6 @@ create.Component(stores, {
             size: true
           })
           .exec((res) => {
-            console.log(res)
             getMainColor(res, imgPath).then((ret) => {
               resolve(ret)
             })
@@ -72,18 +69,34 @@ create.Component(stores, {
       })
     },
     onPlayListTap() {
-      console.log('playlist tap')
+      this.setData({ isShowPlayList: true })
+      this.triggerEvent('show-popup')
+    },
+    onClosePopup() {
+      this.setData({ isShowPlayList: false })
+      this.triggerEvent('close-popup')
+    },
+    onModeTap() {
+      stores.$player.changePlayMode()
+    },
+    onSongItemTap(e) {
+      console.log(e)
+      const { id, index } = e.detail
+      stores.$player.playSongAction(id)
+      stores.$player.setCurrentPlayIndex(index)
+      wx.navigateTo({
+        url: `/pages/music-player/music-player?id=${id}`
+      })
+      this.setData({ isShowPlayList: false })
+    },
+    onClearTap() {
+      this.setData({ isShowPlayList: false })
+      stores.$player.clearPlayList()
+      this.triggerEvent('close-popup')
       wx.showToast({
-        title: '功能开发中',
+        title: '已清空播放列表',
         icon: 'none'
       })
-    },
-    showPopup() {
-      this.setData({ isShowPlayList: true })
-    },
-
-    onClose() {
-      this.setData({ isShowPlayList: false })
     }
   },
   pageLifetimes: {
@@ -96,32 +109,38 @@ create.Component(stores, {
       })
 
       if (!this.data.currentSong.name) return
+      // if(stores.$player.currentSong.name)
       let wrapperWidth
       let textWidth
+      // 组件内 createSelectorQuery 需要 in(this)
       wx.createSelectorQuery()
         .in(this)
         .select('.info-wrapper')
         .boundingClientRect()
         .exec((res) => {
-          wrapperWidth = res[0].width
-          console.log(wrapperWidth)
+          try {
+            wrapperWidth = res[0].width
+            console.log(wrapperWidth)
+          } catch (error) {}
         })
       wx.createSelectorQuery()
         .in(this)
         .select('.info-text')
         .boundingClientRect()
         .exec((res) => {
-          textWidth = res[0].width
-          console.log(textWidth)
-          if (textWidth > wrapperWidth) {
-            this.setData({
-              isLoop: true
-            })
-          } else {
-            this.setData({
-              isLoop: false
-            })
-          }
+          try {
+            textWidth = res[0].width
+            console.log(textWidth)
+            if (textWidth > wrapperWidth) {
+              this.setData({
+                isLoop: true
+              })
+            } else {
+              this.setData({
+                isLoop: false
+              })
+            }
+          } catch (error) {}
         })
     }
   }

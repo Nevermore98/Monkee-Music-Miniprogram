@@ -1,5 +1,3 @@
-import querySelect from './utils/query-select'
-
 // app.js
 App({
   globalData: {
@@ -26,11 +24,5 @@ App({
     const menuButtonInfo = wx.getMenuButtonBoundingClientRect()
     console.log(menuButtonInfo)
     this.globalData.menuButtonInfo = menuButtonInfo
-
-    // //
-    // console.log(document)
-    // console.log(app)
-    // console.log(page)
-    // app.addEventListener('touchstart', () => {})
   }
 })

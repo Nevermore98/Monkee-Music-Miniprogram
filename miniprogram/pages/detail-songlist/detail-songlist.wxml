@@ -1,8 +1,9 @@
 <!-- pages/detail-songlist/detail-songlist.wxml -->
+<!-- <page-meta page-style="{{ scrollLock ? 'overflow: hidden;' : '' }}" /> -->
 <view>
   <songlist-header songListInfo="{{songListInfo}}" type="{{type}}" />
   <view class="play-all" bindtap="onPlayAllTap" hover-class="press-effect" wx:if="{{songListTracks.length || songListInfo.tracks.length}}">
-    <view class="icomoon icon-Fa6SolidCirclePlay"></view>
+    <view class="icomoon icon-playSolidCircle"></view>
     <text class="play-all-text">播放全部</text>
     <text class="total-number">({{songListTracks.length || songListInfo.tracks.length }})</text>
   </view>
@@ -13,4 +14,4 @@
     </block>
   </view>
 </view>
-<player-bar paddingBottom="env(safe-area-inset-bottom)" placeHolderHeight="calc(50px + env(safe-area-inset-bottom));" />
+<player-bar bind:show-popup="handlePopupShow" bind:close-popup="handlePopupClose" paddingBottom="env(safe-area-inset-bottom)" placeHolderHeight="calc(50px + env(safe-area-inset-bottom));" />

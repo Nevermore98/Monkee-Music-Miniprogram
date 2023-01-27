@@ -27,7 +27,8 @@ create.Page(stores, {
     id: 0,
     songlistHeaderRef: null,
     navBarColor: '',
-    isScrollToShowNavBar: false
+    isScrollToShowNavBar: false,
+    scrollLock: false
   },
   onLoad(options) {
     wx.showLoading({
@@ -67,14 +68,22 @@ create.Page(stores, {
   onPageScroll: throttle(function (e) {
     const songListScrollPixel = (app.globalData.screenWidth * 800) / 750
     const rankingScrollPixel = (app.globalData.screenWidth * 300) / 750
-    console.log(songListScrollPixel)
-    console.log(rankingScrollPixel)
-    if (e.scrollTop > songListScrollPixel) {
-      this.data.isScrollToShowNavBar = true
-      stores.$setting.setIsShowNavBarTitle(true)
+    if (this.data.type === 'songlist') {
+      if (e.scrollTop > songListScrollPixel) {
+        this.data.isScrollToShowNavBar = true
+        stores.$setting.setIsShowNavBarTitle(true)
+      } else {
+        this.data.isScrollToShowNavBar = false
+        stores.$setting.setIsShowNavBarTitle(false)
+      }
     } else {
-      this.data.isScrollToShowNavBar = false
-      stores.$setting.setIsShowNavBarTitle(false)
+      if (e.scrollTop > rankingScrollPixel) {
+        this.data.isScrollToShowNavBar = true
+        stores.$setting.setIsShowNavBarTitle(true)
+      } else {
+        this.data.isScrollToShowNavBar = false
+        stores.$setting.setIsShowNavBarTitle(false)
+      }
     }
   }, 100),
   async fetchSongList() {
@@ -114,9 +123,12 @@ create.Page(stores, {
     } else {
       playList = this.data.songListTracks
     }
-    console.log(index)
-    stores.$player.setPlayList(playList)
+
     stores.$player.setSequencePlayList(playList)
+    stores.$player.setPlayList(playList)
+    // 歌单列表点击歌曲，播放模式改为顺序
+    stores.$player.setPlayModeIndex(0)
+
     stores.$player.setCurrentPlayIndex(index)
     stores.$player.setIsPlaying(true)
   },
@@ -127,13 +139,34 @@ create.Page(stores, {
     } else {
       playList = this.data.songListTracks
     }
-    stores.$player.setPlayList(playList)
+
     stores.$player.setSequencePlayList(playList)
+    stores.$player.setPlayList(playList)
+    stores.$player.setPlayModeIndex(0)
+
     stores.$player.setCurrentPlayIndex(0)
     stores.$player.setIsPlaying(true)
     const id = playList[0].id
     wx.navigateTo({
       url: `/pages/music-player/music-player?id=${id}`
     })
+  },
+  handlePopupShow() {
+    wx.setPageStyle({
+      style: {
+        overflow: 'hidden'
+      }
+    })
+    // console.log('handlePopupShow')
+    // this.setData({ scrollLock: true })
+  },
+  handlePopupClose() {
+    wx.setPageStyle({
+      style: {
+        overflow: ''
+      }
+    })
+    // console.log('handlePopupClose')
+    // this.setData({ scrollLock: false })
   }
 })

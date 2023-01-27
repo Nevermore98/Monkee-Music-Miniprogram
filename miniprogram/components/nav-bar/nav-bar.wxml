@@ -1,6 +1,6 @@
 <!-- components/nav-bar/nav-bar.wxml -->
 <view class="nav-bar-wrapper" style="padding-top:{{navBarTop}}px; background: {{$setting.isShowNavBarTitle ? $setting.navBarColor: 'transparent'}};">
-  <view class="nav-bar" style="height: {{navBarHeight}}px; color: {{$setting.isMainColorWhite ? '#333': '#fff'}}">
+  <view class="nav-bar" style="height: {{navBarHeight}}px; color: {{$setting.isMainColorWhite && $setting.isShowNavBarTitle ? '#333': '#fff'}}">
     <view class="left" bindtap="onLeftTap">
       <view class="slot">
         <slot name="left"></slot>

@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "nav-bar": "/components/nav-bar/nav-bar",
-    "van-slider": "@vant/weapp/slider/index"
+    "van-slider": "@vant/weapp/slider/index",
+    "popup-playlist": "/components/popup-playlist/popup-playlist"
   }
 }

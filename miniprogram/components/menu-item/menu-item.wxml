@@ -4,7 +4,7 @@
   <view class="top">
     <image class="image" src="{{itemData.coverImgUrl||itemData.picUrl}}" mode="widthFix" />
     <view class="count">
-      <view class="icomoon icon-music"></view>
+      <view class="icomoon icon-play"></view>
       <text>{{format.formatPlayCount(itemData.playCount)}}</text>
     </view>
   </view>

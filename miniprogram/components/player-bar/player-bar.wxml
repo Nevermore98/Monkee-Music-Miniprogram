@@ -1,25 +1,30 @@
 <!-- components/player-bar/player-bar.wxml -->
-<view class="player-bar-placeholder" style="height: {{placeHolderHeight}}" wx:if="{{currentSong.name ||isPlaying}}"></view>
+<wxs src="/utils/format.wxs" module="format" />
 <canvas type="2d" class="canvas" canvas-id="myCanvas" id="myCanvas"></canvas>
-<view class="player-bar {{isColorWhite ? 'dark-color' : ''}}" bindtap="onPlayerBarTap" wx:if="{{currentSong.name || isPlaying}}" style="padding-bottom: {{paddingBottom}}; background: {{playerBarColor}};">
-  <!-- style="animation-play-state: {{ isPlaying? 'running': 'paused' }};" -->
-  <image class="cover" src="{{currentSong.al.picUrl}}"></image>
-  <view class="cover-back" wx:if="{{currentSong.al.picUrl}}"></view>
-  <view class="info-wrapper">
-    <view class="info-text {{isLoop ? 'words-loop': ''}}">
-      <view class="name">{{ currentSong.name }}</view>
-      <text decode>&nbsp;-&nbsp;</text>
-      <view class="artists">{{ formattedArtist }}</view>
+<view class="player-bar-wrapper" wx:if="{{$player.currentSong.name}}">
+  <view class="player-bar-placeholder" style="height: {{placeHolderHeight}}" wx:if="{{$player.currentSong.name ||isPlaying}}"></view>
+  <view class="player-bar {{isColorWhite ? 'dark-color' : ''}}" bindtap="onPlayerBarTap" wx:if="{{$player.currentSong.name || isPlaying}}" style="padding-bottom: {{paddingBottom}}; background: {{playerBarColor}};">
+    <!-- style="animation-play-state: {{ isPlaying? 'running': 'paused' }};" -->
+    <view class="cover-back" wx:if="{{$player.currentSong.al.picUrl}}">
+      <image class="cover" src="{{$player.currentSong.al.picUrl}}"></image>
     </view>
-    <view wx:if="{{isLoop}}" class="info-text {{isLoop ? 'words-loop': ''}}">
-      <view class="name">{{ currentSong.name }}</view>
-      <text decode>&nbsp;-&nbsp;</text>
-      <view class="artists">{{ formattedArtist }}</view>
+    <view class="info-wrapper">
+      <view class="info-text {{isLoop ? 'words-loop': ''}}">
+        <view class="name">{{ $player.currentSong.name }}</view>
+        <text decode>&nbsp;-&nbsp;</text>
+        <view class="artists">{{ formattedArtist }}</view>
+      </view>
+      <view wx:if="{{isLoop}}" class="info-text {{isLoop ? 'words-loop': ''}}">
+        <view class="name">{{ $player.currentSong.name }}</view>
+        <text decode>&nbsp;-&nbsp;</text>
+        <view class="artists">{{ formattedArtist }}</view>
+      </view>
+    </view>
+    <view class="control">
+      <view catchtap="onPlayOrPauseTap" class="icomoon icon-{{isPlaying ? 'pauseCircle' : 'playCircle'}}"></view>
+      <view catchtap="onPlayListTap" class="icomoon icon-playlist"></view>
     </view>
   </view>
-  <view class="control">
-    <view catchtap="onPlayOrPauseTap" class="icomoon icon-{{isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
-    <view catchtap="onPlayListTap" class="icomoon icon-MdiPlaylistMusic"></view>
-  </view>
+  <!-- 播放列表弹出层 -->
+  <popup-playlist isShow="{{isShowPlayList}}" playList="{{$player.playList}}" playMode="{{$player.playModeName}}" currentSongID="{{$player.currentSongID}}" currIndex="{{$player.currentPlayIndex}}" bind:close="onClosePopup" bind:mode-tap="onModeTap" bind:song-tap="onSongItemTap" bind:clear-tap="onClearTap" />
 </view>
-<van-popup show="{{ isShowPlayList }}" position="bottom" custom-style="height: 50%;" bind:close="onClose" />

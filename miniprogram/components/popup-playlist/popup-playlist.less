@@ -1,0 +1,109 @@
+/* components/popup-playlist/popup-playlist.wxss */
+@import url(/styles/utils.less);
+@import url(/styles/icomoon.less);
+
+.press-effect {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  position: fixed;
+  width: 90vw;
+  height: 170rpx;
+  background: #fafafa;
+  border-radius: 30rpx 30rpx;
+  z-index: 1;
+
+  .title {
+    padding: 24rpx;
+    .title-text {
+      font-size: 34rpx;
+      font-weight: 600;
+      color: #333;
+    }
+    .total-number {
+      font-size: 24rpx;
+      color: #969799cc;
+      margin-left: 4rpx;
+      transform: translateY(4rpx);
+    }
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14rpx 0 14rpx;
+    background: #fafafa;
+
+    .mode {
+      display: flex;
+      align-items: center;
+      padding: 10rpx;
+      border-radius: 10rpx;
+
+      .mode-text {
+        margin-left: 10rpx;
+      }
+    }
+    .icon-delete {
+      font-size: 34rpx;
+      padding: 10rpx;
+      border-radius: 10rpx;
+    }
+  }
+}
+.header-placeholder {
+  height: 170rpx;
+}
+
+.icon-playing {
+  font-size: 40rpx;
+  color: #fe231e;
+  transform: translateX(-4rpx);
+}
+
+.playlist-scroll {
+  // height: 100%;
+  // overflow: scroll;
+
+  .song-item {
+    display: flex;
+    align-items: center;
+    height: 80rpx;
+    padding: 0 24rpx;
+    font-size: 32rpx;
+
+    .song-info {
+      display: flex;
+      align-items: center;
+      .one-line-ellipsis();
+      .song-name {
+        font-size: 32rpx;
+        color: #333;
+      }
+      .song-artist {
+        .one-line-ellipsis();
+        font-size: 26rpx;
+        color: #969799cc;
+        transform: translateY(4rpx);
+      }
+    }
+  }
+}
+
+.isPlaying {
+  &.song-item {
+    .song-info {
+      .song-name {
+        color: #fe231e;
+      }
+    }
+  }
+
+  // .song-info {
+  //   .song-name {
+  //     color: #fe231e;
+  //   }
+  // }
+}

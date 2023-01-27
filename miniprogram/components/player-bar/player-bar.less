@@ -39,31 +39,30 @@
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
   background: #fafafa;
 
-  .cover {
+  .cover-back {
     position: relative;
     flex: none;
     top: -8px;
-
-    width: 46px;
-    height: 46px;
-    border-radius: 10rpx;
-    z-index: 1;
-  }
-  .cover-back {
-    content: '';
-    position: absolute;
-    display: inline-block;
-    z-index: -1;
+    left: 20px;
     width: 35px;
     height: 35px;
-    left: 26px;
-    top: -2px;
-
+    z-index: 1;
     border-radius: 50%;
-    // margin-left: -30px;
-    // margin-top: -10px;
-    // transform: translateY(-5px) translateX(-23px);
     background: #000;
+
+    .cover {
+      position: absolute;
+      border-radius: 10rpx;
+      // display: inline-block;
+      // z-index: -1;
+      // overflow: hidden;
+      width: 46px;
+      height: 46px;
+
+      left: 14%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
   // 不使用旋转动画
@@ -87,7 +86,8 @@
     display: flex;
     font-size: 28rpx;
 
-    margin-left: 20rpx;
+    margin-left: 50rpx;
+    margin-left: 50rpx;
     white-space: nowrap;
     overflow: hidden;
 
@@ -112,7 +112,7 @@
   .control {
     display: flex;
     align-items: center;
-    font-size: 48rpx;
+    font-size: 56rpx;
     z-index: 2;
     flex: none;
     margin-left: 10px;
@@ -122,8 +122,8 @@
       height: 100%;
     }
 
-    .icon-MdiPlaylistMusic {
-      margin-left: 14rpx;
+    .icon-playlist {
+      margin-left: 20rpx;
     }
   }
 }

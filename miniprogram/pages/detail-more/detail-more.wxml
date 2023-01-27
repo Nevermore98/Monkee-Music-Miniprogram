@@ -12,4 +12,4 @@
   </block>
 </view>
 <!-- <player-bar paddingBottom="env(safe-area-inset-bottom)" /> -->
-<player-bar paddingBottom="env(safe-area-inset-bottom)" placeHolderHeight="env(safe-area-inset-bottom);" />
+<player-bar bind:show-popup="handlePopupShow" bind:close-popup="handlePopupClose" paddingBottom="env(safe-area-inset-bottom)" placeHolderHeight="env(safe-area-inset-bottom);" />

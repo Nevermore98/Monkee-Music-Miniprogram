@@ -1,4 +1,10 @@
 // pages/detail-search/detail-search.js
+import create from 'mini-stores'
+import playerStore from '../../stores/playerStore'
+
+const stores = {
+  $player: playerStore
+}
 import {
   getHotSearch,
   getSuggestSearch,
@@ -9,7 +15,7 @@ import stringToNodes from '../../utils/stringToNodes'
 
 const debounceGetSuggestSearch = debounce(getSuggestSearch, 200)
 
-Page({
+create.Page(stores, {
   data: {
     hotKeywords: [],
     historyKeywords: [],
@@ -19,7 +25,7 @@ Page({
     searchValue: '',
     historyKeywords: [],
     resultSongs: [],
-    resultSongLists: [],
+    resultSongLists: [], // 歌单结果
     resultVideos: [],
     isSearched: false,
     activeTabIndex: 0,
@@ -39,8 +45,7 @@ Page({
     },
     isLoadingMore: false,
     tabHasMore: true,
-    songlistCount: 0,
-    isShowPlayerBar: false
+    songlistCount: 0
   },
   onLoad() {
     this.fetchHotSearch()
@@ -57,7 +62,6 @@ Page({
       .catch((err) => {})
   },
   async onScrollBottom(e) {
-    console.log('hasMore', this.data.hasMore)
     if (this.data.isLoadingMore) return
     if (!this.data.hasMore[this.data.activeTabName]) return
     console.log('---加载更多---')
@@ -99,8 +103,6 @@ Page({
     })
   },
   async fetchSearchResult() {
-    console.log('hasMore', this.data.hasMore)
-
     const searchValue = this.data.searchValue.trim()
     const activeTabName = this.data.activeTabName
     const offset = this.data.offset[activeTabName]
@@ -143,7 +145,6 @@ Page({
 
     this.setData({ isLoading: true })
 
-    console.log('get 时 offset', offset)
     const res = await getSearchResult(searchValue, activeTabName, offset)
 
     switch (activeTabName) {
@@ -190,7 +191,6 @@ Page({
   },
   // 搜索词改变，获取搜索建议
   onSearchChange(e) {
-    console.log('search-value-change')
     const searchValue = e.detail.searchValue
     this.setData({
       searchValue,
@@ -215,13 +215,11 @@ Page({
   },
   // 搜索栏聚焦时触发
   onSearchFocus(e) {
-    console.log('focus')
     const defaultSearch = e.detail.defaultSearch
     this.setData({ defaultSearch })
   },
   // 取消按钮点击时，如果没有搜索内容则返回上一页，否则清空搜索内容
   onSearchCancel() {
-    console.log('cancel')
     if (this.data.searchValue === '') {
       wx.navigateBack()
     }
@@ -247,7 +245,6 @@ Page({
   },
   // 关键词点击，包括搜索建议、热门搜索，历史搜索
   onKeywordTap(e) {
-    console.log('keyword-tap')
     const index = e.currentTarget.dataset.index
 
     const keyword =
@@ -260,7 +257,6 @@ Page({
   },
   // 标签页切换
   onTabChange(e) {
-    console.log('tab change')
     const activeTabName = e.detail.name
     this.setData({ activeTabName })
     this.setData({ tabHasMore: this.data.hasMore[activeTabName] })
@@ -270,19 +266,51 @@ Page({
   },
   // 标签页点击
   onTabClick(e) {
-    console.log('tab click')
     const activeTabName = e.detail.name
     this.setData({ activeTabName })
   },
   // 删除历史搜索
   onDeleteHistory() {
-    wx.removeStorageSync('historyKeywords')
-    this.setData({
-      historyKeywords: []
+    let _this = this
+    wx.showModal({
+      title: '',
+      content: '确定清空历史搜索吗？',
+      confirmColor: '#ff0000',
+      confirmText: '清空',
+      success(res) {
+        if (res.confirm) {
+          wx.removeStorageSync('historyKeywords')
+          _this.setData({
+            historyKeywords: []
+          })
+          wx.showToast({
+            title: '已清空历史搜索',
+            icon: 'none'
+          })
+        }
+      }
     })
   },
-  // 搜索页，点击搜索结果，底部出现播放器的占位空间
+  // 搜索页，点击搜索结果，添加当前歌曲到播放列表
   onSongItemTap(e) {
-    this.setData({ isShowPlayerBar: true })
+    stores.$player.addSearchSongToPlayList(e.detail)
+    if (stores.$player.data.playList.length === 0) {
+      console.log('播放列表为空')
+      // stores.$player.setSequencePlayList([e.detail])
+    }
+  },
+  handlePopupShow() {
+    wx.setPageStyle({
+      style: {
+        overflow: 'hidden'
+      }
+    })
+  },
+  handlePopupClose() {
+    wx.setPageStyle({
+      style: {
+        overflow: ''
+      }
+    })
   }
 })

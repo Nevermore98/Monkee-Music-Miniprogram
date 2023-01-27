@@ -1,0 +1,29 @@
+<!-- components/popup-playlist/popup-playlist.wxml -->
+<wxs src="/utils/format.wxs" module="format" />
+<van-popup round show="{{ isShow }}" position="bottom" custom-style="position: fixed; left: 5vw; height: 70%; width: 90vw; z-index: 99999;" bind:close="onClose" bind:click-overlay="onCloseOverlay">
+  <view class="header">
+    <view class="title">
+      <text class="title-text">当前播放</text>
+      <text class="total-number">({{ playList.length }})</text>
+    </view>
+    <view class="controls">
+      <view class="mode" bindtap="onModeTap" hover-class="press-effect">
+        <view class="icomoon icon-{{playMode}}"></view>
+        <view class="mode-text">{{playModeName}}</view>
+      </view>
+      <view bindtap="onClearTap" class="icomoon icon-delete" hover-class="press-effect"></view>
+    </view>
+  </view>
+  <view class="header-placeholder"></view>
+  <scroll-view enhanced class="playlist-scroll" style="height: 100%" scroll-y scroll-with-animation>
+    <block wx:for="{{playList}}" wx:key="id">
+      <view class="song-item {{currentSongID === item.id ? 'isPlaying' : ''}}" hover-class="press-effect" bindtap="onSongItemTap" data-id="{{item.id}}" data-index="{{index}}">
+        <view wx:if="{{currentSongID === item.id}}" class="icomoon icon-playing"></view>
+        <view class="song-info">
+          <view class="song-name">{{item.name}}</view>
+          <text decode class="song-artist">&nbsp;-&nbsp;{{format.formatArtist(item.ar)}}</text>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+</van-popup>

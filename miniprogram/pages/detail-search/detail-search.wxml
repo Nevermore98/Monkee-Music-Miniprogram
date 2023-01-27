@@ -8,9 +8,9 @@
   <van-tab name="song" title="歌曲">
     <scroll-view bindscrolltolower="onScrollBottom" class="result-area" wx:if="{{searchValue.length && resultSongs.length}}" scroll-y>
       <block wx:for="{{resultSongs}}" wx:key="id">
-        <song-item-v2 bind:song-tap="onSongItemTap" itemData="{{item}}"></song-item-v2>
+        <song-item-v2 bind:song-tap="onSongItemTap" itemData="{{item}}" isPlaying="{{$player.currentSongID === item.id}}" />
       </block>
-      <view style="padding-bottom: {{isShowPlayerBar ? '150rpx' : ''}}">
+      <view style="padding-bottom: {{$player.isShowPlayerBar ? '150rpx' : ''}}">
         <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
         <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
       </view>
@@ -24,7 +24,7 @@
       <block wx:for="{{resultSongLists}}" wx:key="id">
         <songlist-item itemData="{{item}}" />
       </block>
-      <view style="padding-bottom: {{isShowPlayerBar ? '150rpx' : ''}}">
+      <view style="padding-bottom: {{$player.isShowPlayerBar ? '150rpx' : ''}}">
         <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
         <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
       </view>
@@ -38,7 +38,7 @@
       <block wx:for="{{resultVideos}}" wx:key="coverUrl">
         <video-item-v2 itemData="{{item}}" />
       </block>
-      <view style="padding-bottom: {{isShowPlayerBar ? '150rpx' : ''}}">
+      <view style="padding-bottom: {{$player.isShowPlayerBar ? '150rpx' : ''}}">
         <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>
         <view class="load-more" wx:if="{{!tabHasMore}}">暂无更多</view>
       </view>
@@ -51,7 +51,7 @@
 <view class="history-area" wx:if="{{!searchValue.length && historyKeywords.length}}">
   <view class="title">
     <text>历史搜索</text>
-    <view bindtap="onDeleteHistory" class="icomoon icon icon-MdiTrashCanOutline"></view>
+    <view bindtap="onDeleteHistory" class="icomoon icon icon-delete"></view>
   </view>
   <view class="keyword-list">
     <block wx:for="{{historyKeywords}}" wx:key="*this">
@@ -73,7 +73,7 @@
   <view class="suggest-list">
     <block wx:for="{{suggestSongs}}" wx:key="keyword">
       <view class="suggest-item" bindtap="onKeywordTap" data-keyword="{{item.keyword}}">
-        <view class="icomoon icon-music"></view>
+        <view class="icomoon icon-search"></view>
         <view class="keyword">
           <rich-text class="rich-text" nodes="{{suggestSongsNodes[index]}}"></rich-text>
         </view>
@@ -81,4 +81,4 @@
     </block>
   </view>
 </view>
-<player-bar paddingBottom="env(safe-area-inset-bottom)" placeHolderHeight="calc(50px + env(safe-area-inset-bottom));" />
+<player-bar bind:show-popup="handlePopupShow" bind:close-popup="handlePopupClose" paddingBottom="env(safe-area-inset-bottom)" placeHolderHeight="calc(50px + env(safe-area-inset-bottom));" />

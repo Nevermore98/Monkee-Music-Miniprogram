@@ -32,16 +32,26 @@ function formatPlayCount(playCount) {
   }
 }
 
-// function formatArtist(artist) {
-//   return artist
-//     .map(function (item) {
-//       return item.name
-//     })
-//     .join(' / ')
-// }
+function formatArtist(artist) {
+  if (!artist) return
+  return artist
+    .map(function (item) {
+      return item.name
+    })
+    .join(' / ')
+
+  // 注意返回
+  // try {
+  //   return artist
+  //     .map(function (item) {
+  //       return item.name
+  //     })
+  //     .join(' / ')
+  // } catch (error) {}
+}
 
 module.exports = {
   formatPlayCount: formatPlayCount,
-  formatTime: formatTime
-  // formatArtist: formatArtist
+  formatTime: formatTime,
+  formatArtist: formatArtist
 }

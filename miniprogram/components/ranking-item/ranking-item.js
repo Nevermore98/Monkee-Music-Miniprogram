@@ -45,7 +45,6 @@ create.Component(stores, {
       const playList = this.data.rankingItemData.tracks
       stores.$player.setPlayList(playList)
       stores.$player.setSequencePlayList(playList)
-      console.log(index)
       stores.$player.setCurrentPlayIndex(index)
       stores.$player.setIsPlaying(true)
     }

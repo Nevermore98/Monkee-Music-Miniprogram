@@ -4,7 +4,7 @@
 <!-- <view class="search-bar" style="margin-top:{{searchBarTop}}px;">
   <van-search value="{{searchValue}}" custom-class="" shape="round" placeholder="{{defaultSearch}}" background="#f5f5f5" bind:click-input="onSearchTap" />
 </view> -->
-<search-bar bind:search-tap="onSearchTap" disabled="{{true}}" marginTop="{{searchBarTop}}" />
+<search-bar bind:search-tap="onSearchTap" disabled="{{true}}" marginTop="{{searchBarTop || 0}}" />
 <!-- 轮播图 -->
 <view class="banners-loading" wx:if="{{isBannersEmpty}}"></view>
 <swiper class="banners" autoplay circular indicator-dots indicator-color="rgba(255, 255, 255, .3)" indicator-active-color="#fff" interval="3000" previous-margin="10rpx" next-margin="10rpx" style="height: {{bannerHeight}}px;" wx:if="{{banners.length}}">
@@ -32,4 +32,4 @@
   </swiper>
 </view>
 <!-- 播放栏 -->
-<player-bar paddingBottom="calc(50px + env(safe-area-inset-bottom))" placeHolderHeight="50px" />
+<player-bar bind:show-popup="handlePopupShow" bind:close-popup="handlePopupClose" paddingBottom="calc(50px + env(safe-area-inset-bottom))" placeHolderHeight="50px" />

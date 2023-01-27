@@ -31,5 +31,20 @@ Page({
     Promise.all(allPromises).then((res) => {
       this.setData({ moreSongList: res })
     })
+  },
+  handlePopupShow() {
+    wx.setPageStyle({
+      style: {
+        overflow: 'hidden'
+      }
+    })
+    console.log('handlePopupShow')
+  },
+  handlePopupClose() {
+    wx.setPageStyle({
+      style: {
+        overflow: ''
+      }
+    })
   }
 })

@@ -4,7 +4,7 @@ import {
   getRecommendSongList
 } from '../../services/discovery'
 import discoveryStore from '../../stores/discoveryStore'
-import playerStore from '../../stores/playerStore'
+// import playerStore from '../../stores/playerStore'
 import create from 'mini-stores'
 import querySelect from '../../utils/query-select'
 import throttle from '../../utils/throttle'
@@ -13,8 +13,8 @@ const querySelectThrottle = throttle(querySelect, 100)
 const app = getApp()
 
 const stores = {
-  // $discovery: discoveryStore,
-  $player: playerStore
+  $discovery: discoveryStore
+  // $player: playerStore
 }
 
 create.Page(stores, {
@@ -24,8 +24,6 @@ create.Page(stores, {
     hotSongList: [], // 热门歌单
     recommendSongList: [], // 推荐歌单
     rankingInfos: {}, // 榜单展示信息
-    // isRankingEmpty: true, // 榜单是否为空
-    // TODO 有问题
     isBannersEmpty: true, // 轮播图是否为空
     paddingBottom: 0
   },
@@ -36,19 +34,16 @@ create.Page(stores, {
     this.fetchBanners()
     this.fetchHotSongList()
 
-    await discoveryStore.fetchRankingAction()
-    // stores.$player.playSongAction(1807799505)
+    await stores.$discovery.fetchRankingAction()
 
     this.setData({
       rankingInfos: {
-        hotRanking: discoveryStore.data.hotRanking,
-        newRanking: discoveryStore.data.newRanking,
-        upRanking: discoveryStore.data.upRanking,
-        originRanking: discoveryStore.data.originRanking
+        hotRanking: stores.$discovery.data.hotRanking,
+        newRanking: stores.$discovery.data.newRanking,
+        upRanking: stores.$discovery.data.upRanking,
+        originRanking: stores.$discovery.data.originRanking
       }
-      // paddingBottom: env(safe-area-inset-bottom)+50px
     })
-    // this.setData({ isRankingEmpty: false })
   },
   onReady() {
     // 搜索框与胶囊按钮的对齐
@@ -82,8 +77,25 @@ create.Page(stores, {
   },
   // 图片加载完成后，图片 mode="widthFix"，计算出轮播图的高度
   onBannerImageLoad(e) {
-    querySelectThrottle('.banner-image').then((res) => {
-      this.setData({ bannerHeight: res[0].height })
+    setTimeout(() => {
+      querySelectThrottle('.banner-image').then((res) => {
+        console.log('轮播图高度', res[0].height)
+        this.setData({ bannerHeight: res[0].height })
+      })
+    }, 100)
+  },
+  handlePopupShow() {
+    wx.setPageStyle({
+      style: {
+        overflow: 'hidden'
+      }
+    })
+  },
+  handlePopupClose() {
+    wx.setPageStyle({
+      style: {
+        overflow: ''
+      }
     })
   }
 })

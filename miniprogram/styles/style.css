@@ -25,16 +25,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-MdiTrashCanOutline:before {
+.icon-delete:before {
   content: "\e909";
 }
-.icon-MdiPlaylistMusic:before {
+.icon-playlist:before {
   content: "\e90a";
 }
 .icon-JamRefresh:before {
   content: "\e90b";
 }
-.icon-JamPlay:before {
+.icon-play:before {
   content: "\e90c";
 }
 .icon-HumbleiconsVolumeOff:before {
@@ -46,7 +46,7 @@
 .icon-HumbleiconsVolume1:before {
   content: "\e90f";
 }
-.icon-FluentVideoClip16Regular:before {
+.icon-mv:before {
   content: "\e910";
 }
 .icon-FluentPlay12Filled:before {
@@ -55,7 +55,7 @@
 .icon-FluentPause12Filled:before {
   content: "\e912";
 }
-.icon-Fa6SolidCirclePlay:before {
+.icon-playSolidCircle:before {
   content: "\e913";
 }
 .icon-EvaCloseFill:before {
@@ -67,13 +67,13 @@
 .icon-CharmShare:before {
   content: "\e916";
 }
-.icon-BiPlayCircle:before {
+.icon-playCircle:before {
   content: "\e917";
 }
-.icon-BiPauseCircle:before {
+.icon-pauseCircle:before {
   content: "\e918";
 }
-.icon-AntDesignMoreOutlined:before {
+.icon-more:before {
   content: "\e919";
 }
 .icon-AkarIconsMoreHorizontal:before {

@@ -4,8 +4,7 @@ import { formatArtist, shuffle } from '../utils/utils'
 import throttle from '../utils/throttle'
 
 const audioContext = wx.getBackgroundAudioManager()
-// TODO 顺序播放图标名改为 sequence
-const playModeNames = ['list', 'single', 'random']
+const playModeNames = ['sequence', 'single', 'random']
 export const PLAY_MODE = { sequence: 0, single: 1, random: 2 }
 
 class Store {
@@ -25,8 +24,7 @@ class Store {
     isLoop: false, // 是否循环播放
 
     playModeIndex: PLAY_MODE.sequence, // 播放模式索引
-    // TODO 顺序播放图标名改为 sequence
-    playModeName: 'list',
+    playModeName: 'sequence',
 
     lyricInfos: {},
     currentLyricText: '',
@@ -35,7 +33,11 @@ class Store {
 
     playList: [], // 播放列表
     sequencePlayList: [], // 顺序播放列表
-    currentPlayIndex: 0 // 当前播放歌曲在播放列表中的索引
+    currentPlayIndex: 0, // 当前播放歌曲在播放列表中的索引
+
+    isShowPlayerBar() {
+      return this.currentSongID !== 0
+    }
   }
   async playSongAction(id) {
     this.data.currentSong = {}
@@ -43,6 +45,8 @@ class Store {
     this.data.currentLyricIndex = 0
     this.data.currentLyricText = ''
     this.data.lyricInfos = []
+    this.data.lyricScrollTop = 0
+    this.data.isPlaying = true
 
     const songDetail = await getSongDetail(id)
     console.log('当前播放歌曲', songDetail.songs[0])
@@ -97,30 +101,28 @@ class Store {
       const throttleUpdateProgress = throttle(updateProgress, 500)
       audioContext.onTimeUpdate(() => {
         throttleUpdateProgress()
-
         this.matchLyric()
         this.update()
       })
-      // 似乎不需要
-      // audioContext.onPlay(() => {
-      //   console.log('onPlay')
-      //   // audioContext.play()
-      //   // this.data.isPlaying = true
-      //   // this.update()
-      // })
-      // audioContext.onPause(() => {
-      //   console.log('onPause')
-      //   // audioContext.pause()
-      //   // this.data.isPlaying = false
-      //   // this.update()
-      // })
+      // 音频播放，或用户在系统中点击播放暂停都会监听到
+      audioContext.onPlay(() => {
+        console.log('播放')
+        if (!this.data.isSliderDragging) {
+          this.setIsPlaying(true)
+        }
+      })
+      audioContext.onPause(() => {
+        console.log('暂停')
+        if (!this.data.isSliderDragging) {
+          this.setIsPlaying(false)
+        }
+      })
       // audioContext.onWaiting(() => {
       //   console.log('onWaiting')
       //   // audioContext.pause()
       //   // this.setIsPlaying(false)
       // })
       audioContext.onCanplay(() => {
-        console.log('onCanplay')
         audioContext.play()
       })
       audioContext.onEnded(() => {
@@ -165,22 +167,33 @@ class Store {
       this.data.currentLyricText = this.data.lyricInfos[0].text
       return
     }
-    const currentLyricText = this.data.lyricInfos[index].text
+    try {
+      const currentLyricText = this.data.lyricInfos[index].text
+      this.data.currentLyricText = currentLyricText
+      this.data.currentLyricIndex = index
+      this.data.lyricScrollTop = index * 80
+    } catch (error) {}
 
-    this.data.currentLyricText = currentLyricText
-    this.data.currentLyricIndex = index
-    this.data.lyricScrollTop = index * 80
+    // TODO 歌词每句高度不一样，需要获取
+    // let height = 0
+    // let tmp = this.data.lyricScrollTop
+    // wx.createSelectorQuery()
+    //   .select('.current-active')
+    //   .boundingClientRect()
+    //   .exec((res) => {
+    //     height = res[0].height
+    //     console.log(height)
+    //     this.data.lyricScrollTop = tmp + height
+    //   })
     this.update()
   }
   // 播放暂停
   changePlayerStatus() {
     if (audioContext.paused) {
       audioContext.play()
-      // this.data.isPlaying = true
       this.setIsPlaying(true)
     } else {
       audioContext.pause()
-      this.data.isPlaying = false
       this.setIsPlaying(false)
     }
     this.update()
@@ -203,13 +216,23 @@ class Store {
         this.data.isLoop = false
         this.setPlayList(sequencePlayList)
         this.setCurrentPlayIndex(currIndex)
+        this.data.playModeChineseName = '顺序播放'
+        wx.showToast({
+          title: '顺序播放',
+          icon: 'none',
+          duration: 1000
+        })
         break
       case PLAY_MODE.single:
         // audioContext.loop = true
         this.data.isLoop = true
-        console.log('单曲循环')
-        this.setPlayList(this.data.sequencePlayList)
+        this.setPlayList(sequencePlayList)
         this.setCurrentPlayIndex(currIndex)
+        wx.showToast({
+          title: '单曲循环',
+          icon: 'none',
+          duration: 1000
+        })
         break
       case PLAY_MODE.random:
         // audioContext.loop = false
@@ -217,6 +240,11 @@ class Store {
         const randomPlayList = shuffle(sequencePlayList, currSongId)
         this.setPlayList(randomPlayList)
         this.setCurrentPlayIndex(0)
+        wx.showToast({
+          title: '随机播放',
+          icon: 'none',
+          duration: 1000
+        })
         break
     }
     this.update()
@@ -235,7 +263,6 @@ class Store {
       index = length - 1
     }
 
-    console.log(index)
     const newSong = this.data.playList[index]
     this.setCurrentPlayIndex(index)
     this.playSongAction(newSong.id)
@@ -263,6 +290,50 @@ class Store {
     this.data.currentTime = audioContext.currentTime * 1000
     this.data.progressValue =
       (this.data.currentTime / this.data.durationTime) * 100
+    this.update()
+  }
+  addSearchSongToPlayList(song) {
+    const playList = this.data.playList
+    const currIndex = this.data.currentPlayIndex
+    const index = playList.findIndex((item) => item.id === song.id)
+
+    if (index !== -1) {
+      console.log('include')
+      setTimeout(() => {
+        wx.showToast({
+          title: '当前播放列表包含该歌曲',
+          icon: 'none',
+          duration: 2000
+        })
+      }, 1000)
+      this.setCurrentPlayIndex(index)
+      return
+    }
+    if (this.data.playList.length === 0) {
+      this.setSequencePlayList([song])
+    }
+    // splice 会修改原数组
+    playList.splice(currIndex + 1, 0, song)
+    this.setCurrentPlayIndex(currIndex + 1)
+    this.update()
+  }
+  clearPlayList() {
+    this.data.playList = []
+    this.data.sequencePlayList = []
+    this.data.currentPlayIndex = 0
+    this.data.currentSong = {}
+    this.data.currentSongID = 0
+    this.data.currentTime = 0
+    this.data.durationTime = 0
+    this.data.progressValue = 0
+    this.data.isPlaying = false
+    this.data.isLoop = false
+    this.data.playModeIndex = 0
+    this.data.playModeName = 'sequence'
+    this.data.currentLyricIndex = 0
+    this.data.lyricScrollTop = 0
+    this.data.isSliderDragging = false
+    audioContext.stop()
     this.update()
   }
   setCurrentTime(payload) {
@@ -304,6 +375,7 @@ class Store {
   }
   setPlayModeIndex(payload) {
     this.data.playModeIndex = payload
+    this.data.playModeName = playModeNames[payload]
     this.update()
   }
   setPlayModeName(payload) {

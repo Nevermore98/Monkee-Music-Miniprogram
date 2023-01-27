@@ -37,9 +37,9 @@
       <view class="btns">
         <view bindtap="onModeTap" class="icomoon icon-{{$player.playModeName}}"></view>
         <view bindtap="onPrevBtnTap" class="icomoon icon-last"></view>
-        <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{$player.isPlaying ? 'BiPauseCircle' : 'BiPlayCircle'}}"></view>
+        <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{$player.isPlaying ? 'pauseCircle' : 'playCircle'}}"></view>
         <view bindtap="onNextBtnTap" class="icomoon icon-next"></view>
-        <view bindtap="onPlayListTap" class="icomoon icon-MdiPlaylistMusic"></view>
+        <view bindtap="onPlayListTap" class="icomoon icon-playlist"></view>
       </view>
     </view>
   </swiper-item>
@@ -47,7 +47,7 @@
   <swiper-item class="lyric-page">
     <scroll-view class="lyric-list" scroll-y scroll-top="{{$player.lyricScrollTop}}rpx" scroll-with-animation enable-passive>
       <block wx:for="{{$player.lyricInfos}}" wx:key="lineTime">
-        <view bindtap="onLyricItemTap" data-index="{{index}}" class="lyric-item {{$player.currentLyricIndex === index ? 'current-active': ''}} {{tapLyricIndex === index ? 'tap-active': ''}}" style="margin-top: {{index === 0 ? (swiperHeight/2-80) : 0}}px;">
+        <view hover-class="press-effect" bindtap="onLyricItemTap" data-index="{{index}}" class="lyric-item {{$player.currentLyricIndex === index ? 'current-active': ''}} {{tapLyricIndex === index ? 'tap-active': ''}}" style="margin-top: {{index === 0 ? (swiperHeight/2-80) : 0}}px;">
           {{item.text}}
         </view>
       </block>
@@ -55,8 +55,9 @@
       <view style="height: {{(swiperHeight/2-100)}}px;}}"></view>
     </scroll-view>
     <view class="lyric-control">
-      <!-- TODO 更换图标 -->
-      <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{$player.isPlaying ? 'BiPauseCircle' : 'Fa6SolidCirclePlay'}}"></view>
+      <view bindtap="onPlayOrPauseTap" class="btn-play icomoon icon-{{$player.isPlaying ? 'pauseSolidCircle' : 'playSolidCircle'}}"></view>
     </view>
   </swiper-item>
 </swiper>
+<!-- 播放列表弹出层 -->
+<popup-playlist isShow="{{isShowPlayList}}" playList="{{$player.playList}}" playMode="{{$player.playModeName}}" currentSongID="{{$player.currentSongID}}" currIndex="{{$player.currentPlayIndex}}" bind:close="onClosePopup" bind:mode-tap="onModeTap" bind:song-tap="onSongItemTap" bind:clear-tap="onClearTap" />

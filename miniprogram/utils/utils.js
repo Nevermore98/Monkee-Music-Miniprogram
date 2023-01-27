@@ -22,6 +22,8 @@ export function pick(obj, pickArr) {
 // 随机播放，打乱列表
 export function shuffle(playList, currSongId) {
   const arr = playList.slice()
+  // 若播放列表为空时，搜索页点击歌曲添加到播放列表，只有一首歌。直接返回本身
+  if (arr.length === 1) return arr
 
   for (let i = 0; i < arr.length; i++) {
     // 当前索引元素与随机索引元素 交换位置
@@ -36,4 +38,3 @@ export function shuffle(playList, currSongId) {
   }
   return arr
 }
-
