@@ -19,6 +19,10 @@ Component({
       type: Number,
       value: 0
     },
+    isShowPlaying: {
+      type: Boolean,
+      value: false
+    },
     isPlaying: {
       type: Boolean,
       value: false
@@ -27,6 +31,40 @@ Component({
   data: {
     formattedArtist: '',
     itemActionList: ['功能开发中']
+  },
+  observers: {
+    isShowPlaying: function (val) {
+      if (val) {
+        let playingSvg
+        wx.createSelectorQuery()
+          .in(this)
+          .select('#svg-playing')
+          .node()
+          .exec((res) => {
+            // console.log(res[0])
+            // playingSvg = res[0]
+            try {
+              console.log(res)
+
+              playingSvg = res[0]
+              playingSvg.unpauseAnimations()
+            } catch (error) {}
+          })
+        wx.createSelectorQuery()
+          .in(this)
+          .select('#svg-playing')
+          .boundingClientRect((rect) => {
+            console.log(rect)
+          })
+          .exec()
+      }
+      // if (val) {
+      //   console.log(playingSvg)
+      //   playingSvg.unpauseAnimations()
+      // } else {
+      //   playingSvg.pauseAnimations()
+      // }
+    }
   },
   lifetimes: {
     attached() {
@@ -50,7 +88,11 @@ Component({
         })
         return
       }
-      this.triggerEvent('song-tap', true)
+      this.triggerEvent('song-tap', {
+        id,
+        ar: song.ar || song.artists,
+        name: song.name
+      })
       wx.navigateTo({
         url: `/pages/music-player/music-player?id=${id}`
       })
@@ -64,10 +106,14 @@ Component({
     async onMoreTap() {
       const itemList = this.data.itemActionList
       console.log('more')
-      const res = await wx.showActionSheet({
-        itemList
-      })
-      console.log(res.tapIndex)
+      const res = await wx
+        .showActionSheet({
+          itemList
+        })
+        .then(() => {
+          console.log(res.tapIndex)
+        })
+        .catch(() => {})
     }
   }
 })

@@ -82,8 +82,10 @@ create.Component(stores, {
     onSongItemTap(e) {
       console.log(e)
       const { id, index } = e.detail
-      stores.$player.playSongAction(id)
-      stores.$player.setCurrentPlayIndex(index)
+      if (id !== stores.$player.data.currentSong.id) {
+        stores.$player.playSongAction(id)
+        stores.$player.setCurrentPlayIndex(index)
+      }
       wx.navigateTo({
         url: `/pages/music-player/music-player?id=${id}`
       })

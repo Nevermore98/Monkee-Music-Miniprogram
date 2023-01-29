@@ -26,5 +26,5 @@
     </view>
   </view>
   <!-- 播放列表弹出层 -->
-  <popup-playlist isShow="{{isShowPlayList}}" playList="{{$player.playList}}" playMode="{{$player.playModeName}}" currentSongID="{{$player.currentSongID}}" currIndex="{{$player.currentPlayIndex}}" bind:close="onClosePopup" bind:mode-tap="onModeTap" bind:song-tap="onSongItemTap" bind:clear-tap="onClearTap" />
+  <popup-playlist isShow="{{isShowPlayList}}" playList="{{$player.playList}}" playMode="{{$player.playModeName}}" currentSongID="{{$player.currentSongID}}" currIndex="{{$player.currentPlayIndex}}" isPlaying="{{$player.isPlaying}}" bind:close="onClosePopup" bind:mode-tap="onModeTap" bind:song-tap="onSongItemTap" bind:clear-tap="onClearTap" />
 </view>

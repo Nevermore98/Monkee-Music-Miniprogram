@@ -8,7 +8,7 @@
   <van-tab name="song" title="歌曲">
     <scroll-view bindscrolltolower="onScrollBottom" class="result-area" wx:if="{{searchValue.length && resultSongs.length}}" scroll-y>
       <block wx:for="{{resultSongs}}" wx:key="id">
-        <song-item-v2 bind:song-tap="onSongItemTap" itemData="{{item}}" isPlaying="{{$player.currentSongID === item.id}}" />
+        <song-item-v2 bind:song-tap="onSongItemTap" itemData="{{item}}" isShowPlaying="{{$player.currentSongID === item.id}}" isPlaying="{{$player.isPlaying}}" />
       </block>
       <view style="padding-bottom: {{$player.isShowPlayerBar ? '150rpx' : ''}}">
         <view class="load-more" wx:if="{{isLoadingMore}}">加载更多中…</view>

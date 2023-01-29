@@ -264,12 +264,10 @@ class Store {
     }
 
     const newSong = this.data.playList[index]
-    this.setCurrentPlayIndex(index)
     this.playSongAction(newSong.id)
-    this.setIsPlaying(true)
     this.setCurrentTime(0)
-
-    this.update()
+    this.setIsPlaying(true)
+    this.setCurrentPlayIndex(index)
   }
   // 拖动、点击进度条改变当前时间
   setCurrentTimeByProgress(payload, isSeek = true) {

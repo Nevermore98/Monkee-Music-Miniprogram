@@ -28,6 +28,10 @@ Component({
     currIndex: {
       type: Number,
       value: 0
+    },
+    isPlaying: {
+      type: Boolean,
+      value: false
     }
   },
   data: {

@@ -10,7 +10,7 @@
   <view class="song-list">
     <!-- getSonglistDetail 的 tracks：如果是歌单则只有 20 条数据，排行榜数据为全部 -->
     <block wx:for="{{type === 'ranking' ? songListInfo.tracks : songListTracks}}" wx:key="id">
-      <song-item-v2 bindtap="onSongItemTap" itemData="{{item}}" privileges="{{item.privileges}}" data-index="{{index}}" index="{{index+1}}" isPlaying="{{$player.currentSongID === item.id}}" />
+      <song-item-v2 bindtap="onSongItemTap" itemData="{{item}}" privileges="{{item.privileges}}" data-index="{{index}}" index="{{index+1}}" isShowPlaying="{{$player.currentSongID === item.id}}" isPlaying="{{$player.isPlaying}}" />
     </block>
   </view>
 </view>

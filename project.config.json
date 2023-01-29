@@ -27,8 +27,9 @@
     "es6": true,
     "enhance": true,
     "minified": true,
-    "postcss": false,
-    "minifyWXML": true
+    "postcss": true,
+    "minifyWXML": true,
+    "ignoreUploadUnusedFiles": false
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},

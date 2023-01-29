@@ -1,6 +1,3 @@
 {
-  "component": true,
-  "usingComponents": {
-    "playing-svg": "/components/playing-svg/playing-svg"
-  }
+  "component": true
 }

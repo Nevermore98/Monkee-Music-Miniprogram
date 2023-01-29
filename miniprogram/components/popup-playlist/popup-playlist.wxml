@@ -18,7 +18,10 @@
   <scroll-view enhanced class="playlist-scroll" style="height: 100%" scroll-y scroll-with-animation>
     <block wx:for="{{playList}}" wx:key="id">
       <view class="song-item {{currentSongID === item.id ? 'isPlaying' : ''}}" hover-class="press-effect" bindtap="onSongItemTap" data-id="{{item.id}}" data-index="{{index}}">
-        <view wx:if="{{currentSongID === item.id}}" class="icomoon icon-playing"></view>
+        <view wx:if="{{currentSongID === item.id}}">
+          <image wx:if="{{isPlaying}}" class="svg-playing" src="../../assets/icons/playing.gif"></image>
+          <view wx:else class="icomoon icon-playing"></view>
+        </view>
         <view class="song-info">
           <view class="song-name">{{item.name}}</view>
           <text decode class="song-artist">&nbsp;-&nbsp;{{format.formatArtist(item.ar)}}</text>

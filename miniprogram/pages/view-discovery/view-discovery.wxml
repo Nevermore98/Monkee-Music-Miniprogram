@@ -33,3 +33,22 @@
 </view>
 <!-- 播放栏 -->
 <player-bar bind:show-popup="handlePopupShow" bind:close-popup="handlePopupClose" paddingBottom="calc(50px + env(safe-area-inset-bottom))" placeHolderHeight="50px" />
+<!-- <text>
+  使用到的 vant 组件有：
+  <van-search />
+  - field -> cell 无
+  <van-popup />
+  - overlay ->  transition 无
+  <van-icon />
+  - info 无
+  <van-tabbar />
+  - 无
+  <van-tabbar-item />
+  - icon -> info 无
+  - info  无
+  <van-tab />
+  - 无
+  <van-tabs />
+  - ticky 无
+  - info 无
+</text> -->

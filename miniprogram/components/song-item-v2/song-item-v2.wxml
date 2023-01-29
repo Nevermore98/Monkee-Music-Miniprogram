@@ -1,22 +1,21 @@
 <!-- components/song-item-v2/song-item-v2.wxml -->
+<wxs src="/utils/format.wxs" module="format" />
 <view class="song-item-v2 {{ itemData.noCopyrightRcmd.type ||  privileges.cp === 0 && itemData.fee !== 1 ? 'unavailable' : '' }}" bindtap="onSongItemTap" hover-class="press-effect">
-  <view wx:if="{{index && !isPlaying}}" class="index">{{index}}</view>
-  <view wx:if="{{isPlaying}}" class="index icon-playing">
-    <view class="icomoon icon-FluentVideoClip16Regular"></view>
+  <view wx:if="{{index && !isShowPlaying}}" class="index">{{index}}</view>
+  <view wx:if="{{isShowPlaying}}" class="index">
+    <image wx:if="{{isPlaying}}" class="svg-playing" src="../../assets/icons/playing.gif"></image>
+    <view wx:else class="icomoon icon-playing"></view>
   </view>
-  <!-- <view wx:if="{{isPlaying}}" class="index">
-    <playing-svg></playing-svg>
-  </view> -->
-  <view wx:if="{{!index}}" style="width: 30rpx;"></view>
+  <view wx:if="{{!index && !isShowPlaying}}" style="width: 30rpx;"></view>
   <viwe class="info">
-    <view class="name">{{itemData.name}}</view>
+    <view style="color: {{isShowPlaying ? '#fe231e' : ''}}" class="name">{{itemData.name}}</view>
     <view class="artist">
-      <text decode class="vip" wx:if="{{itemData.fee === 1}}">&nbsp;VIP&nbsp;</text>
-      <text>{{formattedArtist}}</text>
+      <text decode class="vip" wx:if="{{itemData.fee === 1}}">&nbsp;试听&nbsp;</text>
+      <text>{{format.formatArtist(itemData.artists || itemData.ar)}}</text>
     </view>
   </viwe>
   <view class="controls">
-    <view wx:if="{{itemData.mv || itemData.mvid}}" catchtap="onVideoTap" hover-class="controls-effect" hover-stop-propagation hover-stay-time="{{200}}" class="icomoon icon-FluentVideoClip16Regular icon"></view>
-    <view catchtap="onMoreTap" hover-class="controls-effect" hover-stop-propagation hover-stay-time="{{200}}" class="icomoon icon-AntDesignMoreOutlined icon"></view>
+    <view wx:if="{{itemData.mv || itemData.mvid}}" catchtap="onVideoTap" hover-class="controls-effect" hover-stop-propagation hover-stay-time="{{200}}" class="icomoon icon-mv icon"></view>
+    <view catchtap="onMoreTap" hover-class="controls-effect" hover-stop-propagation hover-stay-time="{{200}}" class="icomoon icon-more icon"></view>
   </view>
 </view>

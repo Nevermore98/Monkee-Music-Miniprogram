@@ -128,6 +128,10 @@ create.Page(stores, {
   onSongItemTap(e) {
     console.log(e)
     const { id, index } = e.detail
+    if (id === stores.$player.data.currentSongID) {
+      this.setData({ isShowPlayList: false })
+      return
+    }
     stores.$player.playSongAction(id)
     stores.$player.setCurrentPlayIndex(index)
     this.setData({ isShowPlayList: false })
