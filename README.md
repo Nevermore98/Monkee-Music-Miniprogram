@@ -4,10 +4,14 @@
 
 [导入项目至微信开发者工具](https://developers.weixin.qq.com/s/cQuY6Em67GFq)
 
+## 播放器页面
 <img src="images/playing.png" width="300">
 
+## 歌单页面
 ![歌单页面](images/songlist.gif)
 
+## 视频页面
 ![视频页面](images/video.gif)
 
+## 搜索页面
 ![搜索页面](images/search.gif)
