@@ -2,10 +2,10 @@
 
 萌奇音乐（原生小程序版）
 
-![播放页面](https://github.com/Nevermore98/Monkee-Music-Miniprogram/images/playing.png)
+<img src="images/playing.png" width="300">
 
-![歌单页面](https://github.com/Nevermore98/Monkee-Music-Miniprogram/images/songlist.gif)
+![歌单页面](images/songlist.gif)
 
-![视频页面](https://github.com/Nevermore98/Monkee-Music-Miniprogram/images/video.gif)
+![视频页面](images/video.gif)
 
-![搜索页面](https://github.com/Nevermore98/Monkee-Music-Miniprogram/images/search.gif)
+![搜索页面](images/search.gif)
