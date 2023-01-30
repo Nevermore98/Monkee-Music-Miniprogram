@@ -1,16 +1,1 @@
-<svg id="playing-svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-bar-chart">
-  <g transform="rotate(180 50 50)">
-    <rect ng-attr-x="{{config.x1}}" y="15" ng-attr-width="{{config.width}}" height="38.6598" fill="#ff2c55" x="15" width="10">
-      <animate attributeName="height" calcMode="linear" values="50;70;30;50" keyTimes="0;0.33;0.66;1" dur="0.4" keylinears="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" begin="-0.16000000000000003s" repeatCount="indefinite"></animate>
-    </rect>
-    <rect ng-attr-x="{{config.x2}}" y="15" ng-attr-width="{{config.width}}" height="31.1109" fill="#ff2c55" x="35" width="10">
-      <animate attributeName="height" calcMode="linear" values="50;70;30;50" keyTimes="0;0.33;0.66;1" dur="0.4" keylinears="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" begin="-0.08000000000000002s" repeatCount="indefinite"></animate>
-    </rect>
-    <rect ng-attr-x="{{config.x3}}" y="15" ng-attr-width="{{config.width}}" height="50.0549" fill="#ff2c55" x="55" width="10">
-      <animate attributeName="height" calcMode="linear" values="50;70;30;50" keyTimes="0;0.33;0.66;1" dur="0.4" keylinears="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" begin="-0.24s" repeatCount="indefinite"></animate>
-    </rect>
-    <rect ng-attr-x="{{config.x4}}" y="15" ng-attr-width="{{config.width}}" height="65.5743" fill="#ff2c55" x="75" width="10">
-      <animate attributeName="height" calcMode="linear" values="50;70;30;50" keyTimes="0;0.33;0.66;1" dur="0.4" keylinears="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" begin="0s" repeatCount="indefinite"></animate>
-    </rect>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" id="playing-svg" width="100%" height="100%" class="lds-bar-chart" preserveAspectRatio="xMidYMid" viewBox="0 0 100 100"><g transform="rotate(180 50 50)"><rect width="10" height="38.66" x="15" y="15" fill="#ff2c55" ng-attr-width="{{config.width}}" ng-attr-x="{{config.x1}}"><animate attributeName="height" begin="-0.16000000000000003s" calcMode="linear" dur=".4" keyTimes="0;0.33;0.66;1" keylinears="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite" values="50;70;30;50"/></rect><rect width="10" height="31.111" x="35" y="15" fill="#ff2c55" ng-attr-width="{{config.width}}" ng-attr-x="{{config.x2}}"><animate attributeName="height" begin="-0.08000000000000002s" calcMode="linear" dur=".4" keyTimes="0;0.33;0.66;1" keylinears="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite" values="50;70;30;50"/></rect><rect width="10" height="50.055" x="55" y="15" fill="#ff2c55" ng-attr-width="{{config.width}}" ng-attr-x="{{config.x3}}"><animate attributeName="height" begin="-0.24s" calcMode="linear" dur=".4" keyTimes="0;0.33;0.66;1" keylinears="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite" values="50;70;30;50"/></rect><rect width="10" height="65.574" x="75" y="15" fill="#ff2c55" ng-attr-width="{{config.width}}" ng-attr-x="{{config.x4}}"><animate attributeName="height" begin="0s" calcMode="linear" dur=".4" keyTimes="0;0.33;0.66;1" keylinears="0.5 0 0.5 1;0.5 0 0.5 1;0.5 0 0.5 1" repeatCount="indefinite" values="50;70;30;50"/></rect></g></svg>
